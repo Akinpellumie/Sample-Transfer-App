@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:background="@color/backgroundColor"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/fragment_horizontal_margin"
+        android:paddingTop="@dimen/fragment_vertical_margin"
+        android:paddingRight="@dimen/fragment_horizontal_margin"
+        android:paddingBottom="@dimen/fragment_vertical_margin"
+        tools:context=".views.fragments.ForgotPinLandingFragment">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:background="@color/backgroundColor"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/main_parent">
+
+                <LinearLayout
+                    android:id="@+id/appIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/appLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/recent_logo"
+                        android:contentDescription="@string/astra_logo" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/welcome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/appIcon">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/forgot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/nimbus_bold"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/txtColor"
+                            android:text="@string/forgot_pin"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/instruction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/nimbus_bold"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/txtColor"
+                            android:text="@string/enter_userId"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/entryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_below="@id/welcome">
+                    <RelativeLayout
+                        android:id="@+id/usernameEntry"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="50dp"
+                        android:background="@drawable/rectangle_grey_border">
+                        <ImageView
+                            android:id="@+id/userIcon"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:padding="15dp"
+                            android:background="@drawable/icon_bg"
+                            app:srcCompat="@drawable/ic_user"
+                            android:contentDescription="@string/astra_logo" />
+                        <EditText
+                            android:id="@+id/username"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/prompt_phonenumber"
+                            android:inputType="number"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/nimbus_regular"
+                            android:layout_toRightOf="@+id/userIcon"
+                            android:selectAllOnFocus="true"
+                            android:paddingLeft="15dp"
+                            android:layout_toEndOf="@+id/userIcon"
+                            android:paddingStart="15dp" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/loginBtn"
+                        android:layout_marginTop="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/usernameEntry">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/submitBtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:layout_gravity="start"
+                                android:background="@drawable/button_states"
+                                android:enabled="true"
+                                android:textSize="18sp"
+                                android:textColor="@color/whiteColor"
+                                android:text="@string/prompt_submit"
+                                android:textAllCaps="false"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/password"
+                                app:layout_constraintVertical_bias="0.2" />
+
+                            <ProgressBar
+                                android:id="@+id/loading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginTop="64dp"
+                                android:layout_marginEnd="32dp"
+                                android:layout_marginBottom="64dp"
+                                android:visibility="gone"
+                                app:layout_constraintVertical_bias="0.3" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/version_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/nimbus_regular"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/isw_main_black"
+                            android:text="@string/app_version"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/powered_by_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/nimbus_bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/isw_main_black"
+                            android:text="@string/powered_by_astrapay"/>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+</layout>

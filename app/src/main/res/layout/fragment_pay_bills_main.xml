@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        tools:context=".views.fragments.PayBillMainLandingFragment">
+
+
+        <LinearLayout
+            android:id="@+id/airtimeCard"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:padding="25dp"
+            android:clickable="true"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/card_bg_billpay"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight=".75"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/cellphoneImg"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_cellphone"
+                    app:tint="@color/whiteColor" />
+                <TextView
+                    android:id="@+id/airtimeTV"
+                    android:layout_marginLeft="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="10dp"
+                    android:lines="2"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="14dp"
+                    android:text="Airtime"
+                    android:fontFamily="@font/nimbus_regular" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="right"
+                android:layout_weight=".25"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/airtimeNv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_chevron_right"
+                    app:tint="@color/whiteColor" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!--    electricity/utility bill section-->
+
+        <LinearLayout
+            android:id="@+id/electricityCard"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:padding="25dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@+id/airtimeCard"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/card_bg_billpay">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight=".75"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/electricityImg"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_lightbulb_on_outline"
+                    app:tint="@color/whiteColor" />
+
+                <TextView
+                    android:id="@+id/electricityTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="50dp"
+                    android:fontFamily="@font/nimbus_regular"
+                    android:lineSpacingExtra="10dp"
+                    android:lines="2"
+                    android:text="Electricity/Utility Bills"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="14dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="right"
+                android:layout_weight=".25"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/navigateIco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_chevron_right"
+                    app:tint="@color/whiteColor" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--    cable tv section-->
+
+        <LinearLayout
+            android:id="@+id/cableCard"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:padding="25dp"
+            android:clickable="true"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@+id/electricityCard"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/card_bg_billpay"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight=".75"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/cableImg"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_television"
+                    app:tint="@color/whiteColor" />
+                <TextView
+                    android:id="@+id/cableTv"
+                    android:layout_marginLeft="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="10dp"
+                    android:lines="2"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="14dp"
+                    android:text="Cable Tv"
+                    android:fontFamily="@font/nimbus_regular" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="right"
+                android:layout_weight=".25"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/navigateCableTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_chevron_right"
+                    app:tint="@color/whiteColor" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--    data services section-->
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/dataCard"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:padding="25dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@+id/cableCard"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/card_bg_billpay">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight=".75"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/dataTV"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_cellphone"
+                    app:tint="@color/whiteColor" />
+                <TextView
+                    android:id="@+id/dataTv"
+                    android:layout_marginLeft="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="10dp"
+                    android:lines="2"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="14dp"
+                    android:text="Moobile Data Service"
+                    android:fontFamily="@font/nimbus_regular" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="right"
+                android:layout_weight=".25"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/navigateData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_chevron_right"
+                    app:tint="@color/whiteColor" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

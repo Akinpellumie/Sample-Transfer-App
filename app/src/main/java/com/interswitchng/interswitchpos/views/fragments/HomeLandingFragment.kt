@@ -36,9 +36,31 @@ class HomeLandingFragment : Fragment() {
         if (terminalInfo != null) {
             viewmodel.getToken(terminalInfo!!)
         }
+        //navigate to Amount fragment
         binding.iswTransferCard.setOnClickListener {
 //            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)
             val action = HomeLandingFragmentDirections.actionHomeToAmountFragment2()
+            findNavController().navigate(action)
+        }
+
+        //navigate to profile fragment
+        binding.leftContent.setOnClickListener {
+//            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)
+            val action = HomeLandingFragmentDirections.actionHomeToProfileFragment()
+            findNavController().navigate(action)
+        }
+
+        //navigate to sendCash fragment
+        binding.astraSendCash.setOnClickListener {
+//            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)
+            val action = HomeLandingFragmentDirections.actionHomeToSendcashFragment()
+            findNavController().navigate(action)
+        }
+
+        //navigate to billPay fragment
+        binding.billPayLayout.setOnClickListener {
+//            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)
+            val action = HomeLandingFragmentDirections.actionHomeToPaybillsFragment()
             findNavController().navigate(action)
         }
 
