@@ -20,7 +20,7 @@
             android:id="@+id/transactionstatus_image"
             android:layout_width="270dp"
             android:layout_height="100dp"
-            app:srcCompat="@drawable/ic_app_logo"
+            app:srcCompat="@drawable/recent_logo"
             android:layout_marginTop="0dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -353,7 +353,7 @@
             android:textSize="20sp"
             android:layout_marginTop="5dp"
             android:textColor="@color/isw_main_black"
-            android:text="www.cico.ng"/>
+            android:text="www.astrapay.com.ng"/>
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/powered_by_title"
             android:layout_width="wrap_content"
@@ -361,7 +361,7 @@
             android:textSize="20sp"
             android:layout_marginTop="10dp"
             android:textColor="@color/isw_main_black"
-            android:text="Powered by Interswitch"/>
+            android:text="Powered by AstraPay"/>
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/version_title"
             android:layout_width="wrap_content"
@@ -369,7 +369,7 @@
             android:textSize="20sp"
             android:layout_marginTop="10dp"
             android:textColor="@color/isw_main_black"
-            android:text="SmartPos Version 1.0.0"/>
+            android:text="AstraPOS Version 1.0.0"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/retain_receipt_title"
@@ -388,7 +388,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/isw_main_black"
             android:visibility="gone"
-            android:text="www.quickteller.com"/>
+            android:text="www.astrapay.com"/>
 
 
         <com.google.android.material.button.MaterialButton

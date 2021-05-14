@@ -8,11 +8,11 @@
         android:orderInCategory="1"
         android:icon="@drawable/ic_baseline_home"/>
 
-    <item android:id="@+id/history"
-        android:title="Transactions"
-        app:showAsAction="always"
-        android:orderInCategory="2"
-        android:icon="@drawable/ic_baseline_history"/>
+<!--    <item android:id="@+id/history"-->
+<!--        android:title="Transactions"-->
+<!--        app:showAsAction="always"-->
+<!--        android:orderInCategory="2"-->
+<!--        android:icon="@drawable/ic_baseline_history"/>-->
 
     <item android:id="@+id/settings"
         android:title="More"

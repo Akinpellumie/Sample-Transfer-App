@@ -16,6 +16,7 @@ import com.interswitchng.interswitchpos.databinding.FragmentTransactionStatusBin
 import com.interswitchng.interswitchpos.utils.getAmountWithCurrency
 import com.interswitchng.interswitchpos.utils.hide
 import com.interswitchng.interswitchpos.utils.showSnack
+import com.interswitchng.interswitchpos.views.services.TransactionStatusNotifier
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswTxnHandler
 import com.interswitchng.smartpos.models.printer.slips.TransactionSlip
@@ -35,6 +36,7 @@ class TransactionStatusFragment : Fragment() {
     private var printSlip: TransactionSlip? = null
     private val viewModel: AppViewModel by viewModel()
     private lateinit var binding :FragmentTransactionStatusBinding
+    private val transactionNotifier = TransactionStatusNotifier()
 
     private val terminalInfo by lazy {
         IswTxnHandler().getTerminalInfo()
@@ -161,7 +163,7 @@ class TransactionStatusFragment : Fragment() {
         when (result?.responseCode) {
             IsoUtils.TIMEOUT_CODE -> {
                 binding.transactionResponseIconTransfer.setImageResource(com.interswitchng.smartpos.R.drawable.isw_failure)
-                binding.transactionstatusImage.setImageResource(com.interswitchng.smartpos.R.drawable.ic_not_successful)
+                binding.transactionstatusImage.setImageResource(R.drawable.ic_checksuccess)
                 binding.iswGoToLanding.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this.requireContext(), com.interswitchng.smartpos.R.color.iswTextColorError))
                 binding.iswReceiptTextTransfer.text = "Failed!"
                 binding.iswTransactionMsgTransfer.text = "Your transaction was unsuccessful"
@@ -174,6 +176,13 @@ class TransactionStatusFragment : Fragment() {
                 binding.iswTransactionMsgTransfer.text = "Your transaction was successful"
                 binding.iswReceiptTextTransfer.text =
                         getString(com.interswitchng.smartpos.R.string.isw_transfer_completed)
+
+                val amountWithCurrency = result?.amount
+                val cardType = result?.cardType.toString()
+                val stat = "SUCCESSFUL"
+                //val reff = result?.ref
+                //transactionNotifier.notifyAstra(amountWithCurrency,stat,cardType)
+                transactionNotifier.execute(amountWithCurrency,stat,cardType)
             }
 
             else -> {

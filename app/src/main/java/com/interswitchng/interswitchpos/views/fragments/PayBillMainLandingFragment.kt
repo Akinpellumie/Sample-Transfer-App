@@ -49,7 +49,7 @@ class PayBillMainLandingFragment : Fragment() {
         }
 
         // navigate to cable Tv fragment
-        binding.airtimeCard.setOnClickListener {
+        binding.cableCard.setOnClickListener {
             val action = PayBillMainLandingFragmentDirections.actionBillToCableFragment()
             findNavController().navigate(action)
         }
