@@ -1,3 +1,4 @@
+include ':simple-call-adapter'
 include ':smart-pos-usb-release'
 include ':smart-pos-emv-telpo-release'
 include ':smart-pos-emv-pax-release'

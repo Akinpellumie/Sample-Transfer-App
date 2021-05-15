@@ -2,6 +2,10 @@ package com.interswitchng.interswitchpos.views.services;
 
 import android.os.AsyncTask;
 
+import com.interswitchng.interswitchpos.views.services.interfaces.IAirtimeInitiateCallBack;
+import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack;
+import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,9 +17,15 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AirtimeRechargeRequests extends AsyncTask<String, Void, Void> {
+public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnInitiateModel> {
 
-    public void postRechargeWithCash(String phoneNumber, String amount){
+    private final IAirtimeInitiateCallBack callBack;
+
+    public AirtimeRechargeRequests(IAirtimeInitiateCallBack callBack) {
+        this.callBack = callBack;
+    }
+
+    public TranxnInitiateModel postRechargeWithCash(String phoneNumber, String amount){
         String url = Constants.airtimeRechargeUrl();
         try{
 
@@ -89,14 +99,19 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, Void> {
         catch (IOException e){
             e.printStackTrace();
         }
+        return null;
 
     }
     @Override
-    protected Void doInBackground(String... strings) {
+    protected TranxnInitiateModel doInBackground(String... strings) {
         String phonenumber = strings[0];
         String amount = strings[1];
+        return postRechargeWithCash(phonenumber, amount);
 
-        postRechargeWithCash(phonenumber, amount);
-        return null;
+    }
+
+    @Override
+    protected void onPostExecute(TranxnInitiateModel tranxnInitiateData) {
+        callBack.OnAirtimeInitiate(tranxnInitiateData);
     }
 }

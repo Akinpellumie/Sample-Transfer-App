@@ -11,20 +11,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentAirtimePaymentFormBinding
-import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
-import com.interswitchng.interswitchpos.domain.models.PaymentType
-import com.interswitchng.interswitchpos.utils.showSnack
+import com.interswitchng.interswitchpos.views.services.AirtimeRechargeRequests
+import com.interswitchng.interswitchpos.views.services.interfaces.IAirtimeInitiateCallBack
+import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
-import com.interswitchng.smartpos.IswTxnHandler
-import com.interswitchng.smartpos.models.core.TerminalInfo
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class AirtimePaymentFormFragment : Fragment() {
+class AirtimePaymentFormFragment : Fragment(), IAirtimeInitiateCallBack {
 
     private val viewmodel : AppViewModel by viewModel()
     private val args by navArgs<AirtimePaymentFormFragmentArgs>()
     private val rechargeType by lazy { args.rechargeType }
     private lateinit var binding: FragmentAirtimePaymentFormBinding
+
+    private val airtimeRechargeRequests = AirtimeRechargeRequests(this);
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()
@@ -52,7 +52,12 @@ class AirtimePaymentFormFragment : Fragment() {
     //initiate airtime payment
         binding.initAirtimePayBtn.setOnClickListener {
             if (binding.airtimePhoneNoEntry.text.isNotEmpty() || binding.airtimeAmountEntry.text.isNotEmpty()) {
-            //do nothing for number
+
+            //send data
+                val phoneNumber = binding.airtimePhoneNoEntry.text.toString()
+                val rechargeAmount = binding.airtimeAmountEntry.text.toString()
+
+                airtimeRechargeRequests.execute(phoneNumber,rechargeAmount)
             }
     else {
         val text = "Oops!! Entry Field cannot be empty!!"
@@ -72,5 +77,14 @@ class AirtimePaymentFormFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = AirtimePaymentFormFragment()
+    }
+
+    override fun OnAirtimeInitiate(tranxnInitiateData: TranxnInitiateModel?) {
+        TODO("Not yet implemented")
+        //navigate to other view passing user data
+        //val tranxnId = tr?.data?.profileInfo?.firstname.toString()
+        val tranxnId = tranxnInitiateData?.data?.getTransactionId();
+        //val action = LoginLandingFragmentDirections.actionLoginToHomeFragment(userFirstname)
+        //findNavController().navigate(action)
     }
 }

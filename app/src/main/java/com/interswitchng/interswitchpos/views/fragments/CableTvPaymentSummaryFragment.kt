@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
+import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
 import com.interswitchng.interswitchpos.domain.models.PaymentType
 import com.interswitchng.interswitchpos.utils.showSnack
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
@@ -20,6 +21,8 @@ class CableTvPaymentSummaryFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
     //private lateinit var binding:
+
+
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()

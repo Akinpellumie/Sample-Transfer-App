@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
+import com.interswitchng.interswitchpos.databinding.FragmentCableTvPaymentFormBinding
 import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
 import com.interswitchng.interswitchpos.domain.models.PaymentType
 import com.interswitchng.interswitchpos.utils.showSnack
@@ -19,6 +20,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class CableTvPaymentFormFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
+    private lateinit var binding: FragmentCableTvPaymentFormBinding;
     //private lateinit var binding:
 
 //    private val terminalInfo by lazy {
@@ -31,7 +33,10 @@ class CableTvPaymentFormFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_cable_tv_payment_form, container, false)
+        // Inflate the layout for this fragment
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_cable_tv_payment_form, container, false)
+
+        return binding.root
 
     }
 //
