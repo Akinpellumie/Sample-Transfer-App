@@ -12,7 +12,7 @@
             android:paddingRight="@dimen/fragment_horizontal_margin"
             android:paddingBottom="@dimen/fragment_vertical_margin"
             android:background="@color/backgroundColor"
-            tools:context=".views.activities.MainActivity">
+            tools:context=".views.fragments.LoginLandingFragment">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"

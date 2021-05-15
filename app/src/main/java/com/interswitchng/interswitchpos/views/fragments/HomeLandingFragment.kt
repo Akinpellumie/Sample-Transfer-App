@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
 import com.interswitchng.interswitchpos.domain.models.PaymentType
@@ -20,6 +21,8 @@ class HomeLandingFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentHomeLandingBinding
+    private val args by navArgs<HomeLandingFragmentArgs>()
+    private val userFirstname by lazy { args.userFirstname }
 
     private val terminalInfo by lazy {
         IswTxnHandler().getTerminalInfo()
@@ -36,6 +39,9 @@ class HomeLandingFragment : Fragment() {
         if (terminalInfo != null) {
             viewmodel.getToken(terminalInfo!!)
         }
+
+        //bind loginData to homePage UI
+        binding.userFirstname.text = userFirstname
         //navigate to Amount fragment
         binding.iswTransferCard.setOnClickListener {
 //            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)

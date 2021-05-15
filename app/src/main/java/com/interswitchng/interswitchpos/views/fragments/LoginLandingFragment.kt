@@ -1,6 +1,5 @@
 package com.interswitchng.interswitchpos.views.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
 import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
-import com.interswitchng.interswitchpos.views.activities.MainActivity
 import com.interswitchng.interswitchpos.views.services.LoginService
 import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack
 import com.interswitchng.interswitchpos.views.services.model.login.LoginModel
@@ -24,7 +22,7 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
     private val viewmodel : AppViewModel by viewModel()
 
     private lateinit var binding: FragmentLoginLandingBinding
-    private lateinit var mainBinding: FragmentHomeLandingBinding
+    lateinit var mainBinding: FragmentHomeLandingBinding
     private val loginService = LoginService(this)
 
 
@@ -76,8 +74,8 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
 
     override fun OnLogin(user: LoginModel?) {
         //navigate to other view passing user data
-        mainBinding.userFirstname.text = user?.data?.profileInfo?.firstname
-        val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
+        val userFirstname = user?.data?.profileInfo?.firstname.toString()
+        val action = LoginLandingFragmentDirections.actionLoginToHomeFragment(userFirstname)
         findNavController().navigate(action)
     }
 }

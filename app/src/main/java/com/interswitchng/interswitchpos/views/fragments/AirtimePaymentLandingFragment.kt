@@ -43,11 +43,34 @@ class AirtimePaymentLandingFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_buy_airtime_main, container, false)
 
-//        binding.gloCard.setOnClickListener {
-//            val action = Airtime.actionHomeToAmountFragment2()
-//            findNavController().navigate(action)
-//        }
+        // glo recharge clickEvent
+        binding.gloCard.setOnClickListener {
+            val rechargeType =  "Glo"
+            val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
 
+        }
+
+        // mtn recharge clickEvent
+        binding.mtnCard.setOnClickListener {
+            val rechargeType = "Mtn"
+            val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+        }
+
+        // 9mobile recharge clickEvent
+        binding.etiCard.setOnClickListener {
+            val rechargeType = "9Mobile"
+            val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+        }
+
+        // Airtel recharge clickEvent
+        binding.airtelCard.setOnClickListener {
+            val rechargeType = "Airtel"
+            val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 

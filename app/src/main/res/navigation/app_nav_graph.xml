@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_home_to_transactionPageFragment"
             app:destination="@id/transactionPage" />
+        <argument
+            android:name="userFirstname"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -61,6 +64,21 @@
         android:label="fragment_buy_airtime_landing"
         tools:layout="@layout/fragment_buy_airtime_main">
 
+        <action
+            android:id="@+id/action_airtimeMain_to_airtimeFormFragment"
+            app:destination="@id/buyAirtimeFormPage" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/buyAirtimeFormPage"
+        android:name="com.interswitchng.interswitchpos.views.fragments.AirtimePaymentFormFragment"
+        android:label="fragment_airtime_payment_form"
+        tools:layout="@layout/fragment_airtime_payment_form">
+
+        <argument
+            android:name="rechargeType"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -70,6 +88,9 @@
         tools:layout="@layout/fragment_transactions_landing">
 
     </fragment>
+
+
+
 <fragment
         android:id="@+id/cablePayment"
         android:name="com.interswitchng.interswitchpos.views.fragments.CableTvLandingFragment"
