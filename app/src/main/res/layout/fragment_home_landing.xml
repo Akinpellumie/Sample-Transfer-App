@@ -47,7 +47,7 @@
                             android:contentDescription="@string/astra_logo" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/user"
+                            android:id="@+id/userFirstname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"

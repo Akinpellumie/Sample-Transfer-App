@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
+import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
 import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
 import com.interswitchng.interswitchpos.views.activities.MainActivity
 import com.interswitchng.interswitchpos.views.services.LoginService
@@ -23,6 +24,7 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
     private val viewmodel : AppViewModel by viewModel()
 
     private lateinit var binding: FragmentLoginLandingBinding
+    private lateinit var mainBinding: FragmentHomeLandingBinding
     private val loginService = LoginService(this)
 
 
@@ -74,8 +76,8 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
 
     override fun OnLogin(user: LoginModel?) {
         //navigate to other view passing user data
+        mainBinding.userFirstname.text = user?.data?.profileInfo?.firstname
         val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
         findNavController().navigate(action)
-        TODO("Not yet implemented")
     }
 }

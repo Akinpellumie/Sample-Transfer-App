@@ -5,7 +5,7 @@ package com.interswitchng.interswitchpos.views.services.model.login;
 public class LoginModel{
     private int status;
     private String message;
-    //public Data data;
+    private Data data;
 
     public int getStatus() {
         return status;
@@ -22,14 +22,14 @@ public class LoginModel{
     public void setMessage(String message) {
         this.message = message;
     }
-//
-//    public Data getData() {
-//        return data;
-//    }
-//
-//    public void setData(Data data) {
-//        this.data = data;
-//    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
 }
 
 

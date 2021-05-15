@@ -46,13 +46,15 @@ public class LoginService extends AsyncTask<String, Void, LoginModel> {
                     .addHeader("Content-Type", "application/json")
                     .build();
             Response response = client.newCall(request).execute();
-            String res = response.body().toString();
-            //String myRes = res;
+            String res = response.body().string();
+
+            JSONObject userObject = new JSONObject(res);
             Gson gson = new Gson();
-            //user = user;
 
             //LoginModel user = new LoginModel();
             return gson.fromJson(res, LoginModel.class);
+
+            //return gson.fromJson(res, LoginModel.class);
 
         }
         catch (Exception ex){
