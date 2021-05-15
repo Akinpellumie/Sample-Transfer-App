@@ -3,6 +3,8 @@ package com.interswitchng.interswitchpos.views.services;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.interswitchng.interswitchpos.views.services.model.login.LoginModel;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,15 +14,22 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentEmail;
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
+
 public class TransactionStatusNotifier extends AsyncTask<String, Void, Void> {
 
+    LoginModel userData = new LoginModel();
 
-    public void notifyAstra(String amount, String status, String cardType){
+    public void notifyAstra(String amount, String cardType){
         try{
-
+            String email = loggedInAgentEmail;
+            String userPhne = loggedInAgentPhoneNumber;
+            String userPin = loggedInAgentPin;
             JSONObject fullData = new JSONObject();
 
-            try{
+//            try{
                 JSONObject terminalDetails = new JSONObject();
                 JSONObject facilitator = new JSONObject();
                 JSONObject beneficiary = new JSONObject();
@@ -29,7 +38,7 @@ public class TransactionStatusNotifier extends AsyncTask<String, Void, Void> {
 
                 //add card details
                 cardDetails.put( "pan"," ");
-                cardDetails.put( "cardType"," ");
+                cardDetails.put( "cardType",cardType);
 
 
                 //add terminal details
@@ -42,23 +51,23 @@ public class TransactionStatusNotifier extends AsyncTask<String, Void, Void> {
                 //add facilitator details
 
                 facilitator.put( "id","0d7d986d-c738-463c-865a-b09650c9bd07");
-                facilitator.put( "phone","09057127737");
-                facilitator.put( "pin","1234");
-                facilitator.put(  "email","tosin@gmail.com");
+                facilitator.put( "phone",userPhne);
+                facilitator.put( "pin",userPin);
+                facilitator.put(  "email",email);
 
                 //add beneficiary
-                beneficiary.put(   "email", "titanskayar@gmail.com");
-                beneficiary.put(   "name", "Femi Williams");
-                beneficiary.put(   "phone", "08122478910");
+                beneficiary.put(   "email", " ");
+                beneficiary.put(   "name", " ");
+                beneficiary.put(   "phone", " ");
 
                 //add beneficiaryTerminal details
-                beneficiaryTerminal.put(   "billerName","DSTV");
-                beneficiaryTerminal.put(   "billerId","1234");
-                beneficiaryTerminal.put(    "categoryId","567");
-                beneficiaryTerminal.put(    "categoryName","Cable TV Bills");
-                beneficiaryTerminal.put(    "paymentCode","011");
-                beneficiaryTerminal.put(    "paymentItemName","DSTV Compact");
-                beneficiaryTerminal.put(    "customerId","08109827654");
+                beneficiaryTerminal.put(   "billerName"," ");
+                beneficiaryTerminal.put(   "billerId"," ");
+                beneficiaryTerminal.put(    "categoryId"," ");
+                beneficiaryTerminal.put(    "categoryName"," ");
+                beneficiaryTerminal.put(    "paymentCode"," ");
+                beneficiaryTerminal.put(    "paymentItemName"," ");
+                beneficiaryTerminal.put(    "customerId"," ");
 
                 //add all json data to fulldata
                 fullData.put("terminalDetails", terminalDetails);
@@ -67,17 +76,16 @@ public class TransactionStatusNotifier extends AsyncTask<String, Void, Void> {
                 fullData.put("beneficiaryTerminal", beneficiaryTerminal);
                 fullData.put("cardDetails", cardDetails);
                 fullData.put("amount", amount);
-                fullData.put("transactionType","BILLPAYMENTWITHCASH");
+                fullData.put("narration", "withdraw money from card");
+                fullData.put("transactionType","CARDWITHDRAWAL");
+//
+//            }
+//            catch (JSONException e){
+//                e.printStackTrace();
+//            }
 
-            }
-            catch (JSONException e){
-                e.printStackTrace();
-            }
-
-            String url = "http://192.168.3.169:3333/transactions";
-            String json =  "{\r\n  \"amount\": "+amount
-                    +",\r\n  \"status\" : \""+status
-                    +"\",\r\n  \"card_type\" : \""+cardType+"\"\r\n}";
+            String url = "http://192.168.3.169:3333/pin/transactions/initiate";
+            String json = fullData.toString();
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
@@ -85,11 +93,16 @@ public class TransactionStatusNotifier extends AsyncTask<String, Void, Void> {
             Request request = new Request.Builder()
                     .url(url)
                     .method("POST", body)
+                    .addHeader("longitude", "3.142")
+                    .addHeader("latitude", "-0.98")
+                    .addHeader("corrlation-id", "1023")
+                    .addHeader("Pin", userPin)
+                    .addHeader("Phone", userPhne)
                     .addHeader("Content-Type", "application/json")
                     .build();
             Response response = client.newCall(request).execute();
-            response = response;
-
+            String initResponse = response.body().string();
+            //
         }
         catch (Exception ex){
             Log.d("NotifyException::::", ex.getMessage());
@@ -101,9 +114,10 @@ public class TransactionStatusNotifier extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... strings) {
 
         String amount = strings[0];
-        String status = strings[1];
-        String cardType = strings[2];
-        notifyAstra(amount, status, cardType);
+       // String status = strings[1];
+        String cardType = strings[1];
+//        String cardPan = strings[3];
+        notifyAstra(amount, cardType);
         return null;
     }
 }
