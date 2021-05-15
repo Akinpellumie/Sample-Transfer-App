@@ -3,7 +3,9 @@ package com.interswitchng.interswitchpos.views.services;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.interswitchng.interswitchpos.views.services.model.login.LoginModel;
+import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +20,7 @@ import static com.interswitchng.interswitchpos.views.services.Constants.loggedIn
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
 
-public class TransactionStatusNotifier extends AsyncTask<String, Void, Void> {
+public class TransactionInitNotifier extends AsyncTask<String, Void, Void> {
 
     LoginModel userData = new LoginModel();
 
@@ -102,6 +104,15 @@ public class TransactionStatusNotifier extends AsyncTask<String, Void, Void> {
                     .build();
             Response response = client.newCall(request).execute();
             String initResponse = response.body().string();
+
+            //JSONObject userObject = new JSONObject(res);
+            Gson gson = new Gson();
+
+            TranxnInitiateModel transRes = gson.fromJson(initResponse, TranxnInitiateModel.class);
+            String transId = transRes.getData().transactionId;
+            Constants.TransId = transId;
+//            //LoginModel user = new LoginModel();
+//            return
             //
         }
         catch (Exception ex){
