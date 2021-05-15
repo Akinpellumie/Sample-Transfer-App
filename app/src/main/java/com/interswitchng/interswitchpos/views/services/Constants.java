@@ -55,4 +55,9 @@ public class Constants {
         return "76601";
     }
 
+    public static String loggedInAgentPin;
+    public static String loggedInAgentPhoneNumber;
+
+    public static String loggedInAgentEmail;
+
 }

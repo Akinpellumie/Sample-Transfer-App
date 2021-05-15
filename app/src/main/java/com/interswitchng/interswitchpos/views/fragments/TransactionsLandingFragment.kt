@@ -44,9 +44,14 @@ class TransactionsLandingFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_transactions_landing, container, false)
 
-        // navigate to airtime payment fragment
+        // open filter view
         binding.filterIcon.setOnClickListener {
             cardFilterView.visibility = View.VISIBLE
+        }
+
+        // close filter view
+        binding.closePopUpBtn.setOnClickListener {
+            cardFilterView.visibility = View.INVISIBLE
         }
 
         // navigate to cable Tv fragment
