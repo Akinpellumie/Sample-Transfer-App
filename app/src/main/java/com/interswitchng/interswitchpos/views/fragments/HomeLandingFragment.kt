@@ -64,6 +64,13 @@ class HomeLandingFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        //navigate to transaction page fragment
+        binding.transactionLayout.setOnClickListener {
+//            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)
+            val action = HomeLandingFragmentDirections.actionHomeToTransactionPageFragment()
+            findNavController().navigate(action)
+        }
+
         val level = IswTxnHandler().getBatterLevel(requireContext())
        showSnack(binding.iswCashOutText, "Battery Level is: $level")
         return binding.root

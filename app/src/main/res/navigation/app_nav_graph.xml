@@ -36,6 +36,10 @@
         <action
             android:id="@+id/action_home_to_paybillsFragment"
             app:destination="@id/payBills" />
+
+        <action
+            android:id="@+id/action_home_to_transactionPageFragment"
+            app:destination="@id/transactionPage" />
     </fragment>
 
     <fragment
@@ -56,6 +60,14 @@
         android:name="com.interswitchng.interswitchpos.views.fragments.AirtimePaymentLandingFragment"
         android:label="fragment_buy_airtime_landing"
         tools:layout="@layout/fragment_buy_airtime_main">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/transactionPage"
+        android:name="com.interswitchng.interswitchpos.views.fragments.TransactionsLandingFragment"
+        android:label="fragment_transactions_landing"
+        tools:layout="@layout/fragment_transactions_landing">
 
     </fragment>
 <fragment

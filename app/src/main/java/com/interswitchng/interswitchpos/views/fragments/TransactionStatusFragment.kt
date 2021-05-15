@@ -163,7 +163,7 @@ class TransactionStatusFragment : Fragment() {
         when (result?.responseCode) {
             IsoUtils.TIMEOUT_CODE -> {
                 binding.transactionResponseIconTransfer.setImageResource(com.interswitchng.smartpos.R.drawable.isw_failure)
-                binding.transactionstatusImage.setImageResource(R.drawable.ic_checksuccess)
+                binding.transactionstatusImage.setImageResource(com.interswitchng.smartpos.R.drawable.ic_not_successful)
                 binding.iswGoToLanding.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this.requireContext(), com.interswitchng.smartpos.R.color.iswTextColorError))
                 binding.iswReceiptTextTransfer.text = "Failed!"
                 binding.iswTransactionMsgTransfer.text = "Your transaction was unsuccessful"
@@ -171,17 +171,17 @@ class TransactionStatusFragment : Fragment() {
 
             IsoUtils.OK -> {
                 binding.transactionResponseIconTransfer.setImageResource(com.interswitchng.smartpos.R.drawable.isw_round_done_padded)
-                binding.transactionstatusImage.setImageResource(com.interswitchng.smartpos.R.drawable.ic_finished)
+                binding.transactionstatusImage.setImageResource(R.drawable.ic_checksuccess)
                 binding.iswGoToLanding.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this.requireContext(), com.interswitchng.smartpos.R.color.iswTextColorSuccessDark))
                 binding.iswTransactionMsgTransfer.text = "Your transaction was successful"
                 binding.iswReceiptTextTransfer.text =
-                        getString(com.interswitchng.smartpos.R.string.isw_transfer_completed)
+                        getString(R.string.thank_you)
 
                 val amountWithCurrency = result?.amount
                 val cardType = result?.cardType.toString()
                 val stat = "SUCCESSFUL"
                 //val reff = result?.ref
-                //transactionNotifier.notifyAstra(amountWithCurrency,stat,cardType)
+
                 transactionNotifier.execute(amountWithCurrency,stat,cardType)
             }
 

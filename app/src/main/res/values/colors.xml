@@ -7,6 +7,7 @@
     <color name="cardBgColor">#267AF6</color>
     <color name="listIconBgColor">#E6EFFE</color>
     <color name="backgroundColor">#F4F5FA</color>
+    <color name="fadeBgColor">#80CDD0D4</color>
     <color name="txtColor">#454551</color>
     <color name="subTxtColor">#50454551</color>
     <color name="blackColor">#000000</color>

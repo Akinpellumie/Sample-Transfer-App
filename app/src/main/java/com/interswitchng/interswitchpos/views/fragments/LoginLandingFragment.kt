@@ -12,22 +12,28 @@ import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
 import com.interswitchng.interswitchpos.views.activities.MainActivity
+import com.interswitchng.interswitchpos.views.services.LoginService
+import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack
+import com.interswitchng.interswitchpos.views.services.model.login.LoginModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class LoginLandingFragment : Fragment() {
+class LoginLandingFragment : Fragment(), ILoginCallBack {
 
     private val viewmodel : AppViewModel by viewModel()
 
     private lateinit var binding: FragmentLoginLandingBinding
+    private val loginService = LoginService(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login_landing, container, false)
 
@@ -39,11 +45,13 @@ class LoginLandingFragment : Fragment() {
 
     binding.loginBtn.setOnClickListener {
         if (binding.password.text.isNotEmpty() || binding.username.text.isNotEmpty()) {
+            val userId = binding.username.text.toString()
+            val userPin = binding.password.text.toString()
 
-            val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
-                findNavController().navigate(action)
+            loginService.execute(userId,userPin)
 
-
+//            val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
+//                findNavController().navigate(action)
 
 
         } else {
@@ -62,5 +70,12 @@ class LoginLandingFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = LoginLandingFragment()
+    }
+
+    override fun OnLogin(user: LoginModel?) {
+        //navigate to other view passing user data
+        val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
+        findNavController().navigate(action)
+        TODO("Not yet implemented")
     }
 }
