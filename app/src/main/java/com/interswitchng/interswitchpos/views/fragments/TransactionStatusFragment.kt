@@ -182,7 +182,7 @@ class TransactionStatusFragment : Fragment() {
                 val stat = "SUCCESSFUL"
                 //val reff = result?.ref
 
-                transactionNotifier.execute(amountWithCurrency,stat,cardType)
+                //transactionNotifier.execute(amountWithCurrency,stat,cardType)
             }
 
             else -> {

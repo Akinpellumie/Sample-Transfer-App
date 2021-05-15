@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentCardTransactionBinding
 import com.interswitchng.interswitchpos.utils.*
+import com.interswitchng.interswitchpos.views.services.TransactionStatusNotifier
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.IswTxnHandler
@@ -31,6 +32,7 @@ class CardTransactionFragment : Fragment() {
 
     private var accountType = AccountType.Default
     private lateinit var binding: FragmentCardTransactionBinding
+    private val transactionNotifier = TransactionStatusNotifier()
     private var cardType = CardType.None
 
     private val terminalInfo: TerminalInfo by lazy {
@@ -197,6 +199,10 @@ class CardTransactionFragment : Fragment() {
         //Show Card Detected View
         binding.iswCardFoundTransfer.show()
 
+        //inform the astraPay backend about the transaction in background
+
+        val stat = "SUCCESSFUL"
+        transactionNotifier.execute(amount, cardType.toString())
         //Show account dialog
         showAccountTypeDialog()
 

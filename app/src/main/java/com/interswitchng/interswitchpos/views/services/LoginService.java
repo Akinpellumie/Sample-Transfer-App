@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack;
 import com.interswitchng.interswitchpos.views.services.model.login.LoginModel;
-
 import org.json.JSONObject;
 
 import okhttp3.MediaType;
@@ -48,7 +47,7 @@ public class LoginService extends AsyncTask<String, Void, LoginModel> {
             Response response = client.newCall(request).execute();
             String res = response.body().string();
 
-            JSONObject userObject = new JSONObject(res);
+            //JSONObject userObject = new JSONObject(res);
             Gson gson = new Gson();
 
             //LoginModel user = new LoginModel();
@@ -73,6 +72,7 @@ public class LoginService extends AsyncTask<String, Void, LoginModel> {
 
     @Override
     protected void onPostExecute(LoginModel user) {
+        Constants.loggedInAgentEmail = user.getData().getProfileInfo().email;
         callBack.OnLogin(user);
     }
 }
