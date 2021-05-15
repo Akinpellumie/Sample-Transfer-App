@@ -10,18 +10,16 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentCardTransactionBinding
 import com.interswitchng.interswitchpos.utils.*
-import com.interswitchng.interswitchpos.views.services.TransactionStatusNotifier
+import com.interswitchng.interswitchpos.views.services.TransactionInitNotifier
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.IswTxnHandler
 import com.interswitchng.smartpos.models.core.TerminalInfo
-import com.interswitchng.smartpos.models.posconfig.PosType
 import com.interswitchng.smartpos.models.transaction.cardpaycode.CardType
 import com.interswitchng.smartpos.models.transaction.cardpaycode.EmvMessage
 import com.interswitchng.smartpos.models.transaction.cardpaycode.request.AccountType
@@ -32,7 +30,7 @@ class CardTransactionFragment : Fragment() {
 
     private var accountType = AccountType.Default
     private lateinit var binding: FragmentCardTransactionBinding
-    private val transactionNotifier = TransactionStatusNotifier()
+    private val transactionNotifier = TransactionInitNotifier()
     private var cardType = CardType.None
 
     private val terminalInfo: TerminalInfo by lazy {

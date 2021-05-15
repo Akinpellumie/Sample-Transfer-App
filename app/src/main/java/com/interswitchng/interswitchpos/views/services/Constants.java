@@ -59,5 +59,6 @@ public class Constants {
     public static String loggedInAgentPhoneNumber;
 
     public static String loggedInAgentEmail;
+    public static String TransId;
 
 }
