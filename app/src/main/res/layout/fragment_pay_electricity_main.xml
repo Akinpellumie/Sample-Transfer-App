@@ -5,10 +5,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
         tools:context=".views.fragments.ElectricityPaymentLandingFragment">
 
         <TextView
-            android:id="@+id/chooseNetworkTv"
+            android:id="@+id/chooseBillerTv"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
@@ -23,14 +24,14 @@
         <LinearLayout
             android:id="@+id/firstRowMenu"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            app:layout_constraintTop_toBottomOf="@+id/chooseNetworkTv"
+            app:layout_constraintTop_toBottomOf="@+id/chooseBillerTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:id="@+id/gloCard"
+                android:id="@+id/ekoElectric"
                 android:clickable="true"
                 android:layout_height="120dp"
                 android:layout_weight=".50"
@@ -41,16 +42,17 @@
                     android:layout_height="match_parent"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
+                    android:background="@color/backgroundColor"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:layout_centerInParent="true"
                     android:orientation="vertical">
                     <ImageView
-                        android:id="@+id/gloIcon"
+                        android:id="@+id/ekoElectricIc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/glo" />
+                        app:srcCompat="@drawable/ekoelectric" />
 
 
                 </LinearLayout>
@@ -58,7 +60,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:id="@+id/airtelCard"
+                android:id="@+id/abujaElectric"
                 android:layout_height="120dp"
                 android:layout_weight=".50"
                 android:layout_marginLeft="10dp">
@@ -68,15 +70,16 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="5dp"
+                    android:background="@color/backgroundColor"
                     android:paddingRight="5dp"
                     android:layout_centerInParent="true"
                     android:orientation="vertical">
                     <ImageView
-                        android:id="@+id/gotvImg"
+                        android:id="@+id/abujaElectricIc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/airtel" />
+                        app:srcCompat="@drawable/electric_abuja" />
 
 
                 </LinearLayout>
@@ -85,7 +88,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:id="@+id/mtnCard"
+                android:id="@+id/enuguElectric"
                 android:layout_height="120dp"
                 android:layout_weight=".50"
                 android:layout_marginLeft="10dp"
@@ -97,14 +100,15 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
+                    android:background="@color/backgroundColor"
                     android:layout_centerInParent="true"
                     android:orientation="vertical">
                     <ImageView
-                        android:id="@+id/cashbyCard"
+                        android:id="@+id/enuguElectricIc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/mtn" />
+                        app:srcCompat="@drawable/electric_enugu" />
 
 
                 </LinearLayout>
@@ -126,7 +130,62 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:id="@+id/etiCard"
+                android:id="@+id/ibadanElectric"
+                android:layout_height="120dp"
+                android:layout_weight=".50"
+                android:layout_marginLeft="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:background="@color/backgroundColor"
+                    android:paddingRight="5dp"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/ibadanElectricIc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/electric_ibadan" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:id="@+id/ikejaElectric"
+                android:layout_height="120dp"
+                android:layout_weight=".50"
+                android:layout_marginLeft="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:background="@color/backgroundColor"
+
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/ikejaElectricIc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/electric_ikeja" />
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:id="@+id/josElectric"
                 android:layout_height="120dp"
                 android:layout_weight=".50"
                 android:layout_marginLeft="20dp">
@@ -137,14 +196,115 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
+                    android:background="@color/backgroundColor"
                     android:layout_centerInParent="true"
                     android:orientation="vertical">
                     <ImageView
-                        android:id="@+id/etiImg"
+                        android:id="@+id/josElectricIc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/etimobile" />
+                        app:srcCompat="@drawable/electric_jos" />
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thirdRowMenu"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@+id/secondRowMenu"
+            app:layout_constraintStart_toStartOf="@+id/secondRowMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:id="@+id/kadunaElectric"
+                android:layout_height="120dp"
+                android:layout_weight=".50"
+                android:layout_marginLeft="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:background="@color/backgroundColor"
+                    android:paddingRight="5dp"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/kadunaElectricIc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/electric_kaduna" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:id="@+id/kanoElectric"
+                android:layout_height="120dp"
+                android:layout_weight=".50"
+                android:layout_marginLeft="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:background="@color/backgroundColor"
+
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/kanoElectricIc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/electric_kano" />
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:id="@+id/phElectric"
+                android:layout_height="120dp"
+                android:layout_weight=".50"
+                android:layout_marginLeft="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:background="@color/backgroundColor"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/phElectricIc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/electric_portharcourt" />
 
 
                 </LinearLayout>
