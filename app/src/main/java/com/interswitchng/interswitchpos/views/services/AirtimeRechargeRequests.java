@@ -2,8 +2,10 @@ package com.interswitchng.interswitchpos.views.services;
 
 import android.os.AsyncTask;
 
+import com.google.gson.Gson;
 import com.interswitchng.interswitchpos.views.services.interfaces.IAirtimeInitiateCallBack;
 import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack;
+import com.interswitchng.interswitchpos.views.services.model.login.LoginModel;
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel;
 
 import org.json.JSONException;
@@ -25,10 +27,22 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
         this.callBack = callBack;
     }
 
-    public TranxnInitiateModel postRechargeWithCash(String phoneNumber, String amount){
+    public TranxnInitiateModel postRechargeWithCash(String phoneNumber, String amount, String rechargeType){
         String url = Constants.airtimeRechargeUrl();
+
+
         try{
 
+            String billerId = "";
+            if(rechargeType == "Mtn"){
+                billerId = Constants.getMtnRechargeCustomPaycode();
+            } else if (rechargeType.contains("9Mobile")) {
+                billerId = Constants.getEtisalatRechargeCustomPaycode();
+            }else if (rechargeType.contains("Airtel")){
+                billerId = Constants.getAirtelRechargeCustomPaycode();
+            }
+
+            int amountInt = Integer.parseInt(amount);
             OkHttpClient okHttp = new OkHttpClient();
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             JSONObject fullData = new JSONObject();
@@ -60,18 +74,18 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
                 facilitator.put(  "email","tosin@gmail.com");
 
                 //add beneficiary
-                beneficiary.put(   "email", "titanskayar@gmail.com");
-                beneficiary.put(   "name", "Femi Williams");
-                beneficiary.put(   "phone", "08122478910");
+                beneficiary.put(   "email", "");
+                beneficiary.put(   "name", "");
+                beneficiary.put(   "phone", phoneNumber);
 
                 //add beneficiaryTerminal details
-                beneficiaryTerminal.put(   "billerName","DSTV");
-                beneficiaryTerminal.put(   "billerId","1234");
+                beneficiaryTerminal.put(   "billerName",rechargeType);
+                beneficiaryTerminal.put(   "billerId",billerId);
                 beneficiaryTerminal.put(    "categoryId","567");
-                beneficiaryTerminal.put(    "categoryName","Cable TV Bills");
+                beneficiaryTerminal.put(    "categoryName","Airtime Recharge");
                 beneficiaryTerminal.put(    "paymentCode","011");
-                beneficiaryTerminal.put(    "paymentItemName","DSTV Compact");
-                beneficiaryTerminal.put(    "customerId","08109827654");
+                beneficiaryTerminal.put(    "paymentItemName",rechargeType+" Recharge");
+                beneficiaryTerminal.put(    "customerId",phoneNumber);
 
                 //add all json data to fulldata
                 fullData.put("terminalDetails", terminalDetails);
@@ -79,7 +93,7 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
                 fullData.put("beneficiary", beneficiary);
                 fullData.put("beneficiaryTerminal", beneficiaryTerminal);
                 fullData.put("cardDetails", cardDetails);
-                fullData.put("amount", 50000);
+                fullData.put("amount", amountInt);
                 fullData.put("transactionType","BILLPAYMENTWITHCASH");
 
             }
@@ -91,10 +105,21 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
             Request newReq = new Request.Builder()
                     .url(url)
                     .post(body)
+                    .addHeader("longitude", "3.142")
+                    .addHeader("latitude", "-0.98")
+                    .addHeader("corrlation-id", "1023")
+                    .addHeader("Content-Type", "application/json")
                     .build();
             Response response = okHttp.newCall(newReq).execute();
             String respBody= response.body().string();
             int statusCode = response.code();
+            Gson gson = new Gson();
+
+            //LoginModel user = new LoginModel();
+            return gson.fromJson(respBody, TranxnInitiateModel.class);
+
+            //return gson.fromJson(res, LoginModel.class);
+
         }
         catch (IOException e){
             e.printStackTrace();
@@ -106,7 +131,8 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
     protected TranxnInitiateModel doInBackground(String... strings) {
         String phonenumber = strings[0];
         String amount = strings[1];
-        return postRechargeWithCash(phonenumber, amount);
+        String rechargeType = strings[2];
+        return postRechargeWithCash(phonenumber, amount, rechargeType);
 
     }
 
