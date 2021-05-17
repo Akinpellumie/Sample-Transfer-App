@@ -25,6 +25,8 @@ class AirtimePaymentFormFragment : Fragment(), IAirtimeInitiateCallBack {
     private lateinit var binding: FragmentAirtimePaymentFormBinding
 
     private val airtimeRechargeRequests = AirtimeRechargeRequests(this);
+    var phoneNumber : String = ""
+    var rechargeAmount = "";
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()
@@ -54,8 +56,8 @@ class AirtimePaymentFormFragment : Fragment(), IAirtimeInitiateCallBack {
             if (binding.airtimePhoneNoEntry.text.isNotEmpty() || binding.airtimeAmountEntry.text.isNotEmpty()) {
 
             //send data
-                val phoneNumber = binding.airtimePhoneNoEntry.text.toString()
-                val rechargeAmount = binding.airtimeAmountEntry.text.toString()
+                phoneNumber = binding.airtimePhoneNoEntry.text.toString()
+                rechargeAmount = binding.airtimeAmountEntry.text.toString()
 
                 airtimeRechargeRequests.execute(phoneNumber,rechargeAmount, rechargeType)
             }
@@ -80,11 +82,14 @@ class AirtimePaymentFormFragment : Fragment(), IAirtimeInitiateCallBack {
     }
 
     override fun OnAirtimeInitiate(tranxnInitiateData: TranxnInitiateModel?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
         //navigate to other view passing user data
         //val tranxnId = tr?.data?.profileInfo?.firstname.toString()
-        val tranxnId = tranxnInitiateData?.data?.getTransactionId();
-        //val action = LoginLandingFragmentDirections.actionLoginToHomeFragment(userFirstname)
-        //findNavController().navigate(action)
+        val tranxnId = tranxnInitiateData?.data?.getTransactionId().toString();
+
+
+        val action = AirtimePaymentFormFragmentDirections.actionAirtimepaymentformToAirtimerechargesummaryfragment(tranxnId, phoneNumber, rechargeAmount)
+       //val action = AirtimePaymentFormFragmentDirections.actionLoginToHomeFragment(u)
+        findNavController().navigate(action)
     }
 }

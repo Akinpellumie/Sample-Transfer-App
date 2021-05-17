@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
+import com.interswitchng.interswitchpos.databinding.FragmentAirtimeRechargeSummaryBinding
 import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
 import com.interswitchng.interswitchpos.domain.models.PaymentType
 import com.interswitchng.interswitchpos.utils.showSnack
@@ -20,6 +22,11 @@ class AirtimeRechargeSummaryFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
     //private lateinit var binding:
+    private lateinit var binding: FragmentAirtimeRechargeSummaryBinding;
+    private val args by navArgs<AirtimeRechargeSummaryFragmentArgs>()
+    private val transactionId by lazy { args.tranxnId }
+    private val phoneNumber by lazy {args.phoneNumber}
+    private val rechargeAmount by lazy {args.amount}
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()
@@ -31,7 +38,11 @@ class AirtimeRechargeSummaryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_airtime_recharge_summary, container, false)
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_airtime_recharge_summary, container, false)
+
+        binding.amountTv.text = rechargeAmount;
+        binding.phoneTv.text = phoneNumber;
+        return binding.root
 
     }
 //
