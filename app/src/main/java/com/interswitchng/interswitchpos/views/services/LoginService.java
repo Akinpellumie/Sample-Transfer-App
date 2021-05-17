@@ -26,7 +26,7 @@ public class LoginService extends AsyncTask<String, Void, LoginModel> {
 
     public LoginModel LoginAsyncTask(String userId, String userPin){
         try{
-            String url = "http://192.168.3.169:3333/pin/login";
+            String url = Constants.LoginUrl();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("username",userId);
             jsonObject.put("password",userPin);

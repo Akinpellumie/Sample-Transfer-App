@@ -12,6 +12,9 @@ public class Constants {
     public static String InititateTransactionUrl() {
         return Constants.domainurl() + "/pin/transactions/initiate";
     }
+    public static String LoginUrl() {
+        return Constants.domainurl() + "/pin/login";
+    }
     public static String getRechargeCustomPaycode() {
         return "234590";
     }

@@ -44,8 +44,8 @@
                     android:paddingLeft="15dp"
                     android:selectAllOnFocus="true"
                     android:paddingStart="15dp"
-                    android:focusable="false"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
 
@@ -80,7 +80,6 @@
                     android:paddingLeft="15dp"
                     android:selectAllOnFocus="true"
                     android:paddingStart="15dp"
-                    android:focusable="false"
                     android:textSize="15sp"
                     android:gravity="center_vertical"
                     android:maxLength="10"
@@ -123,7 +122,6 @@
                     android:paddingRight="10dp"
                     android:selectAllOnFocus="true"
                     android:paddingStart="15dp"
-                    android:focusable="false"
                     android:textSize="15sp"
                     android:gravity="center_vertical"
                     android:maxLength="10"
@@ -164,6 +162,7 @@
                     android:fontFamily="@font/nimbus_regular"
                     android:paddingLeft="15dp"
                     android:paddingStart="15dp"
+                    android:focusable="false"
                     android:textIsSelectable="false"
                     android:focusableInTouchMode="false"
                     android:textSize="15sp"
@@ -203,7 +202,6 @@
                     android:paddingLeft="15dp"
                     android:selectAllOnFocus="true"
                     android:paddingStart="15dp"
-                    android:focusable="false"
                     tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
