@@ -18,7 +18,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class SendCashLandingFragment : Fragment() {
     private lateinit var binding : FragmentSendCashLandingBinding
-    private lateinit var  sendCashModel : SendCashTransferModel
+    //private lateinit var  sendCashModel : SendCashTransferModel
 
 
 
@@ -42,15 +42,17 @@ class SendCashLandingFragment : Fragment() {
         val narration = binding.narrationEntry.text
 
         //set cash model value
-        sendCashModel.acctName = acctName.toString()
-        sendCashModel.cashAmount = cashAmount.toString()
-        sendCashModel.acctNumber = acctNum.toString()
-        sendCashModel.bankName = bankName.toString()
-        sendCashModel.narration = narration.toString()
+//        sendCashModel.acctName = acctName.toString()
+//        sendCashModel.cashAmount = cashAmount.toString()
+//        sendCashModel.acctNumber = acctNum.toString()
+//        sendCashModel.bankName = bankName.toString()
+//        sendCashModel.narration = narration.toString()
 
         //proceed to summary page
         binding.initiateBtn.setOnClickListener {
-            val action = SendCashLandingFragmentDirections.actionSendCashToTransactionSummaryFragment(sendCashModel)
+            val action = SendCashLandingFragmentDirections.actionSendCashToSendCashSummaryFragment(
+                    cashAmount.toString(),acctNum.toString(),acctName.toString(),bankName.toString(),narration.toString()
+            )
             findNavController().navigate(action)
         }
     }

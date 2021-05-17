@@ -24,7 +24,11 @@ class SendCashTransferSummaryFragment : Fragment() {
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentSendCashTransferSummaryBinding
     private val args by navArgs<SendCashTransferSummaryFragmentArgs>()
-    private val sendCashModel by lazy { args.sendCashModel }
+    private val cashAmount by lazy { args.cashAmount }
+    private val acctName by lazy { args.acctName }
+    private val acctNum by lazy { args.acctNum }
+    private val bankName by lazy { args.bankName }
+    private val narration by lazy { args.narration }
 
 
 
@@ -51,11 +55,11 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 }
 
     private fun setUpUI() {
-        binding.transAcctName.text = sendCashModel.acctName
-        binding.transAcctNum.text = sendCashModel.acctNumber
+        binding.transAcctName.text = acctName
+        binding.transAcctNum.text = acctNum
         binding.transType.text = "Cash Transfer"
-        binding.transAmount.text = sendCashModel.cashAmount
-        binding.transNarration.text = sendCashModel.narration
+        binding.transAmount.text = cashAmount
+        binding.transNarration.text = narration
     }
 
 

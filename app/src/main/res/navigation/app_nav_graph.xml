@@ -91,7 +91,7 @@
 
 
 
-<fragment
+    <fragment
         android:id="@+id/cablePayment"
         android:name="com.interswitchng.interswitchpos.views.fragments.CableTvLandingFragment"
         android:label="fragment_cable_tv_payment"
@@ -122,7 +122,7 @@
         tools:layout="@layout/fragment_send_cash_landing" >
 
         <action
-            android:id="@+id/action_sendCash_to_transactionSummaryFragment"
+            android:id="@+id/action_sendCash_to_sendCashSummaryFragment"
             app:destination="@id/sendByCashSummary" />
     </fragment>
 
@@ -132,13 +132,22 @@
         android:label="fragment_send_cash_transfer_summary"
         tools:layout="@layout/fragment_send_cash_transfer_summary" >
 
-        <action
-            android:id="@+id/action_sendCash_to_transactionSummaryFragment"
-            app:destination="@id/accountSetupFragment2" />
-
         <argument
-            android:name="sendCashModel"
-            app:argType="com.interswitchng.interswitchpos.domain.models.SendCashTransferModel" />
+            android:name="cashAmount"
+            app:argType="string" />
+        <argument
+            android:name="acctNum"
+            app:argType="string" />
+        <argument
+            android:name="acctName"
+            app:argType="string" />
+        <argument
+            android:name="bankName"
+            app:argType="string" />
+        <argument
+            android:name="narration"
+            app:argType="string" />
+
     </fragment>
 
     <fragment

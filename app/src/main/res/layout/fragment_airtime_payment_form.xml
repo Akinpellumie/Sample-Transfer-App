@@ -51,7 +51,8 @@
                 android:background="@drawable/rectangle_grey_border"
                 android:hint="XXX XXX XXXX"
                 android:textSize="@dimen/astrapos_text_size"
-                android:inputType="text"
+                android:maxLength="11"
+                android:inputType="number"
                 android:padding="15dp"
                 android:fontFamily="@font/nimbus_regular"
                 android:selectAllOnFocus="true" />
@@ -88,7 +89,7 @@
                 android:background="@drawable/rectangle_grey_border"
                 android:hint="NGN 0.00"
                 android:textSize="@dimen/astrapos_text_size"
-                android:inputType="text"
+                android:inputType="number"
                 android:padding="15dp"
                 android:fontFamily="@font/nimbus_regular"
                 android:selectAllOnFocus="true" />
