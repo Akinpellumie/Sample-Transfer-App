@@ -6,11 +6,12 @@ public class Constants {
     {
         return "http://192.168.3.169:3333";
     }
-    public static String airtimeRechargeUrl() {
+//    public static String airtimeRechargeUrl() {
+//        return Constants.domainurl() + "/pin/transactions/initiate";
+//    }
+    public static String InititateTransactionUrl() {
         return Constants.domainurl() + "/pin/transactions/initiate";
     }
-
-
     public static String getRechargeCustomPaycode() {
         return "234590";
     }
