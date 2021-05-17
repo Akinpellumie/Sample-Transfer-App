@@ -85,10 +85,21 @@ class AirtimeRechargeSummaryFragment : Fragment(), ICompleteBillCallBack {
         //val tranxnId = tr?.data?.profileInfo?.firstname.toString()
         val tranxnId = completeTranxnData?.data?.getTransactionId().toString();
         val amount = completeTranxnData?.data?.getAmount().toString();
-
+        val message = completeTranxnData?.getMessage().toString();
 
         val action = AirtimeRechargeSummaryFragmentDirections.actionAirtimeSummaryToTransactionSuccessFragment(tranxnId, amount)
         //val action = AirtimePaymentFormFragmentDirections.actionLoginToHomeFragment(u)
         findNavController().navigate(action)
+
+//        if (tranxnId.isNotEmpty() && message.contains("Transaction Completed")){
+//            val action = AirtimeRechargeSummaryFragmentDirections.actionAirtimeSummaryToTransactionSuccessFragment(tranxnId, amount)
+//            //val action = AirtimePaymentFormFragmentDirections.actionLoginToHomeFragment(u)
+//            findNavController().navigate(action)
+//        }
+//        else{
+//            // go transaction failed page
+//        }
+
+
     }
 }
