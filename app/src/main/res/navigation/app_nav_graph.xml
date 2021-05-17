@@ -88,9 +88,12 @@
     <fragment
         android:id="@+id/airtimeRechargeSummary"
         android:name="com.interswitchng.interswitchpos.views.fragments.AirtimeRechargeSummaryFragment"
-        android:label="fragment_transactions_landing"
-        tools:layout="@layout/fragment_transactions_landing">
+        android:label="fragment_airtime_recharge_summary"
+        tools:layout="@layout/fragment_airtime_recharge_summary">
 
+        <action
+            android:id="@+id/action_airtimeSummary_to_transactionSuccessFragment"
+            app:destination="@id/transactionSuccessFragment" />
         <argument
             android:name="amount"
             app:argType="string" />
@@ -204,6 +207,24 @@
         <action
             android:id="@+id/action_transactionStatusFragment_to_transactionReceiptFragment"
             app:destination="@id/transactionReceiptFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/transactionSuccessFragment"
+        android:name="com.interswitchng.interswitchpos.views.fragments.TransactionSuccessFragment"
+        android:label="fragment_transaction_success"
+        tools:layout="@layout/fragment_transaction_success">
+        <argument
+            android:name="amount"
+            app:argType="string" />
+        <argument
+            android:name="tranxnId"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_transactionSuccessFragment_to_homelandingfragment"
+            app:destination="@id/home" />
+
     </fragment>
     <fragment
         android:id="@+id/transactionReceiptFragment"
