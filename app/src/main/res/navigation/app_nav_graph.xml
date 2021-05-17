@@ -121,7 +121,26 @@
         android:label="fragment_send_cash_landing"
         tools:layout="@layout/fragment_send_cash_landing" >
 
+        <action
+            android:id="@+id/action_sendCash_to_transactionSummaryFragment"
+            app:destination="@id/sendByCashSummary" />
     </fragment>
+
+    <fragment
+        android:id="@+id/sendByCashSummary"
+        android:name="com.interswitchng.interswitchpos.views.fragments.SendCashTransferSummaryFragment"
+        android:label="fragment_send_cash_transfer_summary"
+        tools:layout="@layout/fragment_send_cash_transfer_summary" >
+
+        <action
+            android:id="@+id/action_sendCash_to_transactionSummaryFragment"
+            app:destination="@id/accountSetupFragment2" />
+
+        <argument
+            android:name="sendCashModel"
+            app:argType="com.interswitchng.interswitchpos.domain.models.SendCashTransferModel" />
+    </fragment>
+
     <fragment
         android:id="@+id/settings"
         android:name="com.interswitchng.interswitchpos.views.fragments.SettingsLandingFragment"

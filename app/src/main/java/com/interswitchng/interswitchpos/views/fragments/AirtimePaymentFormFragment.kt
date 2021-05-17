@@ -80,7 +80,7 @@ class AirtimePaymentFormFragment : Fragment(), IAirtimeInitiateCallBack {
     }
 
     override fun OnAirtimeInitiate(tranxnInitiateData: TranxnInitiateModel?) {
-        TODO("Not yet implemented")
+
         //navigate to other view passing user data
         //val tranxnId = tr?.data?.profileInfo?.firstname.toString()
         val tranxnId = tranxnInitiateData?.data?.getTransactionId();
