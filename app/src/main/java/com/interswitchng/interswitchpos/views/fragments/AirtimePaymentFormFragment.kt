@@ -57,7 +57,7 @@ class AirtimePaymentFormFragment : Fragment(), IAirtimeInitiateCallBack {
                 val phoneNumber = binding.airtimePhoneNoEntry.text.toString()
                 val rechargeAmount = binding.airtimeAmountEntry.text.toString()
 
-                airtimeRechargeRequests.execute(phoneNumber,rechargeAmount)
+                airtimeRechargeRequests.execute(phoneNumber,rechargeAmount, rechargeType)
             }
     else {
         val text = "Oops!! Entry Field cannot be empty!!"
