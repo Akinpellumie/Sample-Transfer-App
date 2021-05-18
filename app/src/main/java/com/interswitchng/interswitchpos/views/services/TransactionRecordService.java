@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -15,14 +16,13 @@ import static com.interswitchng.interswitchpos.views.services.Constants.loggedIn
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
 
 public class TransactionRecordService extends AsyncTask<String, Void, TransactionRecordService> {
-    private RecordCallback callback;
+    private IRecordCallback callback;
     private String agentId;
     String userPhne = loggedInAgentPhoneNumber;
     String userPin = loggedInAgentPin;
 
-    public TransactionRecordService(RecordCallback callback, String agentId){
+    public TransactionRecordService(IRecordCallback callback){
         this.callback = callback;
-        this.agentId = agentId;
     }
 
     public TransactionRecordService getTransactionRecord(){
@@ -31,11 +31,11 @@ public class TransactionRecordService extends AsyncTask<String, Void, Transactio
 
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
-            MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(mediaType, "");
+//            MediaType mediaType = MediaType.parse("application/json");
+//            RequestBody body = RequestBody.create(mediaType, "");
             Request request = new Request.Builder()
                     .url(url)
-                    .method("POST", body)
+                    .method("GET", null)
                     .addHeader("longitude", "3.142")
                     .addHeader("latitude", "-0.98")
                     .addHeader("corrlation-id", "1023")

@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
+import com.interswitchng.interswitchpos.views.services.LoginService
+import com.interswitchng.interswitchpos.views.services.TransactionRecordService
 import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback
 import com.interswitchng.interswitchpos.views.services.model.transactionrecord.TransactionRecord
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
@@ -19,6 +21,7 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback {
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentTransactionsLandingBinding
     //private lateinit var binding:
+    private val transactionRecordService = TransactionRecordService(this)
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()
@@ -28,16 +31,13 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback {
         super.onCreate(savedInstanceState)
     }
 
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-//                              savedInstanceState: Bundle?): View? {
-//        return inflater.inflate(R.layout.fragment_pay_bills_main, container, false)
-//
-//    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_transactions_landing, container, false)
+
+        //call transaction history java class
+        transactionRecordService.execute()
 
         // open filter view
         binding.filterIcon.setOnClickListener {
@@ -63,6 +63,6 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback {
     }
 
     override fun getTransactions(record: TransactionRecord?) {
-
+        //do nothing for now
     }
 }
