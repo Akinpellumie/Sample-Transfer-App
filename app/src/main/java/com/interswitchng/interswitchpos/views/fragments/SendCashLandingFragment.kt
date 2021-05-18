@@ -7,13 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentSendCashLandingBinding
-import com.interswitchng.interswitchpos.domain.models.SendCashTransferModel
-import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
-import com.interswitchng.smartpos.models.PaymentModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class SendCashLandingFragment : Fragment() {

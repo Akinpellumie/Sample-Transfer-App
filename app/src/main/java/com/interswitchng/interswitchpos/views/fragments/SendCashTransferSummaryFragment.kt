@@ -6,17 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
-import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
-import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
 import com.interswitchng.interswitchpos.databinding.FragmentSendCashTransferSummaryBinding
-import com.interswitchng.interswitchpos.domain.models.PaymentType
-import com.interswitchng.interswitchpos.utils.showSnack
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
-import com.interswitchng.smartpos.IswTxnHandler
-import com.interswitchng.smartpos.models.core.TerminalInfo
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SendCashTransferSummaryFragment : Fragment() {

@@ -6,20 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
-import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
-import com.interswitchng.interswitchpos.databinding.FragmentPayBillsMainBinding
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
-import com.interswitchng.interswitchpos.domain.models.PaymentType
-import com.interswitchng.interswitchpos.utils.showSnack
+import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback
+import com.interswitchng.interswitchpos.views.services.model.transactionrecord.TransactionRecord
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
-import com.interswitchng.smartpos.IswTxnHandler
-import com.interswitchng.smartpos.models.core.TerminalInfo
 import kotlinx.android.synthetic.main.fragment_transactions_landing.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class TransactionsLandingFragment : Fragment() {
+class TransactionsLandingFragment : Fragment(), IRecordCallback {
 
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentTransactionsLandingBinding
@@ -65,5 +60,9 @@ class TransactionsLandingFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = TransactionsLandingFragment()
+    }
+
+    override fun getTransactions(record: TransactionRecord?) {
+
     }
 }
