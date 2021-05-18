@@ -2,7 +2,7 @@ package com.interswitchng.interswitchpos.views.services;
 
 public class Constants {
 
-    public static String DomainUrl()
+    public static String domainurl()
     {
         return "http://192.168.3.169:3333";
     }
@@ -10,16 +10,10 @@ public class Constants {
 //        return Constants.domainurl() + "/pin/transactions/initiate";
 //    }
     public static String InititateTransactionUrl() {
-        return Constants.DomainUrl() + "/pin/transactions/initiate";
-    }
-    public static String CompleteTransactionUrl() {
-        return Constants.DomainUrl() + "/transactions/complete";
-    }
-    public static String TransactionHistoryUrl() {
-        return Constants.DomainUrl() + "/agent/transactions/" + loggedInAgentId;
+        return Constants.domainurl() + "/pin/transactions/initiate";
     }
     public static String LoginUrl() {
-        return Constants.DomainUrl() + "/pin/login";
+        return Constants.domainurl() + "/pin/login";
     }
     public static String getRechargeCustomPaycode() {
         return "234590";
@@ -69,7 +63,6 @@ public class Constants {
     public static String loggedInAgentPhoneNumber;
 
     public static String loggedInAgentEmail;
-    public static String loggedInAgentFirstname;
     public static String loggedInAgentId;
     public static String TransId;
     public static String SendCashInitTransId;
@@ -95,20 +88,5 @@ public class Constants {
         return "STANBIC";
     }
 
-    public static String getMtnVtuBiller() {
-        return "109";
-    }
-    public static String getGloVtuBiller() {
-        return "402";
-    }
-    public static String getAirtelVtuBiller() {
-        return "901";
-    }
-    public static String get9MobileVtuBiller() {
-        return "120";
-    }
-    public static String getDstvPlanBiller() {
-        return "104";
-    }
 
 }
