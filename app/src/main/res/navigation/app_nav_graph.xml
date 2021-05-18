@@ -76,9 +76,33 @@
         android:label="fragment_airtime_payment_form"
         tools:layout="@layout/fragment_airtime_payment_form">
 
+        <action
+            android:id="@+id/action_airtimepaymentform_to_airtimerechargesummaryfragment"
+            app:destination="@id/airtimeRechargeSummary" />
+
         <argument
             android:name="rechargeType"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/airtimeRechargeSummary"
+        android:name="com.interswitchng.interswitchpos.views.fragments.AirtimeRechargeSummaryFragment"
+        android:label="fragment_transactions_landing"
+        tools:layout="@layout/fragment_transactions_landing">
+
+        <argument
+            android:name="amount"
+            app:argType="string" />
+
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+
+        <argument
+            android:name="tranxnId"
+            app:argType="string" />
+
     </fragment>
 
     <fragment
@@ -91,7 +115,7 @@
 
 
 
-<fragment
+    <fragment
         android:id="@+id/cablePayment"
         android:name="com.interswitchng.interswitchpos.views.fragments.CableTvLandingFragment"
         android:label="fragment_cable_tv_payment"
@@ -121,7 +145,35 @@
         android:label="fragment_send_cash_landing"
         tools:layout="@layout/fragment_send_cash_landing" >
 
+        <action
+            android:id="@+id/action_sendCash_to_sendCashSummaryFragment"
+            app:destination="@id/sendByCashSummary" />
     </fragment>
+
+    <fragment
+        android:id="@+id/sendByCashSummary"
+        android:name="com.interswitchng.interswitchpos.views.fragments.SendCashTransferSummaryFragment"
+        android:label="fragment_send_cash_transfer_summary"
+        tools:layout="@layout/fragment_send_cash_transfer_summary" >
+
+        <argument
+            android:name="cashAmount"
+            app:argType="string" />
+        <argument
+            android:name="acctNum"
+            app:argType="string" />
+        <argument
+            android:name="acctName"
+            app:argType="string" />
+        <argument
+            android:name="bankName"
+            app:argType="string" />
+        <argument
+            android:name="narration"
+            app:argType="string" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/settings"
         android:name="com.interswitchng.interswitchpos.views.fragments.SettingsLandingFragment"

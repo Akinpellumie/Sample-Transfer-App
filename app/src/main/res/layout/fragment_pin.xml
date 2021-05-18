@@ -95,7 +95,7 @@
                 android:digits="0123456789"
                 android:gravity="center"
                 android:inputType="numberPassword"
-                android:maxLength="6"
+                android:maxLength="4"
                 android:textIsSelectable="false"
                 android:clickable="false"
                 android:focusable="false"

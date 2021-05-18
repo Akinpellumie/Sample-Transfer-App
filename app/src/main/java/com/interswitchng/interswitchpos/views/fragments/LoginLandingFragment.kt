@@ -53,7 +53,7 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
             loggedInAgentPhoneNumber = userId
 
             //call loader
-            binding.loading.visibility = View.VISIBLE
+            binding.llProgressBar.visibility = View.VISIBLE
 
             //lock entry and button
             binding.loginBtn.isClickable = false
@@ -92,7 +92,8 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
         val action = LoginLandingFragmentDirections.actionLoginToHomeFragment(userFirstname)
         findNavController().navigate(action)
         //call loader
-        binding.loading.visibility = View.GONE
+        binding.llProgressBar.visibility = View.GONE
+        //binding.loading.visibility = View.GONE
 
         //lock entry and button
         binding.loginBtn.isClickable = true

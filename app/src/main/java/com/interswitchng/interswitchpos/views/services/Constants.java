@@ -6,11 +6,15 @@ public class Constants {
     {
         return "http://192.168.3.169:3333";
     }
-    public static String airtimeRechargeUrl() {
+//    public static String airtimeRechargeUrl() {
+//        return Constants.domainurl() + "/pin/transactions/initiate";
+//    }
+    public static String InititateTransactionUrl() {
         return Constants.domainurl() + "/pin/transactions/initiate";
     }
-
-
+    public static String LoginUrl() {
+        return Constants.domainurl() + "/pin/login";
+    }
     public static String getRechargeCustomPaycode() {
         return "234590";
     }
@@ -59,6 +63,30 @@ public class Constants {
     public static String loggedInAgentPhoneNumber;
 
     public static String loggedInAgentEmail;
+    public static String loggedInAgentId;
     public static String TransId;
+    public static String SendCashInitTransId;
+    public static String getFBNcode() {
+        return "FBN";
+    }
+    public static String getECOcode() {
+        return "ECO";
+    }
+    public static String getGTBcode() {
+        return "GTB";
+    }
+    public static String getUBAcode() {
+        return "UBA";
+    }
+    public static String getZIBcode() {
+        return "ZIB";
+    }
+    public static String getABPcode() {
+        return "ABP";
+    }
+    public static String getStanbiccode() {
+        return "STANBIC";
+    }
+
 
 }

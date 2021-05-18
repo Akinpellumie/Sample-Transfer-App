@@ -150,7 +150,7 @@ class AccountSetupFragment : Fragment(), CallbackListener {
         val owner = { lifecycle }
 
         with(appViewModel) {
-            //observe the benefiary call
+            //observe the beneficiary call
             accountValidationResponse.observe(owner) {
                 it?.let { beneficiary ->
                     dialog.let { d->
