@@ -17,6 +17,16 @@ public class ProfileInfo{
     public String city;
     public String userIdentityType;
     public String userIdentityNumber;
+    public String merchantWalletBallance;
+
+    public String getMerchantWalletBallance() {
+        return merchantWalletBallance;
+    }
+
+    public void setMerchantWalletBallance(String merchantWalletBallance) {
+        this.merchantWalletBallance = merchantWalletBallance;
+    }
+
 
     public String getEmail() {
         return email;

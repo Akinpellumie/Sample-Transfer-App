@@ -15,8 +15,8 @@ import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionStatusBinding
 import com.interswitchng.interswitchpos.utils.getAmountWithCurrency
 import com.interswitchng.interswitchpos.utils.hide
-import com.interswitchng.interswitchpos.utils.showSnack
-import com.interswitchng.interswitchpos.views.services.TransactionStatusNotifier
+import com.interswitchng.interswitchpos.views.services.TransactionCompleteNotifier
+import com.interswitchng.interswitchpos.views.services.TransactionInitNotifier
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswTxnHandler
 import com.interswitchng.smartpos.models.printer.slips.TransactionSlip
@@ -36,7 +36,7 @@ class TransactionStatusFragment : Fragment() {
     private var printSlip: TransactionSlip? = null
     private val viewModel: AppViewModel by viewModel()
     private lateinit var binding :FragmentTransactionStatusBinding
-    private val transactionNotifier = TransactionStatusNotifier()
+    private val transactionStatusNotifier = TransactionCompleteNotifier()
 
     private val terminalInfo by lazy {
         IswTxnHandler().getTerminalInfo()
@@ -167,6 +167,11 @@ class TransactionStatusFragment : Fragment() {
                 binding.iswGoToLanding.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this.requireContext(), com.interswitchng.smartpos.R.color.iswTextColorError))
                 binding.iswReceiptTextTransfer.text = "Failed!"
                 binding.iswTransactionMsgTransfer.text = "Your transaction was unsuccessful"
+
+                val status = "FAILED"
+                val reff = result?.ref
+
+                transactionStatusNotifier.execute(status,reff)
             }
 
             IsoUtils.OK -> {
@@ -177,12 +182,12 @@ class TransactionStatusFragment : Fragment() {
                 binding.iswReceiptTextTransfer.text =
                         getString(R.string.thank_you)
 
-                val amountWithCurrency = result?.amount
-                val cardType = result?.cardType.toString()
-                val stat = "SUCCESSFUL"
-                //val reff = result?.ref
+//                val amountWithCurrency = result?.amount
+//                val cardType = result?.cardType.toString()
+                val status = "SUCCESSFUL"
+                val reff = result?.ref
 
-                transactionNotifier.execute(amountWithCurrency,stat,cardType)
+                transactionStatusNotifier.execute(status,reff)
             }
 
             else -> {
@@ -192,6 +197,11 @@ class TransactionStatusFragment : Fragment() {
                 binding.iswReceiptTextTransfer.text = "Failed!"
                 binding.iswTransactionMsgTransfer.text =
                         result?.responseMessage//"Your transaction was unsuccessful"
+
+                val status = "SUCCESSFUL"
+                val reff = result?.ref
+
+                transactionStatusNotifier.execute(status,reff)
             }
         }
     }

@@ -40,9 +40,7 @@
         <action
             android:id="@+id/action_home_to_transactionPageFragment"
             app:destination="@id/transactionPage" />
-        <argument
-            android:name="userFirstname"
-            app:argType="string" />
+
     </fragment>
 
     <fragment
@@ -148,7 +146,42 @@
         android:label="fragment_send_cash_landing"
         tools:layout="@layout/fragment_send_cash_landing" >
 
+        <action
+            android:id="@+id/action_sendCash_to_sendCashSummaryFragment"
+            app:destination="@id/sendByCashSummary" />
     </fragment>
+
+    <fragment
+        android:id="@+id/sendByCashSummary"
+        android:name="com.interswitchng.interswitchpos.views.fragments.SendCashTransferSummaryFragment"
+        android:label="fragment_send_cash_transfer_summary"
+        tools:layout="@layout/fragment_send_cash_transfer_summary" >
+
+        <action
+            android:id="@+id/action_sendCashSummary_to_successFragment"
+            app:destination="@id/transactionSuccessFragment" />
+
+        <argument
+            android:name="cashAmount"
+            app:argType="string" />
+        <argument
+            android:name="acctNum"
+            app:argType="string" />
+        <argument
+            android:name="acctName"
+            app:argType="string" />
+        <argument
+            android:name="bankName"
+            app:argType="string" />
+        <argument
+            android:name="narration"
+            app:argType="string" />
+        <argument
+            android:name="transId"
+            app:argType="string" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/settings"
         android:name="com.interswitchng.interswitchpos.views.fragments.SettingsLandingFragment"

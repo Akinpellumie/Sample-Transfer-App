@@ -28,7 +28,7 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
     }
 
     public TranxnInitiateModel postRechargeWithCash(String phoneNumber, String amount, String rechargeType){
-        String url = Constants.airtimeRechargeUrl();
+        String url = Constants.InititateTransactionUrl();
 
 
         try{

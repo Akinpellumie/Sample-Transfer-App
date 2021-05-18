@@ -10,9 +10,14 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/mainView"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <!--        amount entry-->
             <LinearLayout
@@ -44,48 +49,8 @@
                     android:paddingLeft="15dp"
                     android:selectAllOnFocus="true"
                     android:paddingStart="15dp"
-                    android:focusable="false"
-                    android:textSize="15sp"/>
-
-            </LinearLayout>
-
-
-            <!--        account number entry-->
-            <LinearLayout
-                android:id="@+id/acctNoLayout"
-                android:layout_below="@+id/amountLayout"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/account_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/account_number"
-                    android:padding="10dp"
-                    android:textColor="@color/iswTextColorBlack"
-                    android:fontFamily="@font/nimbus_regular"
-                    android:textSize="15sp">
-                </TextView>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/isw_transfer_input_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/rectangle_grey_border"
-                    android:hint="@string/enter_acct_no"
-                    android:inputType="number"
-                    android:fontFamily="@font/nimbus_regular"
-                    android:paddingLeft="15dp"
-                    android:selectAllOnFocus="true"
-                    android:paddingStart="15dp"
-                    android:focusable="false"
                     android:textSize="15sp"
-                    android:gravity="center_vertical"
-                    android:maxLength="10"
                     tools:ignore="RtlSymmetry" />
-
 
             </LinearLayout>
 
@@ -94,7 +59,7 @@
                 android:id="@+id/bankLayout"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/acctNoLayout"
+                android:layout_below="@+id/amountLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -111,7 +76,7 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/isw_transfer_input_bank"
+                    android:id="@+id/bankNameEntry"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/rectangle_grey_border"
@@ -121,9 +86,9 @@
                     android:fontFamily="@font/nimbus_regular"
                     android:paddingLeft="15dp"
                     android:paddingRight="10dp"
-                    android:selectAllOnFocus="true"
-                    android:paddingStart="15dp"
+                    android:selectAllOnFocus="false"
                     android:focusable="false"
+                    android:paddingStart="15dp"
                     android:textSize="15sp"
                     android:gravity="center_vertical"
                     android:maxLength="10"
@@ -131,13 +96,50 @@
                     android:drawableRight="@drawable/ic_down" />
             </LinearLayout>
 
+            <!--        account number entry-->
+            <LinearLayout
+                android:id="@+id/acctNoLayout"
+                android:layout_below="@+id/bankLayout"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/account_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_number"
+                    android:padding="10dp"
+                    android:textColor="@color/iswTextColorBlack"
+                    android:fontFamily="@font/nimbus_regular"
+                    android:textSize="15sp">
+                </TextView>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/acctNumEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rectangle_grey_border"
+                    android:hint="@string/enter_acct_no"
+                    android:inputType="number"
+                    android:fontFamily="@font/nimbus_regular"
+                    android:paddingLeft="15dp"
+                    android:selectAllOnFocus="true"
+                    android:paddingStart="15dp"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:maxLength="10"
+                    tools:ignore="RtlSymmetry" />
+
+
+            </LinearLayout>
 
             <!--        account name entry-->
             <LinearLayout
                 android:id="@+id/acctNameLayout"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/bankLayout"
+                android:layout_below="@+id/acctNoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -155,7 +157,7 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/isw_transfer_input_account_name"
+                    android:id="@+id/acctNameEntry"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/rectangle_grey_border"
@@ -164,6 +166,8 @@
                     android:fontFamily="@font/nimbus_regular"
                     android:paddingLeft="15dp"
                     android:paddingStart="15dp"
+                    android:focusable="false"
+                    android:textIsSelectable="false"
                     android:focusableInTouchMode="false"
                     android:textSize="15sp"
                     android:gravity="center_vertical"
@@ -192,7 +196,7 @@
                     tools:ignore="RelativeOverlap" />
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/naraEntry"
+                    android:id="@+id/narrationEntry"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/rectangle_grey_border"
@@ -202,13 +206,12 @@
                     android:paddingLeft="15dp"
                     android:selectAllOnFocus="true"
                     android:paddingStart="15dp"
-                    android:focusable="false"
                     tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
 
             <Button
-                android:id="@+id/continueBtn"
+                android:id="@+id/initiateBtn"
                 android:layout_below="@+id/naraLayout"
                 android:layout_width="match_parent"
                 android:layout_marginTop="30dp"
@@ -219,8 +222,24 @@
                 android:textSize="18sp"
                 android:textAllCaps="false"
                 android:textColor="@color/whiteColor"
-                android:text="Continue"/>
+                android:text="@string/initiate_transfer"/>
 
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/llProgressBar"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--            Add you UI Content here-->
+
+                <include
+                    android:id="@+id/lllProgressBar"
+                    android:visibility="visible"
+                    layout="@layout/layout_progress_bar"/>
+            </RelativeLayout>
         </RelativeLayout>
+
     </ScrollView>
 </layout>

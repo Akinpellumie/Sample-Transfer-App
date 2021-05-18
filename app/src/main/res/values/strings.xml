@@ -64,4 +64,6 @@
     <string name="thank_you">Thank You!</string>
     <string name="choose_network_provider">Choose Network Provider</string>
     <string name="filter_icon">filter icon</string>
+    <string name="initiate_transfer">Initiate Transfer</string>
+    <string name="make_transfer">Make Transfer</string>
 </resources>

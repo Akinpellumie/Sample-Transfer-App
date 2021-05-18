@@ -258,6 +258,13 @@
                         </RelativeLayout>
                     </RelativeLayout>
 
+                    <!--            Add you UI Content here-->
+
+                    <include
+                        android:id="@+id/llProgressBar"
+                        android:visibility="gone"
+                        layout="@layout/layout_progress_bar"/>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

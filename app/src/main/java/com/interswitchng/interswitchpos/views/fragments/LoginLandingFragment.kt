@@ -11,11 +11,15 @@ import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
 import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
+import com.interswitchng.interswitchpos.views.services.Constants
+import com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber
+import com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin
 import com.interswitchng.interswitchpos.views.services.LoginService
 import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack
 import com.interswitchng.interswitchpos.views.services.model.login.LoginModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.reflect.jvm.internal.impl.load.java.Constant
 
 class LoginLandingFragment : Fragment(), ILoginCallBack {
 
@@ -47,7 +51,19 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
         if (binding.password.text.isNotEmpty() || binding.username.text.isNotEmpty()) {
             val userId = binding.username.text.toString()
             val userPin = binding.password.text.toString()
+            loggedInAgentPin = userPin
+            loggedInAgentPhoneNumber = userId
 
+            //call loader
+            binding.llProgressBar.visibility = View.VISIBLE
+
+            //lock entry and button
+            binding.loginBtn.isClickable = false
+            binding.loginBtn.isEnabled = false
+            binding.usernameEntry.isEnabled = false
+            binding.passwordEntry.isEnabled = false
+
+            //call loginService Java class
             loginService.execute(userId,userPin)
 
 //            val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
@@ -75,7 +91,17 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
     override fun OnLogin(user: LoginModel?) {
         //navigate to other view passing user data
         val userFirstname = user?.data?.profileInfo?.firstname.toString()
-        val action = LoginLandingFragmentDirections.actionLoginToHomeFragment(userFirstname)
+        Constants.loggedInAgentFirstname = userFirstname
+        val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
         findNavController().navigate(action)
+        //call loader
+        binding.llProgressBar.visibility = View.GONE
+        //binding.loading.visibility = View.GONE
+
+        //lock entry and button
+        binding.loginBtn.isClickable = true
+        binding.loginBtn.isEnabled = true
+        binding.usernameEntry.isEnabled = true
+        binding.passwordEntry.isEnabled = true
     }
 }

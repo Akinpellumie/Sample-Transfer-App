@@ -12,6 +12,7 @@ import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
 import com.interswitchng.interswitchpos.domain.models.PaymentType
 import com.interswitchng.interswitchpos.utils.showSnack
+import com.interswitchng.interswitchpos.views.services.Constants
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswTxnHandler
 import com.interswitchng.smartpos.models.core.TerminalInfo
@@ -21,8 +22,8 @@ class HomeLandingFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentHomeLandingBinding
-    private val args by navArgs<HomeLandingFragmentArgs>()
-    private val userFirstname by lazy { args.userFirstname }
+//    private val args by navArgs<HomeLandingFragmentArgs>()
+//    private val userFirstname by lazy { args.userFirstname }
 
     private val terminalInfo by lazy {
         IswTxnHandler().getTerminalInfo()
@@ -41,7 +42,7 @@ class HomeLandingFragment : Fragment() {
         }
 
         //bind loginData to homePage UI
-        binding.userFirstname.text = userFirstname
+        binding.userFirstname.text =   Constants.loggedInAgentFirstname
         //navigate to Amount fragment
         binding.iswTransferCard.setOnClickListener {
 //            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)
