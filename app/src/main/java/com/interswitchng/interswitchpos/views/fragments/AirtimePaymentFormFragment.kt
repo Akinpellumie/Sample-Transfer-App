@@ -88,7 +88,7 @@ class AirtimePaymentFormFragment : Fragment(), IAirtimeInitiateCallBack {
         val tranxnId = tranxnInitiateData?.data?.getTransactionId().toString();
 
 
-        val action = AirtimePaymentFormFragmentDirections.actionAirtimepaymentformToAirtimerechargesummaryfragment(tranxnId, phoneNumber, rechargeAmount)
+        val action = AirtimePaymentFormFragmentDirections.actionAirtimepaymentformToAirtimerechargesummaryfragment(rechargeAmount, phoneNumber,tranxnId)
        //val action = AirtimePaymentFormFragmentDirections.actionLoginToHomeFragment(u)
         findNavController().navigate(action)
     }

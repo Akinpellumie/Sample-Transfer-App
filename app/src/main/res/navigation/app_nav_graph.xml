@@ -40,9 +40,7 @@
         <action
             android:id="@+id/action_home_to_transactionPageFragment"
             app:destination="@id/transactionPage" />
-        <argument
-            android:name="userFirstname"
-            app:argType="string" />
+
     </fragment>
 
     <fragment
@@ -159,6 +157,10 @@
         android:label="fragment_send_cash_transfer_summary"
         tools:layout="@layout/fragment_send_cash_transfer_summary" >
 
+        <action
+            android:id="@+id/action_sendCashSummary_to_successFragment"
+            app:destination="@id/transactionSuccessFragment" />
+
         <argument
             android:name="cashAmount"
             app:argType="string" />
@@ -173,6 +175,9 @@
             app:argType="string" />
         <argument
             android:name="narration"
+            app:argType="string" />
+        <argument
+            android:name="transId"
             app:argType="string" />
 
     </fragment>

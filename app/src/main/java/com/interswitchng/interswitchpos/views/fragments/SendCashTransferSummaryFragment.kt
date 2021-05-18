@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -14,12 +15,17 @@ import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
 import com.interswitchng.interswitchpos.databinding.FragmentSendCashTransferSummaryBinding
 import com.interswitchng.interswitchpos.domain.models.PaymentType
 import com.interswitchng.interswitchpos.utils.showSnack
+import com.interswitchng.interswitchpos.views.services.CompleteSendCashTransfer
+import com.interswitchng.interswitchpos.views.services.SendCashTransferInitService
+import com.interswitchng.interswitchpos.views.services.interfaces.ISendCashTransferCallBack
+import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
+import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswTxnHandler
 import com.interswitchng.smartpos.models.core.TerminalInfo
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class SendCashTransferSummaryFragment : Fragment() {
+class SendCashTransferSummaryFragment : Fragment(), ISendCashTransferCallBack {
 
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentSendCashTransferSummaryBinding
@@ -29,6 +35,8 @@ class SendCashTransferSummaryFragment : Fragment() {
     private val acctNum by lazy { args.acctNum }
     private val bankName by lazy { args.bankName }
     private val narration by lazy { args.narration }
+    private val transId by lazy { args.transId }
+    private val completeSendCashTransfer = CompleteSendCashTransfer(this)
 
 
 
@@ -55,16 +63,52 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 }
 
     private fun setUpUI() {
-        binding.transAcctName.text = acctName
+        val myAcctname = acctName.substring(9)
+        binding.transAcctName.text = myAcctname
         binding.transAcctNum.text = acctNum
         binding.transType.text = "Cash Transfer"
         binding.transAmount.text = cashAmount
         binding.transNarration.text = narration
+
+        //proceed to summary page and call initiate send cash
+        binding.completeTransferBtn.setOnClickListener {
+
+            if(binding.pinEntry.text.length <= 6 && binding.pinEntry.text.isNotEmpty()){
+                //call complete transaction
+                binding.llProgressBar.visibility = View.VISIBLE
+                val transId = transId
+                val userPin = binding.pinEntry.text
+                completeSendCashTransfer.execute(transId, userPin.toString())
+            }
+            else{
+                val text = "Oops!!, Enter Pin to continue"
+                val duration = Toast.LENGTH_LONG
+
+                Toast.makeText(context, text, duration).show()
+            }
+
+        }
+
     }
+
 
 
     companion object {
         @JvmStatic
         fun newInstance() = SendCashTransferSummaryFragment()
+    }
+
+    override fun OnSendCashInitialize(tranxnInitiateData: TranxnInitiateModel?) {
+       //do nothing
+    }
+
+    override fun OnSendCashComplete(commpleteTranxnData: CompleteTransactionModel?) {
+        binding.llProgressBar.visibility = View.GONE
+        val amount = binding.transAmount.text
+        val tranxnId = transId
+        val action = SendCashTransferSummaryFragmentDirections.actionSendCashSummaryToSuccessFragment(
+                amount.toString(),tranxnId
+        )
+        findNavController().navigate(action)
     }
 }

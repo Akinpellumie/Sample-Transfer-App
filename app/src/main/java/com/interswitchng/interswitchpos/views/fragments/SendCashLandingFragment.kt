@@ -18,9 +18,11 @@ import com.interswitchng.interswitchpos.databinding.FragmentSendCashLandingBindi
 import com.interswitchng.interswitchpos.utils.BankFilterDialog
 import com.interswitchng.interswitchpos.utils.SendCashBankFilterDialog
 import com.interswitchng.interswitchpos.utils.customdailog
+import com.interswitchng.interswitchpos.views.services.Constants
 import com.interswitchng.interswitchpos.views.services.SendCashTransferInitService
 import com.interswitchng.interswitchpos.views.services.TransactionCompleteNotifier
 import com.interswitchng.interswitchpos.views.services.interfaces.ISendCashTransferCallBack
+import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.models.BankModel
@@ -110,7 +112,7 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
 
 
 
-        //proceed to summary page
+        //proceed to summary page and call initiate send cash
         binding.initiateBtn.setOnClickListener {
             cashAmount = binding.amountEntry.text.toString()
             acctNum = binding.acctNumEntry.text.toString()
@@ -230,9 +232,14 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
     override fun OnSendCashInitialize(tranxnInitiateData: TranxnInitiateModel?) {
         //call initiate transaction
         binding.llProgressBar.visibility = View.GONE
+        val transId = Constants.SendCashInitTransId
         val action = SendCashLandingFragmentDirections.actionSendCashToSendCashSummaryFragment(
-                cashAmount,acctNum,userAcctName,userBankName,narration
+                cashAmount,acctNum,userAcctName,userBankName,narration,transId.toString()
         )
         findNavController().navigate(action)
+    }
+
+    override fun OnSendCashComplete(commpleteTranxnData: CompleteTransactionModel?) {
+        //do nothing for now
     }
 }

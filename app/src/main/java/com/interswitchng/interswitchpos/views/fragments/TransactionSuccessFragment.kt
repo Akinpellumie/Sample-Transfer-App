@@ -50,11 +50,11 @@ class TransactionSuccessFragment : Fragment() {
 //            cardFilterView.visibility = View.VISIBLE
 //        }
 
-        // navigate to cable Tv fragment
-//        binding.cableCard.setOnClickListener {
-//            val action = PayBillMainLandingFragmentDirections.actionBillToCableFragment()
-//            findNavController().navigate(action)
-//        }
+         //navigate to Home fragment
+        binding.buttonBackToHome.setOnClickListener {
+            val action = TransactionSuccessFragmentDirections.actionTransactionSuccessFragmentToHomelandingfragment()
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 

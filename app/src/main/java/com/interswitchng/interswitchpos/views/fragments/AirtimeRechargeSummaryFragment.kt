@@ -87,7 +87,7 @@ class AirtimeRechargeSummaryFragment : Fragment(), ICompleteBillCallBack {
         val amount = completeTranxnData?.data?.getAmount().toString();
         val message = completeTranxnData?.getMessage().toString();
 
-        val action = AirtimeRechargeSummaryFragmentDirections.actionAirtimeSummaryToTransactionSuccessFragment(tranxnId, amount)
+        val action = AirtimeRechargeSummaryFragmentDirections.actionAirtimeSummaryToTransactionSuccessFragment(amount, tranxnId)
         //val action = AirtimePaymentFormFragmentDirections.actionLoginToHomeFragment(u)
         findNavController().navigate(action)
 

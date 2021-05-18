@@ -12,6 +12,9 @@ public class Constants {
     public static String InititateTransactionUrl() {
         return Constants.domainurl() + "/pin/transactions/initiate";
     }
+    public static String CompleteTransactionUrl() {
+        return Constants.domainurl() + "/transactions/complete";
+    }
     public static String LoginUrl() {
         return Constants.domainurl() + "/pin/login";
     }
@@ -63,6 +66,7 @@ public class Constants {
     public static String loggedInAgentPhoneNumber;
 
     public static String loggedInAgentEmail;
+    public static String loggedInAgentFirstname;
     public static String loggedInAgentId;
     public static String TransId;
     public static String SendCashInitTransId;

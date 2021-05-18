@@ -10,9 +10,14 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/mainView"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <!--        amount entry-->
             <LinearLayout
@@ -219,14 +224,22 @@
                 android:textColor="@color/whiteColor"
                 android:text="@string/initiate_transfer"/>
 
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/llProgressBar"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--            Add you UI Content here-->
+
+                <include
+                    android:id="@+id/lllProgressBar"
+                    android:visibility="visible"
+                    layout="@layout/layout_progress_bar"/>
+            </RelativeLayout>
         </RelativeLayout>
 
-        <!--            Add you UI Content here-->
-
-        <include
-            android:id="@+id/llProgressBar"
-            android:visibility="gone"
-            layout="@layout/layout_progress_bar"/>
     </ScrollView>
 </layout>

@@ -5,6 +5,7 @@ public class Data{
     public ProfileInfo profileInfo;
     public NextOfKin nextOfKin;
     public Merchant merchant;
+    public MerchantWallet merchantWallet;
     public int isActive;
     public String createdAt;
     public String updatedAt;
