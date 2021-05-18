@@ -43,7 +43,7 @@ public class CompleteBillPayTransaction extends AsyncTask<String, Void, Complete
 
                 interswitchDetails.put("interswitchRef", "");
                 //add all json data to fulldata
-                fullData.put("interswitchDetails ", interswitchDetails);
+                fullData.put("interswitchDetails", interswitchDetails);
                 fullData.put("status", "");
                 fullData.put("charge", "");
                 fullData.put("transactionId", tranxnId);
