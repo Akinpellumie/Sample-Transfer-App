@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
+import com.interswitchng.interswitchpos.utils.adapters.TransactionsRecyclerAdapter
 import com.interswitchng.interswitchpos.views.services.LoginService
 import com.interswitchng.interswitchpos.views.services.TransactionRecordService
 import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback
@@ -64,5 +65,9 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback {
 
     override fun getTransactions(record: TransactionRecord?) {
         //do nothing for now
+        //instantiate adapter wit record in param
+        val tra = TransactionsRecyclerAdapter(record?.data)
+        //set adapter on recycler
+        binding.recentTransRecycler.adapter = tra
     }
 }

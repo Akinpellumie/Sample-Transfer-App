@@ -13,7 +13,15 @@ import com.interswitchng.interswitchpos.views.services.model.transactionrecord.D
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<TransactionsRecyclerAdapter.ViewHolder>{
     private List<Datum> localDataSet;
@@ -42,9 +50,9 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
     public void onBindViewHolder(@NonNull @NotNull TransactionsRecyclerAdapter.ViewHolder holder, int position) {
         Datum currentitem = localDataSet.get(position);
         //holder.imageView.setImageResource();
-        holder.transactionTypeTextView.setText(currentitem.transactionType);
-        holder.dateTextView.setText(currentitem.created_at);
-        holder.amountTextView.setText(currentitem.amount);
+        holder.transactionTypeTextView.setText(formatTransactionType(currentitem.transactionType));
+        holder.dateTextView.setText(formatTransactionDate(currentitem.created_at));
+        holder.amountTextView.setText(formatTransactionAmount(currentitem.amount));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -71,7 +79,7 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
             imageView = (ImageView) view.findViewById(R.id.iconView);
             transactionTypeTextView = (TextView) view.findViewById(R.id.desc);
             dateTextView = (TextView) view.findViewById(R.id.trans_date);
-            amountTextView = (TextView) view.findViewById(R.id.amount);
+            amountTextView = (TextView) view.findViewById(R.id.transAmount);
         }
 
         public ImageView getImageView() {
@@ -89,5 +97,38 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
         public TextView getAmountTextView() {
             return amountTextView;
         }
+    }
+
+    private String formatTransactionType(String transType){
+
+        if(transType.equalsIgnoreCase("BILLPAYMENTWITHCASH")){
+            return "Bill Payment";
+        }
+        else  if(transType.equalsIgnoreCase("CASHTRANSFER")){
+            return "Cash Transfer";
+        }
+        else  if(transType.equalsIgnoreCase("CARDWITHDRAWAL")){
+            return "Card Withdrawal";
+        }
+        else{
+            return transType;
+        }
+    }
+
+    private String formatTransactionDate(Date transDate){
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("dd MMM, yyyy");
+        String stringDate = DateFor.format(transDate);
+
+        //return date.toString();
+        return stringDate;
+    }
+
+    private String formatTransactionAmount(Integer transAmount){
+        double amount = transAmount;
+        StringBuilder sb = new StringBuilder();
+        Formatter formatter = new Formatter(sb, Locale.US);
+        formatter.format("N %(,.2f", amount);
+        return sb.toString();
     }
 }

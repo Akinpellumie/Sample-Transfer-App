@@ -16,6 +16,9 @@ public class Constants {
         return Constants.domainurl() + "/transactions/complete";
     }
     public static String TransactionHistoryUrl() {
+        return Constants.domainurl() + "/agent/transactions/agents/" + loggedInAgentId;
+    }
+    public static String FetchSingleTransactionUrl() {
         return Constants.domainurl() + "/agent/transactions/" + loggedInAgentId;
     }
     public static String LoginUrl() {

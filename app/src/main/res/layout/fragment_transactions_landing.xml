@@ -134,7 +134,7 @@
 
             <!-- Recyclerview: shows items-->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recentTransItemRv"
+                android:id="@+id/recentTransRecycler"
                 android:layout_marginTop="25dp"
                 android:layout_below="@+id/TransHeader"
                 android:layout_width="match_parent"

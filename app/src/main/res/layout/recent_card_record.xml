@@ -64,16 +64,15 @@
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/amount"
+                android:id="@+id/transAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:layout_weight=".20"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/nimbus_bold"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:textStyle="bold"
                 android:textColor="@color/txtColor"
                 android:text="-NGN 500"/>
         </LinearLayout>

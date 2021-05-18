@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback;
+import com.interswitchng.interswitchpos.views.services.model.transactionrecord.TransactionRecord;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -15,7 +16,7 @@ import okhttp3.Response;
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
 
-public class TransactionRecordService extends AsyncTask<String, Void, TransactionRecordService> {
+public class TransactionRecordService extends AsyncTask<String, Void, TransactionRecord> {
     private IRecordCallback callback;
     private String agentId;
     String userPhne = loggedInAgentPhoneNumber;
@@ -25,7 +26,7 @@ public class TransactionRecordService extends AsyncTask<String, Void, Transactio
         this.callback = callback;
     }
 
-    public TransactionRecordService getTransactionRecord(){
+    public TransactionRecord getTransactionRecord(){
         try{
             String url = Constants.TransactionHistoryUrl();
 
@@ -46,8 +47,10 @@ public class TransactionRecordService extends AsyncTask<String, Void, Transactio
             Response response = client.newCall(request).execute();
             String jsonString = response.body().string();
             Gson gson = new Gson();
-            TransactionRecordService tr = gson.fromJson(jsonString, TransactionRecordService.class);
-            return tr;
+
+//            TransactionRecord tr = gson.fromJson(jsonString, TransactionRecord.class);
+//            return tr;
+            return gson.fromJson(jsonString, TransactionRecord.class);
         }
         catch (Exception ex){
             Log.d("NotifyException::::", ex.getMessage());
@@ -56,12 +59,13 @@ public class TransactionRecordService extends AsyncTask<String, Void, Transactio
     }
 
     @Override
-    protected TransactionRecordService doInBackground(String... strings) {
+    protected TransactionRecord doInBackground(String... strings) {
         return getTransactionRecord();
     }
 
     @Override
-    protected void onPostExecute(TransactionRecordService transactionRecordService) {
-        super.onPostExecute(transactionRecordService);
+    protected void onPostExecute(TransactionRecord transactionRecord) {
+        callback.getTransactions(transactionRecord);
+        //super.onPostExecute(transactionRecordService);
     }
 }
