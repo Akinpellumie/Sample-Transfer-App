@@ -1,4 +1,4 @@
-package com.interswitchng.interswitchpos.views.services.model.transactionrecord
+package com.interswitchng.interswitchpos.domain.models
 
 enum class PaymentType {
     TRANSFER, CASHOUT, BILLPAYMENT, PURCHASE, AIRTIMERECHARGE, REVERSAL

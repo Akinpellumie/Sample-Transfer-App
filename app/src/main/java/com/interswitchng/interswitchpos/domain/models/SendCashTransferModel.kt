@@ -1,4 +1,4 @@
-package com.interswitchng.interswitchpos.views.services.model.transactionrecord
+package com.interswitchng.interswitchpos.domain.models
 
 public class SendCashTransferModel {
     public var cashAmount: String = ""
