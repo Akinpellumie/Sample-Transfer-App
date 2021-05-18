@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.interswitchng.interswitchpos.R
+import com.interswitchng.interswitchpos.databinding.FragmentTransactionReceiptBinding
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
 import com.interswitchng.interswitchpos.utils.adapters.TransactionsRecyclerAdapter
 import com.interswitchng.interswitchpos.views.services.LoginService
@@ -19,12 +20,12 @@ import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import kotlinx.android.synthetic.main.fragment_transactions_landing.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransactionSelectionCallBack {
+class TransactionsHistoryReceiptFragment : Fragment(), IRecordCallback, ISingleTransactionSelectionCallBack {
 
     private val viewmodel : AppViewModel by viewModel()
-    private lateinit var binding: FragmentTransactionsLandingBinding
+    private lateinit var binding: FragmentTransactionReceiptBinding
     //private lateinit var binding:
-    private val transactionRecordService = TransactionRecordService(this)
+    //private val transactionRecordService = TransactionRecordService(this)
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()
@@ -39,18 +40,6 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_transactions_landing, container, false)
 
-        //call transaction history java class
-        transactionRecordService.execute()
-
-        // open filter view
-        binding.filterIcon.setOnClickListener {
-            cardFilterView.visibility = View.VISIBLE
-        }
-
-        // close filter view
-        binding.closePopUpBtn.setOnClickListener {
-            cardFilterView.visibility = View.INVISIBLE
-        }
 
         // navigate to cable Tv fragment
 //        binding.cableCard.setOnClickListener {
@@ -62,7 +51,7 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
 
     companion object {
         @JvmStatic
-        fun newInstance() = TransactionsLandingFragment()
+        fun newInstance() = TransactionsHistoryReceiptFragment()
     }
 
     override fun getTransactions(record: TransactionRecord?) {
@@ -70,7 +59,7 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
         //instantiate adapter wit record in param
         val tra = TransactionsRecyclerAdapter(record?.data, this)
         //set adapter on recycler
-        binding.recentTransRecycler.adapter = tra
+        //binding.recentTransRecycler.adapter = tra
     }
 
     override fun onSelect(item: Datum?) {
