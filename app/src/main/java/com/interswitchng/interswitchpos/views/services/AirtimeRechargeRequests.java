@@ -40,7 +40,7 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
                 billerId = Constants.getMtnVtuBiller();
             } else if (rechargeType.contains("9Mobile")) {
                 paymentCode = Constants.getEtisalatRechargeCustomPaycode();
-                billerId = Constants.getGloVtuBiller();
+                billerId = Constants.get9MobileVtuBiller();
             }else if (rechargeType.contains("Airtel")){
                 paymentCode = Constants.getAirtelRechargeCustomPaycode();
                 billerId = Constants.getAirtelVtuBiller();
