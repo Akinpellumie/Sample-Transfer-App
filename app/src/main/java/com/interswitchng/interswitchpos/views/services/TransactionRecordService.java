@@ -8,11 +8,17 @@ import com.google.gson.Gson;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
 
 public class TransactionRecordService extends AsyncTask<String, Void, TransactionRecordService> {
     private RecordCallback callback;
     private String agentId;
+    String userPhne = loggedInAgentPhoneNumber;
+    String userPin = loggedInAgentPin;
 
     public TransactionRecordService(RecordCallback callback, String agentId){
         this.callback = callback;
@@ -21,20 +27,23 @@ public class TransactionRecordService extends AsyncTask<String, Void, Transactio
 
     public TransactionRecordService getTransactionRecord(){
         try{
-            String url = "http://192.168.3.169:3333/agent/transactions/2d9eca54-0a68-473a-9c4b-d3d2cb5f9b9b";
+            String url = Constants.TransactionHistoryUrl();
 
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
-
+            RequestBody body = RequestBody.create(mediaType, "");
             Request request = new Request.Builder()
                     .url(url)
-                    .method("GET", null)
+                    .method("POST", body)
+                    .addHeader("longitude", "3.142")
+                    .addHeader("latitude", "-0.98")
+                    .addHeader("corrlation-id", "1023")
+                    .addHeader("Pin", userPin)
+                    .addHeader("Phone", userPhne)
                     .addHeader("Content-Type", "application/json")
                     .build();
             Response response = client.newCall(request).execute();
-            response = response;
-
             String jsonString = response.body().string();
             Gson gson = new Gson();
             TransactionRecordService tr = gson.fromJson(jsonString, TransactionRecordService.class);

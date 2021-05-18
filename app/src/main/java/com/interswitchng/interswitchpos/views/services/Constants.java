@@ -2,7 +2,7 @@ package com.interswitchng.interswitchpos.views.services;
 
 public class Constants {
 
-    public static String domainurl()
+    public static String DomainUrl()
     {
         return "http://192.168.3.169:3333";
     }
@@ -10,13 +10,16 @@ public class Constants {
 //        return Constants.domainurl() + "/pin/transactions/initiate";
 //    }
     public static String InititateTransactionUrl() {
-        return Constants.domainurl() + "/pin/transactions/initiate";
+        return Constants.DomainUrl() + "/pin/transactions/initiate";
     }
     public static String CompleteTransactionUrl() {
-        return Constants.domainurl() + "/transactions/complete";
+        return Constants.DomainUrl() + "/transactions/complete";
+    }
+    public static String TransactionHistoryUrl() {
+        return Constants.DomainUrl() + "/agent/transactions/" + loggedInAgentId;
     }
     public static String LoginUrl() {
-        return Constants.domainurl() + "/pin/login";
+        return Constants.DomainUrl() + "/pin/login";
     }
     public static String getRechargeCustomPaycode() {
         return "234590";
