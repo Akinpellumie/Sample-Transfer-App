@@ -13,13 +13,13 @@ import android.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.utils.adapters.BankAutoCompleteAdapter
-import com.interswitchng.interswitchpos.views.fragments.AccountSetupFragment
+import com.interswitchng.interswitchpos.views.fragments.SendCashLandingFragment
 import com.interswitchng.smartpos.models.BankModel
 import com.interswitchng.smartpos.shared.Constants
 import kotlinx.android.synthetic.main.isw_transfer_bank_filter_dialog.*
 
 
-class BankFilterDialog(private val callbackListener: AccountSetupFragment): DialogFragment() {
+class SendCashBankFilterDialog(private val sendCashCallBackListener: SendCashLandingFragment): DialogFragment() {
     val TAG = "isw_transfer_bank_filter_dialog"
     private var bankList = arrayListOf<BankModel>()
     private var toolbar: Toolbar? = null
@@ -59,7 +59,7 @@ class BankFilterDialog(private val callbackListener: AccountSetupFragment): Dial
 
         auto.setOnItemClickListener { parent, view, position, id ->
             var selectedBank = parent.getItemAtPosition(position) as BankModel
-            callbackListener.onDataReceived(selectedBank)
+            sendCashCallBackListener.onDataReceived(selectedBank)
             dismiss()
         }
 

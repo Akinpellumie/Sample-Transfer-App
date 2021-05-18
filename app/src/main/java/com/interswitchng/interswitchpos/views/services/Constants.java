@@ -63,6 +63,30 @@ public class Constants {
     public static String loggedInAgentPhoneNumber;
 
     public static String loggedInAgentEmail;
+    public static String loggedInAgentId;
     public static String TransId;
+    public static String SendCashInitTransId;
+    public static String getFBNcode() {
+        return "FBN";
+    }
+    public static String getECOcode() {
+        return "ECO";
+    }
+    public static String getGTBcode() {
+        return "GTB";
+    }
+    public static String getUBAcode() {
+        return "UBA";
+    }
+    public static String getZIBcode() {
+        return "ZIB";
+    }
+    public static String getABPcode() {
+        return "ABP";
+    }
+    public static String getStanbiccode() {
+        return "STANBIC";
+    }
+
 
 }
