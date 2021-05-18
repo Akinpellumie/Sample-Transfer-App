@@ -12,6 +12,12 @@ public class Constants {
     public static String InititateTransactionUrl() {
         return Constants.domainurl() + "/pin/transactions/initiate";
     }
+    public static String CompleteTransactionUrl() {
+        return Constants.domainurl() + "/transactions/complete";
+    }
+    public static String TransactionHistoryUrl() {
+        return Constants.domainurl() + "/agent/transactions/" + loggedInAgentId;
+    }
     public static String LoginUrl() {
         return Constants.domainurl() + "/pin/login";
     }
@@ -63,6 +69,7 @@ public class Constants {
     public static String loggedInAgentPhoneNumber;
 
     public static String loggedInAgentEmail;
+    public static String loggedInAgentFirstname;
     public static String loggedInAgentId;
     public static String TransId;
     public static String SendCashInitTransId;
@@ -88,5 +95,20 @@ public class Constants {
         return "STANBIC";
     }
 
+    public static String getMtnVtuBiller() {
+        return "109";
+    }
+    public static String getGloVtuBiller() {
+        return "402";
+    }
+    public static String getAirtelVtuBiller() {
+        return "901";
+    }
+    public static String get9MobileVtuBiller() {
+        return "120";
+    }
+    public static String getDstvPlanBiller() {
+        return "104";
+    }
 
 }
