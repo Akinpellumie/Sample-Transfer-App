@@ -92,5 +92,20 @@ public class Constants {
         return "STANBIC";
     }
 
+    public static String getMtnVtuBiller() {
+        return "109";
+    }
+    public static String getGloVtuBiller() {
+        return "402";
+    }
+    public static String getAirtelVtuBiller() {
+        return "901";
+    }
+    public static String get9MobileVtuBiller() {
+        return "120";
+    }
+    public static String getDstvPlanBiller() {
+        return "104";
+    }
 
 }

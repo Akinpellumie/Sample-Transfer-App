@@ -34,12 +34,19 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
         try{
 
             String billerId = "";
+            String paymentCode = "";
             if(rechargeType == "Mtn"){
-                billerId = Constants.getMtnRechargeCustomPaycode();
+                paymentCode = Constants.getMtnRechargeCustomPaycode();
+                billerId = Constants.getMtnVtuBiller();
             } else if (rechargeType.contains("9Mobile")) {
-                billerId = Constants.getEtisalatRechargeCustomPaycode();
+                paymentCode = Constants.getEtisalatRechargeCustomPaycode();
+                billerId = Constants.getGloVtuBiller();
             }else if (rechargeType.contains("Airtel")){
-                billerId = Constants.getAirtelRechargeCustomPaycode();
+                paymentCode = Constants.getAirtelRechargeCustomPaycode();
+                billerId = Constants.getAirtelVtuBiller();
+            }else if (rechargeType.contains("Glo")){
+                paymentCode = Constants.getGloRechargeCustomPaycode();
+                billerId = Constants.getGloVtuBiller();
             }
 
             int amountInt = Integer.parseInt(amount);
@@ -83,7 +90,7 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
                 beneficiaryTerminal.put(   "billerId",billerId);
                 beneficiaryTerminal.put(    "categoryId","567");
                 beneficiaryTerminal.put(    "categoryName","Airtime Recharge");
-                beneficiaryTerminal.put(    "paymentCode","011");
+                beneficiaryTerminal.put(    "paymentCode",paymentCode);
                 beneficiaryTerminal.put(    "paymentItemName",rechargeType+" Recharge");
                 beneficiaryTerminal.put(    "customerId",phoneNumber);
 
