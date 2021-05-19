@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.interswitchng.interswitchpos.R;
+import com.interswitchng.interswitchpos.views.services.callback.ISingleTransactionSelectionCallBack;
 import com.interswitchng.interswitchpos.views.services.model.transactionrecord.Datum;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +26,7 @@ import java.util.TimeZone;
 
 public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<TransactionsRecyclerAdapter.ViewHolder>{
     private List<Datum> localDataSet;
+    private ISingleTransactionSelectionCallBack issCallBack;
 
     /**
      * Initialize the dataset of the Adapter.
@@ -32,8 +34,13 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public TransactionsRecyclerAdapter(List<Datum> dataSet) {
+//    public TransactionsRecyclerAdapter(List<Datum> dataSet) {
+//        localDataSet = dataSet;
+//    }
+
+    public TransactionsRecyclerAdapter(List<Datum> dataSet, ISingleTransactionSelectionCallBack issCallBack) {
         localDataSet = dataSet;
+        this.issCallBack = issCallBack;
     }
 
     // Create new views (invoked by the layout manager)
@@ -53,6 +60,13 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
         holder.transactionTypeTextView.setText(formatTransactionType(currentitem.transactionType));
         holder.dateTextView.setText(formatTransactionDate(currentitem.created_at));
         holder.amountTextView.setText(formatTransactionAmount(currentitem.amount));
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                issCallBack.onSelect(currentitem);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -71,6 +85,7 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
         private final TextView transactionTypeTextView;
         private final TextView dateTextView;
         private final TextView amountTextView;
+        private final View view;
 
         public ViewHolder(View view) {
             super(view);
@@ -80,6 +95,7 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
             transactionTypeTextView = (TextView) view.findViewById(R.id.desc);
             dateTextView = (TextView) view.findViewById(R.id.trans_date);
             amountTextView = (TextView) view.findViewById(R.id.transAmount);
+            this.view = view;
         }
 
         public ImageView getImageView() {
@@ -96,6 +112,10 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
 
         public TextView getAmountTextView() {
             return amountTextView;
+        }
+
+        public View getView(){
+            return view;
         }
     }
 
