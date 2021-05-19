@@ -66,4 +66,5 @@
     <string name="filter_icon">filter icon</string>
     <string name="initiate_transfer">Initiate Transfer</string>
     <string name="make_transfer">Make Transfer</string>
+    <string name="search_icon">search icon</string>
 </resources>

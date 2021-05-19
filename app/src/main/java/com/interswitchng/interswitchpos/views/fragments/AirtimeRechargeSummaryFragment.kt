@@ -55,6 +55,7 @@ class AirtimeRechargeSummaryFragment : Fragment(), ICompleteBillCallBack {
 
                 //send data
                 val pin = binding.pinEt.text.toString()
+                binding.llProgressBar.visibility = View.VISIBLE
                 completeBillPayTransaction.execute(transactionId, pin)
             }
             else {
@@ -79,7 +80,6 @@ class AirtimeRechargeSummaryFragment : Fragment(), ICompleteBillCallBack {
     }
 
     override fun OnCompleteBillPayTranxn(completeTranxnData: CompleteTransactionModel?) {
-        //TODO("Not yet implemented")
 
         //navigate to other view passing user data
         //val tranxnId = tr?.data?.profileInfo?.firstname.toString()

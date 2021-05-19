@@ -173,5 +173,11 @@
             app:layout_constraintStart_toStartOf="@+id/pin"
             android:text="Buy Airtime"/>
 
+        <!--            Add you UI Content here-->
+
+        <include
+            android:id="@+id/llProgressBar"
+            android:visibility="gone"
+            layout="@layout/layout_progress_bar"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

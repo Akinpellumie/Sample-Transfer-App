@@ -43,10 +43,12 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback {
         // open filter view
         binding.filterIcon.setOnClickListener {
             cardFilterView.visibility = View.VISIBLE
+            binding.searchEntry.isEnabled = false
         }
 
         // close filter view
         binding.closePopUpBtn.setOnClickListener {
+            binding.searchEntry.isEnabled = true
             cardFilterView.visibility = View.INVISIBLE
         }
 
