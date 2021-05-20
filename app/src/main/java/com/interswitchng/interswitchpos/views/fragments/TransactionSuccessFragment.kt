@@ -58,7 +58,7 @@ class TransactionSuccessFragment : Fragment() {
 
         //navigate to print page
         binding.btnPrintReceipt.setOnClickListener {
-            val action = TransactionSuccessFragmentDirections.actionTransactionSuccessFragmentToPrintAstraReceiptFragment(
+            val action = TransactionSuccessFragmentDirections.actionTransSummaryToAstraPrintReceiptFragment(
                     cashAmount, transId, transType, channel, status
             )
             findNavController().navigate(action)

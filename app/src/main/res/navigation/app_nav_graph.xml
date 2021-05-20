@@ -221,9 +221,6 @@
             android:id="@+id/action_electricityLanding_to_electricityPaymentForm"
             app:destination="@id/buyElectricityPaymentFormPage" />
 
-        <argument
-            android:name="electricityCompany"
-            app:argType="string" />
 
     </fragment>
 
@@ -233,6 +230,28 @@
         android:name="com.interswitchng.interswitchpos.views.fragments.AstraPrintReceiptFragment"
         android:label="fragment_astra_transaction_receipt"
         tools:layout="@layout/fragment_astra_transaction_receipt">
+
+        <argument
+            android:name="amount"
+            app:argType="string" />
+        <argument
+            android:name="transId"
+            app:argType="string" />
+        <argument
+            android:name="transactionType"
+            app:argType="string" />
+        <argument
+            android:name="channel"
+            app:argType="string" />
+
+        <argument
+            android:name="status"
+            app:argType="string" />
+
+        <argument
+            android:name="withAgent"
+            app:argType="boolean"
+            android:defaultValue="false" />
 
         <action
             android:id="@+id/action_transactionSuccessFragment_to_HomeFragment"

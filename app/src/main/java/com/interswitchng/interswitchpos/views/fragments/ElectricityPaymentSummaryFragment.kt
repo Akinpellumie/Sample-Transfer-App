@@ -95,14 +95,19 @@ class ElectricityPaymentSummaryFragment : Fragment(), IElectricityPayCallBack {
         TODO("Not yet implemented")
     }
 
-    override fun OnElectricityPayComplete(commpleteTranxnData: CompleteTransactionModel?) {
+    override fun OnElectricityPayComplete(completeTranxnData: CompleteTransactionModel?) {
 //
 
-        val tranxnId = commpleteTranxnData?.data?.getAmount().toString();
-        val amount = commpleteTranxnData?.data?.getAmount().toString();
-        val message = commpleteTranxnData?.getMessage().toString();
+        val transId = completeTranxnData?.data?.getTransactionId().toString()
+        val amount = completeTranxnData?.data?.getAmount().toString()
+        val message = completeTranxnData?.getMessage().toString()
+        val status = completeTranxnData?.data?.getStatus().toString()
+        val transactionType = "BILL PAYMENT"
+        val channel = "$billerName Electric"
 
-        val action = ElectricityPaymentSummaryFragmentDirections.actionElectricitySummaryToTransactionSuccessFragment(amount, tranxnId)
+        val action = ElectricityPaymentSummaryFragmentDirections.actionElectricitySummaryToTransactionSuccessFragment(
+                amount, transId, transactionType, channel, status
+        )
         findNavController().navigate(action)
 //
 ////        if (tranxnId.isNotEmpty() && message.contains("Transaction Completed")){

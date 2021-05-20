@@ -94,7 +94,7 @@ class ElectricityPaymentFormFragment : Fragment(), IElectricityPayCallBack {
         val tranxnId = tranxnInitiateData?.data?.getTransactionId().toString();
 
 
-        val action =ElectricityPaymentFormFragmentDirections.actionElectricitypaymentformToElectricitypaymentsummaryfragment(
+        val action =ElectricityPaymentFormFragmentDirections.actionElectricityPaymentFormToElectricityPaymentSummaryFragment(
                 phoneNumber, electricityAmount, customerId, customerName,electricityCompany, tranxnId)
         findNavController().navigate(action)
     }

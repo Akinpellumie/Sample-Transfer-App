@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentPayElectricityMainBinding
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
@@ -39,56 +40,56 @@ class ElectricityPaymentLandingFragment : Fragment() {
         // glo recharge clickEvent
         binding.abujaElectric.setOnClickListener {
             val billerName =  "Abuja"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
         }
         binding.ekoElectric.setOnClickListener {
             val billerName =  "Eko"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
         }
         binding.enuguElectric.setOnClickListener {
             val billerName =  "Enugu"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
         }
         binding.ibadanElectric.setOnClickListener {
             val billerName =  "Ibadan"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
         }
         binding.ikejaElectric.setOnClickListener {
             val billerName =  "Ikeja"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
         }
         binding.josElectric.setOnClickListener {
             val billerName =  "Jos"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
         }
         binding.kadunaElectric.setOnClickListener {
             val billerName =  "Kaduna"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
         }
         binding.phElectric.setOnClickListener {
             val billerName =  "PortHarcourt"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
@@ -96,7 +97,7 @@ class ElectricityPaymentLandingFragment : Fragment() {
 
         binding.kanoElectric.setOnClickListener {
             val billerName =  "Kano"
-            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricityLandingToElectricityPaymentForm(billerName)
             //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
             findNavController().navigate(action)
 
