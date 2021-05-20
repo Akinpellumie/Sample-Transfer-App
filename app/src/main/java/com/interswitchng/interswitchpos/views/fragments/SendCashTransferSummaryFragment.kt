@@ -106,8 +106,11 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         binding.llProgressBar.visibility = View.GONE
         val amount = binding.transAmount.text
         val tranxnId = transId
+        val transType = "TRANSFER"
+        val channel = "CASH TRANSFER"
+        val status = "SUCCESSFUL"
         val action = SendCashTransferSummaryFragmentDirections.actionSendCashSummaryToSuccessFragment(
-                amount.toString(),tranxnId
+                amount.toString(),tranxnId, transType, channel, status
         )
         findNavController().navigate(action)
     }

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
 import com.interswitchng.interswitchpos.utils.adapters.TransactionsRecyclerAdapter
@@ -77,6 +79,16 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
 
     override fun onSelect(item: Datum?) {
         val items = item
+        val singleAmount = item?.amount
+        val transType = item?.transactionType
+        val transId = item?.id
+        val status = item?.status
+        val channel = item?.transactionType
+
+        val action = TransactionsLandingFragmentDirections.actionAirtimeSummaryToSingleTransFragment(
+                singleAmount.toString(),transId.toString(),transType.toString(),status.toString(), channel.toString()
+        )
+            findNavController().navigate(action)
     }
 
 

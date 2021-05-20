@@ -146,6 +146,35 @@
             android:text="TIME: "/>
 
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/transId_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:layout_gravity="start"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textColor="@color/isw_main_black"
+            android:text="TRANS ID: "/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:layout_gravity="start"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textColor="@color/isw_main_black"
+            android:text="STATUS: "/>
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -235,22 +264,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/isw_main_black"
-            android:layout_margin="5dp"/>
-
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/isw_main_black"
-            android:layout_margin="5dp"/>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:background="@color/isw_main_black"
             android:layout_margin="5dp"/>
 

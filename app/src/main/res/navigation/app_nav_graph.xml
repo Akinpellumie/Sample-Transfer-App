@@ -54,6 +54,10 @@
         <action
             android:id="@+id/action_bill_to_cableFragment"
             app:destination="@id/cablePayment" />
+
+        <action
+            android:id="@+id/action_bill_to_electricityFragment"
+            app:destination="@id/electricityPayment" />
     </fragment>
 
     <fragment
@@ -112,9 +116,50 @@
         android:label="fragment_transactions_landing"
         tools:layout="@layout/fragment_transactions_landing">
 
+        <action
+            android:id="@+id/action_airtimeSummary_to_singleTransFragment"
+            app:destination="@id/singleHistory" />
+
     </fragment>
 
+    <fragment
+        android:id="@+id/singleHistory"
+        android:name="com.interswitchng.interswitchpos.views.fragments.TransactionsHistoryReceiptFragment"
+        android:label="fragment_transaction_history_receipt"
+        tools:layout="@layout/fragment_transaction_history_receipt">
 
+        <action
+            android:id="@+id/action_transSummary_to_astraPrintReceiptFragment"
+            app:destination="@id/astraTransactionReceiptFragment" />
+
+        <argument
+            android:name="singleTransAmount"
+            app:argType="string" />
+
+        <argument
+            android:name="transId"
+            app:argType="string" />
+
+        <argument
+            android:name="transType"
+            app:argType="string" />
+
+        <argument
+            android:name="status"
+            app:argType="string" />
+
+        <argument
+            android:name="channel"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/electricityPayment"
+        android:name="com.interswitchng.interswitchpos.views.fragments.ElectricityPaymentLandingFragment"
+        android:label="fragment_pay_electricity_main"
+        tools:layout="@layout/fragment_pay_electricity_main">
+
+    </fragment>
 
     <fragment
         android:id="@+id/cablePayment"
@@ -251,12 +296,56 @@
             android:name="amount"
             app:argType="string" />
         <argument
-            android:name="tranxnId"
+            android:name="transId"
+            app:argType="string" />
+        <argument
+            android:name="transactionType"
+            app:argType="string" />
+        <argument
+            android:name="channel"
+            app:argType="string" />
+
+        <argument
+            android:name="status"
             app:argType="string" />
 
         <action
             android:id="@+id/action_transactionSuccessFragment_to_homelandingfragment"
             app:destination="@id/home" />
+
+        <action
+            android:id="@+id/action_transactionSuccessFragment_to_print_astraReceiptFragment"
+            app:destination="@id/astraTransactionReceiptFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/astraTransactionReceiptFragment"
+        android:name="com.interswitchng.interswitchpos.views.fragments.AstraPrintReceiptFragment"
+        android:label="fragment_astra_transaction_receipt"
+        tools:layout="@layout/fragment_astra_transaction_receipt">
+        <argument
+            android:name="amount"
+            app:argType="string" />
+        <argument
+            android:name="transId"
+            app:argType="string" />
+        <argument
+            android:name="transactionType"
+            app:argType="string" />
+        <argument
+            android:name="channel"
+            app:argType="string" />
+        <argument
+            android:name="status"
+            app:argType="string" />
+
+        <argument
+            android:name="withAgent"
+            app:argType="boolean"
+            android:defaultValue="false" />
+<!--        <action-->
+<!--            android:id="@+id/action_transactionSuccessFragment_to_homelandingfragment"-->
+<!--            app:destination="@id/home" />-->
 
     </fragment>
     <fragment

@@ -81,13 +81,19 @@ class AirtimeRechargeSummaryFragment : Fragment(), ICompleteBillCallBack {
 
     override fun OnCompleteBillPayTranxn(completeTranxnData: CompleteTransactionModel?) {
 
+
         //navigate to other view passing user data
         //val tranxnId = tr?.data?.profileInfo?.firstname.toString()
         val tranxnId = completeTranxnData?.data?.getTransactionId().toString();
         val amount = completeTranxnData?.data?.getAmount().toString();
         val message = completeTranxnData?.getMessage().toString();
+        val status = "SUCCESSFUL";
+        val transType = "UTILITY PAYMENT";
+        val channel = "AIRTIME RECHARGE";
 
-        val action = AirtimeRechargeSummaryFragmentDirections.actionAirtimeSummaryToTransactionSuccessFragment(amount, tranxnId)
+        val action = AirtimeRechargeSummaryFragmentDirections.actionAirtimeSummaryToTransactionSuccessFragment(
+                amount, tranxnId, transType, channel, status
+        )
         //val action = AirtimePaymentFormFragmentDirections.actionLoginToHomeFragment(u)
         findNavController().navigate(action)
 

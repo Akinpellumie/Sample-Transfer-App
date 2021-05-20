@@ -48,6 +48,12 @@ class PayBillMainLandingFragment : Fragment() {
             val action = PayBillMainLandingFragmentDirections.actionBillToCableFragment()
             findNavController().navigate(action)
         }
+
+        // navigate to electricity fragment
+        binding.electricityCard.setOnClickListener {
+            val action = PayBillMainLandingFragmentDirections.actionBillToElectricityFragment()
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 

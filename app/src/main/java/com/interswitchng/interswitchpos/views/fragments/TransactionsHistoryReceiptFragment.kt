@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
+import com.interswitchng.interswitchpos.databinding.FragmentTransactionHistoryReceiptBinding
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionReceiptBinding
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
 import com.interswitchng.interswitchpos.utils.adapters.TransactionsRecyclerAdapter
@@ -20,11 +23,17 @@ import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import kotlinx.android.synthetic.main.fragment_transactions_landing.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class TransactionsHistoryReceiptFragment : Fragment(), IRecordCallback, ISingleTransactionSelectionCallBack {
+class TransactionsHistoryReceiptFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
-    private lateinit var binding: FragmentTransactionReceiptBinding
+    private lateinit var binding: FragmentTransactionHistoryReceiptBinding
     //private lateinit var binding:
+    private val args by navArgs<TransactionsHistoryReceiptFragmentArgs>()
+    private val transactionId by lazy { args.transId }
+    private val singleTransAmount by lazy { args.singleTransAmount }
+    private val transType by lazy { args.transType }
+    private val status by lazy { args.status }
+    private val channel by lazy { args.channel }
     //private val transactionRecordService = TransactionRecordService(this)
 
 //    private val terminalInfo by lazy {
@@ -38,14 +47,20 @@ class TransactionsHistoryReceiptFragment : Fragment(), IRecordCallback, ISingleT
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_transactions_landing, container, false)
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_transaction_history_receipt, container, false)
 
+        binding.transTypeEntry.text = transType
+        binding.statusEntry.text = status
+        binding.amountEntryR.text = singleTransAmount
+        binding.transIdEntry.text = transactionId
 
-        // navigate to cable Tv fragment
-//        binding.cableCard.setOnClickListener {
-//            val action = PayBillMainLandingFragmentDirections.actionBillToCableFragment()
-//            findNavController().navigate(action)
-//        }
+        // navigate to print receipt fragment
+        binding.printReceiptBtn.setOnClickListener {
+            val action = TransactionsHistoryReceiptFragmentDirections.actionTransSummaryToAstraPrintReceiptFragment(
+                    singleTransAmount,transactionId,transType,channel,status
+            )
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 
@@ -54,17 +69,6 @@ class TransactionsHistoryReceiptFragment : Fragment(), IRecordCallback, ISingleT
         fun newInstance() = TransactionsHistoryReceiptFragment()
     }
 
-    override fun getTransactions(record: TransactionRecord?) {
-        //do nothing for now
-        //instantiate adapter wit record in param
-        val tra = TransactionsRecyclerAdapter(record?.data, this)
-        //set adapter on recycler
-        //binding.recentTransRecycler.adapter = tra
-    }
-
-    override fun onSelect(item: Datum?) {
-        val items = item
-    }
 
 
 }
