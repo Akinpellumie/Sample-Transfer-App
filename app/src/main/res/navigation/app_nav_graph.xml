@@ -53,7 +53,10 @@
             app:destination="@id/airtimePayment" />
         <action
             android:id="@+id/action_bill_to_cableFragment"
-            app:destination="@id/cablePayment" />
+            app:destination="@id/cablePaymentForm" />
+        <action
+            android:id="@+id/action_bill_to_electricityFragment"
+            app:destination="@id/electricityPaymentLanding" />
     </fragment>
 
     <fragment
@@ -107,6 +110,56 @@
     </fragment>
 
     <fragment
+        android:id="@+id/electricityPaymentSummary"
+        android:name="com.interswitchng.interswitchpos.views.fragments.ElectricityPaymentSummaryFragment"
+        android:label="fragment_electricity_payment_summary"
+        tools:layout="@layout/fragment_airtime_recharge_summary">
+
+        <action
+            android:id="@+id/action_electricitySummary_to_transactionSuccessFragment"
+            app:destination="@id/transactionSuccessFragment" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+
+        <argument
+            android:name="amount"
+            app:argType="string" />
+
+        <argument
+            android:name="customerId"
+            app:argType="string" />
+
+        <argument
+            android:name="customerName"
+            app:argType="string" />
+
+        <argument
+            android:name="electricityCompany"
+            app:argType="string" />
+
+        <argument
+            android:name="tranxnId"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/buyElectricityPaymentFormPage"
+        android:name="com.interswitchng.interswitchpos.views.fragments.ElectricityPaymentFormFragment"
+        android:label="fragment_electricity_payment_form"
+        tools:layout="@layout/fragment_electricity_payment_form">
+
+        <action
+            android:id="@+id/action_electricitypaymentform_to_electricitypaymentsummaryfragment"
+            app:destination="@id/electricityPaymentSummary" />
+
+        <argument
+            android:name="electricityCompany"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
         android:id="@+id/transactionPage"
         android:name="com.interswitchng.interswitchpos.views.fragments.TransactionsLandingFragment"
         android:label="fragment_transactions_landing"
@@ -114,13 +167,40 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/electricityPaymentLanding"
+        android:name="com.interswitchng.interswitchpos.views.fragments.ElectricityPaymentLandingFragment"
+        android:label="fragment_electricity_landing"
+        tools:layout="@layout/fragment_pay_electricity_main">
+
+        <action
+            android:id="@+id/action_electricitylanding_to_electricitypaymentform"
+            app:destination="@id/buyElectricityPaymentFormPage" />
+
+        <argument
+            android:name="electricityCompany"
+            app:argType="string" />
+
+    </fragment>
 
 
     <fragment
-        android:id="@+id/cablePayment"
+        android:id="@+id/cablePaymentLanding"
         android:name="com.interswitchng.interswitchpos.views.fragments.CableTvLandingFragment"
         android:label="fragment_cable_tv_payment"
         tools:layout="@layout/fragment_cable_tv_payment">
+
+        <action
+            android:id="@+id/action_cabletvlanding_to_cabletvpaymentform"
+            app:destination="@id/cablePaymentForm" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/cablePaymentForm"
+        android:name="com.interswitchng.interswitchpos.views.fragments.CableTvPaymentFormFragment"
+        android:label="fragment_cable_tv_payment_form"
+        tools:layout="@layout/fragment_cable_tv_payment_form">
 
     </fragment>
 

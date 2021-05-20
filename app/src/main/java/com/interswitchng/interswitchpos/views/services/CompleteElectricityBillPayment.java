@@ -3,9 +3,10 @@ package com.interswitchng.interswitchpos.views.services;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
-import com.interswitchng.interswitchpos.views.services.interfaces.IAirtimeInitiateCallBack;
-import com.interswitchng.interswitchpos.views.services.interfaces.ICompleteBillCallBack;
+
+import com.interswitchng.interswitchpos.views.services.interfaces.IElectricityPayCallBack;
 import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel;
+import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,13 +21,14 @@ import okhttp3.Response;
 
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
 
-public class CompleteBillPayTransaction extends AsyncTask<String, Void, CompleteTransactionModel> {
+public class CompleteElectricityBillPayment extends AsyncTask<String, Void, CompleteTransactionModel> {
 
-    private final ICompleteBillCallBack callBack;
+    private final IElectricityPayCallBack callBack;
 
-    public CompleteBillPayTransaction(ICompleteBillCallBack callBack) {
+    public CompleteElectricityBillPayment(IElectricityPayCallBack callBack) {
         this.callBack = callBack;
     }
+
 
     public CompleteTransactionModel completeBillPay(String transactionId, String pin){
         String url = Constants.CompleteTransactionUrl();
@@ -92,7 +94,9 @@ public class CompleteBillPayTransaction extends AsyncTask<String, Void, Complete
     }
 
     @Override
-    protected void onPostExecute(CompleteTransactionModel completeTranxnData) {
-        callBack.OnCompleteBillPayTranxn(completeTranxnData);
+    protected void onPostExecute(CompleteTransactionModel data) {
+        //Constants.SendCashInitTransId = data.getData().transactionId;
+        callBack.OnElectricityPayComplete(data);
     }
+
 }

@@ -44,10 +44,71 @@ class ElectricityPaymentLandingFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_pay_electricity_main, container, false)
 
-//        binding.gloCard.setOnClickListener {
-//            val action = Airtime.actionHomeToAmountFragment2()
-//            findNavController().navigate(action)
-//        }
+        // glo recharge clickEvent
+        binding.abujaElectric.setOnClickListener {
+            val billerName =  "Abuja"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
+        binding.ekoElectric.setOnClickListener {
+            val billerName =  "Eko"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
+        binding.enuguElectric.setOnClickListener {
+            val billerName =  "Enugu"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
+        binding.ibadanElectric.setOnClickListener {
+            val billerName =  "Ibadan"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
+        binding.ikejaElectric.setOnClickListener {
+            val billerName =  "Ikeja"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
+        binding.josElectric.setOnClickListener {
+            val billerName =  "Jos"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
+        binding.kadunaElectric.setOnClickListener {
+            val billerName =  "Kaduna"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
+        binding.phElectric.setOnClickListener {
+            val billerName =  "PortHarcourt"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
+
+        binding.kanoElectric.setOnClickListener {
+            val billerName =  "Kano"
+            val action = ElectricityPaymentLandingFragmentDirections.actionElectricitylandingToElectricitypaymentform(billerName)
+            //val action = AirtimePaymentLandingFragmentDirections.actionAirtimeMainToAirtimeFormFragment(rechargeType)
+            findNavController().navigate(action)
+
+        }
 
         return binding.root
     }
