@@ -26,7 +26,8 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentTransactionsLandingBinding
     //private lateinit var binding:
-    private val transactionRecordService = TransactionRecordService(this)
+    private var transactionRecord : TransactionRecord ?= null
+
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()
@@ -42,7 +43,15 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_transactions_landing, container, false)
 
         //call transaction history java class
-        transactionRecordService.execute()
+        if(transactionRecord==null){
+            val transactionRecordService = TransactionRecordService(this)
+            transactionRecordService.execute()
+        }
+        else{
+            val tra = TransactionsRecyclerAdapter(transactionRecord?.data, this)
+            //set adapter on recycler
+            binding.recentTransRecycler.adapter = tra
+        }
 
         // open filter view
         binding.filterIcon.setOnClickListener {
@@ -70,6 +79,7 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
     }
 
     override fun getTransactions(record: TransactionRecord?) {
+        transactionRecord = record
         //do nothing for now
         //instantiate adapter wit record in param
         val tra = TransactionsRecyclerAdapter(record?.data, this)
@@ -79,14 +89,27 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
 
     override fun onSelect(item: Datum?) {
         val items = item
+        var iTransType = ""
+        if(item?.transactionType.equals("BILLPAYMENTWITHCASH", ignoreCase = true)){
+            iTransType = "BILL PAYMENT"
+        }
+        else  if(item?.transactionType.equals("CASHTRANSFER", ignoreCase = true)){
+            iTransType = "CASH TRANSFER"
+        }
+        else  if(item?.transactionType.equals("CARDWITHDRAWAL", ignoreCase = true)){
+            iTransType = "CARD WITHDRAWAL"
+        }
+        else{
+            iTransType = item?.transactionType.toString()
+        }
         val singleAmount = item?.amount
-        val transType = item?.transactionType
+        val transType = iTransType
         val transId = item?.id
         val status = item?.status
-        val channel = item?.transactionType
+        val channel = item?.beneficiaryTerminal?.categoryName
 
         val action = TransactionsLandingFragmentDirections.actionAirtimeSummaryToSingleTransFragment(
-                singleAmount.toString(),transId.toString(),transType.toString(),status.toString(), channel.toString()
+                singleAmount.toString(),transId.toString(),transType,status.toString(), channel.toString()
         )
             findNavController().navigate(action)
     }

@@ -34,6 +34,8 @@ class SendCashTransferSummaryFragment : Fragment(), ISendCashTransferCallBack {
     private val acctName by lazy { args.acctName }
     private val acctNum by lazy { args.acctNum }
     private val bankName by lazy { args.bankName }
+    private val bankCode by lazy { args.bankCode }
+    private val bankId by lazy { args.bankId }
     private val narration by lazy { args.narration }
     private val transId by lazy { args.transId }
     private val completeSendCashTransfer = CompleteSendCashTransfer(this)
@@ -108,9 +110,9 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         val tranxnId = transId
         val transType = "TRANSFER"
         val channel = "CASH TRANSFER"
-        val status = "SUCCESSFUL"
+        val status = commpleteTranxnData?.status
         val action = SendCashTransferSummaryFragmentDirections.actionSendCashSummaryToSuccessFragment(
-                amount.toString(),tranxnId, transType, channel, status
+                amount.toString(),tranxnId, transType, channel, status.toString()
         )
         findNavController().navigate(action)
     }

@@ -32,28 +32,14 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
         this.callBack = callBack;
     }
 
-    public TranxnInitiateModel initiateSendCash(String amount, String acctNum, String acctName, String bankName, String narration){
+    public TranxnInitiateModel initiateSendCash(String amount, String acctNum, String acctName, String bankName,
+                                                String bankCode, String bankId, String narration){
         try{
             String email = loggedInAgentEmail;
             String userPhne = loggedInAgentPhoneNumber;
             String userPin = loggedInAgentPin;
             String agentId = loggedInAgentId;
-            String bankCode = " ";
-            if(bankName.startsWith("First")){
-                bankCode = Constants.getFBNcode();
-            }
-            else if(bankName.startsWith("Eco")){
-                bankCode = Constants.getECOcode();
-            }
-            else if(bankName.startsWith("UBA")){
-                bankCode = Constants.getUBAcode();
-            }
-            else if(bankName.startsWith("STANBIC")){
-                bankCode = Constants.getStanbiccode();
-            }
-            else if(bankName.startsWith("GTBANK")){
-                bankCode = Constants.getGTBcode();
-            }
+
             JSONObject fullData = new JSONObject();
 
 //            try{
@@ -93,10 +79,10 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
                 beneficiaryTerminal.put(   "accountNumber",acctNum);
                 beneficiaryTerminal.put(   "accountName",acctName);
                 beneficiaryTerminal.put(   "bankCode",bankCode);
-                beneficiaryTerminal.put(   "bankId"," ");
+                beneficiaryTerminal.put(   "bankId",bankId);
                 beneficiaryTerminal.put(   "bankName",bankName);
                 beneficiaryTerminal.put(    "categoryId"," ");
-                beneficiaryTerminal.put(    "categoryName"," ");
+                beneficiaryTerminal.put(    "categoryName","CASH TRANSFER");
                 beneficiaryTerminal.put(    "paymentCode"," ");
                 beneficiaryTerminal.put(    "paymentItemName"," ");
                 beneficiaryTerminal.put(    "customerId",acctNum);
@@ -140,6 +126,7 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
 
             TranxnInitiateModel transRes = gson.fromJson(initResponse, TranxnInitiateModel.class);
             String transId = transRes.getData().transactionId;
+            Constants.SendCashInitTransId = "";
             Constants.SendCashInitTransId = transId;
 //            //LoginModel user = new LoginModel();
 //            return
@@ -158,8 +145,10 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
         String acctNum = strings[1];
         String acctName = strings[2];
         String bankName = strings[3];
-        String narration = strings[4];
-        return initiateSendCash(amount, acctNum,acctName,bankName,narration);
+        String bankCode = strings[4];
+        String bankId = strings[5];
+        String narration = strings[6];
+        return initiateSendCash(amount, acctNum,acctName,bankName,bankCode,bankId,narration);
     }
     @Override
     protected void onPostExecute(TranxnInitiateModel data) {

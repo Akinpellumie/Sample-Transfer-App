@@ -198,7 +198,7 @@ class TransactionStatusFragment : Fragment() {
                 binding.iswTransactionMsgTransfer.text =
                         result?.responseMessage//"Your transaction was unsuccessful"
 
-                val status = "SUCCESSFUL"
+                val status = "FAILED"
                 val reff = result?.ref
 
                 transactionStatusNotifier.execute(status,reff)

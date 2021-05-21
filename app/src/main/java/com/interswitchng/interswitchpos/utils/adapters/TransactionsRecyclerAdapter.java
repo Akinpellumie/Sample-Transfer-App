@@ -26,6 +26,7 @@ import java.util.TimeZone;
 
 public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<TransactionsRecyclerAdapter.ViewHolder>{
     private List<Datum> localDataSet;
+    //Datum currentitem;
     private ISingleTransactionSelectionCallBack issCallBack;
 
     /**
@@ -59,7 +60,7 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
         //holder.imageView.setImageResource();
         holder.transactionTypeTextView.setText(formatTransactionType(currentitem.transactionType));
         holder.dateTextView.setText(formatTransactionDate(currentitem.created_at));
-        holder.amountTextView.setText(formatTransactionAmount(currentitem.amount));
+        holder.amountTextView.setText(formatTransactionAmount(currentitem));
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,11 +145,19 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
         return stringDate;
     }
 
-    private String formatTransactionAmount(Integer transAmount){
-        double amount = transAmount;
+    private String formatTransactionAmount(Datum item){
+        double amount = item.amount;
         StringBuilder sb = new StringBuilder();
         Formatter formatter = new Formatter(sb, Locale.US);
         formatter.format("N %(,.2f", amount);
-        return sb.toString();
+        if(item.flow.equalsIgnoreCase("debit")){
+
+            return "-" + sb.toString();
+        }else if(item.flow.equalsIgnoreCase("credit")){
+            return "+" + sb.toString();
+        }else{
+            return sb.toString();
+        }
+
     }
 }

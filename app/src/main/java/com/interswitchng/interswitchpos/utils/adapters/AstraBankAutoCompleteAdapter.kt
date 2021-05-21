@@ -9,10 +9,11 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.TextView
 import com.interswitchng.interswitchpos.R
+import com.interswitchng.interswitchpos.views.services.model.bank.BankData
 //import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.models.BankModel
 
-class BankAutoCompleteAdapter (context: Context, resource: Int, banks: ArrayList<BankModel>): ArrayAdapter<BankModel>(context, resource, banks) {
+class AstraBankAutoCompleteAdapter (context: Context, resource: Int, banks: ArrayList<BankData>): ArrayAdapter<BankData>(context, resource, banks) {
     val _resourceId = resource
     var _banks = banks
     var _bankList = banks
@@ -23,7 +24,7 @@ class BankAutoCompleteAdapter (context: Context, resource: Int, banks: ArrayList
 
     private fun createView(position: Int, parent: ViewGroup?): View {
         val view = LayoutInflater.from(context).inflate(_resourceId, parent, false)
-        view?.findViewById<TextView>(R.id.bank_display_name)?.text = _banks[position].bankName
+        view?.findViewById<TextView>(R.id.bank_display_name)?.text = _banks[position].name
         return view
     }
 
@@ -31,7 +32,7 @@ class BankAutoCompleteAdapter (context: Context, resource: Int, banks: ArrayList
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
         convertView ?: LayoutInflater.from(context).inflate(_resourceId, parent, false)
-        convertView?.findViewById<TextView>(R.id.bank_display_name)?.text = _banks[position].bankName
+        convertView?.findViewById<TextView>(R.id.bank_display_name)?.text = _banks[position].name
         return super.getDropDownView(position, convertView, parent)
     }
 
@@ -53,22 +54,22 @@ class BankAutoCompleteAdapter (context: Context, resource: Int, banks: ArrayList
             return results
         }
 
-        private fun autocomplete(input: String): ArrayList<BankModel> {
-            val results = arrayListOf<BankModel>()
+        private fun autocomplete(input: String): ArrayList<BankData> {
+            val results = arrayListOf<BankData>()
 
             for (bank in _bankList) {
-                if (bank.bankName.toLowerCase().contains(input.toLowerCase())) results.add(bank)
+                if (bank.name.toLowerCase().contains(input.toLowerCase())) results.add(bank)
             }
 
             return results
         }
 
         override fun publishResults(constraint: CharSequence?, results: Filter.FilterResults) {
-            _banks = results.values as ArrayList<BankModel>
+            _banks = results.values as ArrayList<BankData>
             notifyDataSetInvalidated()
         }
 
-        override fun convertResultToString(result: Any) = (result as BankModel).bankName
+        override fun convertResultToString(result: Any) = (result as BankData).name
     }
 
     override fun notifyDataSetInvalidated() {

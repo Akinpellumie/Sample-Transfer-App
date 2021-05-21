@@ -18,10 +18,15 @@ import com.interswitchng.interswitchpos.databinding.FragmentSendCashLandingBindi
 import com.interswitchng.interswitchpos.utils.BankFilterDialog
 import com.interswitchng.interswitchpos.utils.SendCashBankFilterDialog
 import com.interswitchng.interswitchpos.utils.customdailog
+import com.interswitchng.interswitchpos.views.services.BankListService
 import com.interswitchng.interswitchpos.views.services.Constants
 import com.interswitchng.interswitchpos.views.services.SendCashTransferInitService
 import com.interswitchng.interswitchpos.views.services.TransactionCompleteNotifier
+import com.interswitchng.interswitchpos.views.services.callback.IBankCallbackListener
+import com.interswitchng.interswitchpos.views.services.callback.IBankListServiceCallback
 import com.interswitchng.interswitchpos.views.services.interfaces.ISendCashTransferCallBack
+import com.interswitchng.interswitchpos.views.services.model.bank.AstraBankModel
+import com.interswitchng.interswitchpos.views.services.model.bank.BankData
 import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
@@ -36,10 +41,10 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferCallBack {
+class SendCashLandingFragment : Fragment(), IBankListServiceCallback, ISendCashTransferCallBack {
     private lateinit var binding : FragmentSendCashLandingBinding
-    private var bankList = arrayListOf<BankModel>()
-    lateinit var _selectedBank: BankModel
+    private var bankList = arrayListOf<BankData>()
+    lateinit var _selectedBank: BankData
     lateinit var submitButton: Button
     lateinit var accountNumberEditor: EditText
     lateinit var _beneficiaryPayload: BeneficiaryModel
@@ -48,12 +53,15 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
     var accountNumber = ""
     var userAcctName = ""
     var userBankName = ""
+    var userBankCode = ""
+    var userBankId = ""
     var cashAmount = ""
     var acctNum = ""
     var narration = ""
     var useNameEnquiry = true
     private val appViewModel: AppViewModel by viewModel()
     private val sendCashTransferInitService = SendCashTransferInitService(this)
+    private val bankListService = BankListService(this)
 
     //private lateinit var  sendCashModel : SendCashTransferModel
 
@@ -82,6 +90,9 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
 //        sendCashModel.acctNumber = acctNum.toString()
 //        sendCashModel.bankName = bankName.toString()
 //        sendCashModel.narration = narration.toString()
+
+        //get list of banks
+        bankListService.execute()
 
         //this is for acct number and bank checks
         submitButton = binding.initiateBtn
@@ -121,7 +132,7 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
             narration = binding.narrationEntry.text.toString()
             //call initiate transaction
             binding.llProgressBar.visibility = View.VISIBLE
-            sendCashTransferInitService.execute(cashAmount,acctNum,userAcctName, userBankName, narration)
+            sendCashTransferInitService.execute(cashAmount,acctNum,userAcctName,userBankName,userBankCode,userBankId,narration)
 
         }
     }
@@ -130,7 +141,7 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
         //val accountNumber = binding.acctNumEntry.text
 
 
-        if (accountNumber?.length == 10 && this::_selectedBank.isInitialized) {
+        if (accountNumber.length == 10 && this::_selectedBank.isInitialized) {
 
             if(!useNameEnquiry) {
                 _beneficiaryPayload = BeneficiaryModel()
@@ -146,14 +157,14 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
             }else {
                 dialog.show()
             }
-            appViewModel.validateBeneficiary(_selectedBank.selBankCodes!!, accountNumber!!)
+            appViewModel.validateBeneficiary(_selectedBank.code!!, accountNumber!!)
         } else {
             isValid = false
             toggleAccountNameVisibility()
             validateInput()
         }
         if (accountNumber?.length == 10) {
-            appViewModel.validateBeneficiary(_selectedBank.selBankCodes.toString(), accountNumber)
+            appViewModel.validateBeneficiary(_selectedBank.code.toString(), accountNumber)
         }
     }
     private fun toggleAccountNameVisibility() {
@@ -210,11 +221,13 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
     }
 
 
-    override fun onDataReceived(data: BankModel) {
+    override fun onDataReceived(data: BankData) {
         _selectedBank = data
-        userBankName = data.bankName
+        userBankName = data.name
+        userBankCode = data.code
+        userBankId = data.id
         val bankText: EditText = bankNameEntry
-        bankText.setText(data.bankName)
+        bankText.setText(data.name)
         validateBeneficiary()
     }
 
@@ -234,7 +247,7 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
         binding.llProgressBar.visibility = View.GONE
         val transId = Constants.SendCashInitTransId
         val action = SendCashLandingFragmentDirections.actionSendCashToSendCashSummaryFragment(
-                cashAmount,acctNum,userAcctName,userBankName,narration,transId.toString()
+                cashAmount,acctNum,userAcctName,userBankName,userBankCode,userBankId,narration,transId.toString()
         )
         findNavController().navigate(action)
     }
@@ -242,4 +255,11 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
     override fun OnSendCashComplete(commpleteTranxnData: CompleteTransactionModel?) {
         //do nothing for now
     }
+
+    override fun getBankList(banks: AstraBankModel?) {
+        //TODO("Not yet implemented")
+        Constants.BANK_LIST.clear()
+        banks?.getData()?.let { Constants.BANK_LIST.addAll(it) }
+    }
+
 }

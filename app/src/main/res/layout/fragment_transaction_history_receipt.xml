@@ -39,7 +39,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="20dp"
-                            android:text="Transaction Type:"
+                            android:text="Type:"
                             android:fontFamily="@font/nimbus_bold"
                             android:textSize="@dimen/astrapos_text_size"
                             android:textColor="@color/txtColor"/>
@@ -99,7 +99,7 @@
                             android:padding="20dp"
                             android:text="Transaction Id:"
                             android:fontFamily="@font/nimbus_bold"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/astrapos_text_size"
                             android:textColor="@color/txtColor"/>
 
                         <TextView

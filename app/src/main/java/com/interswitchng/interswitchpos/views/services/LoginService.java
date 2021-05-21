@@ -72,8 +72,14 @@ public class LoginService extends AsyncTask<String, Void, LoginModel> {
 
     @Override
     protected void onPostExecute(LoginModel user) {
-        Constants.loggedInAgentEmail = user.getData().getProfileInfo().email;
-        Constants.loggedInAgentId = user.getData().id;
+        if(user.getStatus()==200){
+            Constants.loggedInAgentEmail = user.getData().getProfileInfo().email;
+            Constants.loggedInAgentId = user.getData().id;
+        }
+        else{
+            Constants.loggedInAgentEmail = "";
+            Constants.loggedInAgentId = "";
+        }
         callBack.OnLogin(user);
     }
 }

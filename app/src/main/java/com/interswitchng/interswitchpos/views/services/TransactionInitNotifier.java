@@ -66,7 +66,7 @@ public class TransactionInitNotifier extends AsyncTask<String, Void, Void> {
                 beneficiaryTerminal.put(   "billerName"," ");
                 beneficiaryTerminal.put(   "billerId"," ");
                 beneficiaryTerminal.put(    "categoryId"," ");
-                beneficiaryTerminal.put(    "categoryName"," ");
+                beneficiaryTerminal.put(    "categoryName","CARD WITHDRAWAL");
                 beneficiaryTerminal.put(    "paymentCode"," ");
                 beneficiaryTerminal.put(    "paymentItemName"," ");
                 beneficiaryTerminal.put(    "customerId"," ");

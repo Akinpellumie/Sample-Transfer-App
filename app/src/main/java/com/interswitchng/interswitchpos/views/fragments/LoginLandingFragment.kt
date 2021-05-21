@@ -89,19 +89,31 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
     }
 
     override fun OnLogin(user: LoginModel?) {
-        //navigate to other view passing user data
-        val userFirstname = user?.data?.profileInfo?.firstname.toString()
-        Constants.loggedInAgentFirstname = userFirstname
-        val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
-        findNavController().navigate(action)
-        //call loader
-        binding.llProgressBar.visibility = View.GONE
-        //binding.loading.visibility = View.GONE
+        //get response from server
+        if(user?.status==200){
+            //navigate to other view passing user data
+            val userFirstname = user.data?.profileInfo?.firstname.toString()
+            Constants.loggedInAgentFirstname = userFirstname
+            val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
+            findNavController().navigate(action)
+            //hide loader
+            binding.llProgressBar.visibility = View.GONE
+            //binding.loading.visibility = View.GONE
+        }
+        else if(user?.status!=200){
+            //hide loader
+            binding.llProgressBar.visibility = View.GONE
+            val text = user?.message.toString()
+            val duration = Toast.LENGTH_LONG
+            //lock entry and button
+            binding.loginBtn.isClickable = true
+            binding.loginBtn.isEnabled = true
+            binding.usernameEntry.isEnabled = true
+            binding.passwordEntry.isEnabled = true
+            Toast.makeText(context, text, duration).show()
+            return
+        }
 
-        //lock entry and button
-        binding.loginBtn.isClickable = true
-        binding.loginBtn.isEnabled = true
-        binding.usernameEntry.isEnabled = true
-        binding.passwordEntry.isEnabled = true
+
     }
 }
