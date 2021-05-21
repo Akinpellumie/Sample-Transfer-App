@@ -157,14 +157,14 @@ class SendCashLandingFragment : Fragment(), IBankListServiceCallback, ISendCashT
             }else {
                 dialog.show()
             }
-            appViewModel.validateBeneficiary(_selectedBank.code!!, accountNumber!!)
+            appViewModel.validateBeneficiary(_selectedBank.id!!, accountNumber!!)
         } else {
             isValid = false
             toggleAccountNameVisibility()
             validateInput()
         }
         if (accountNumber?.length == 10) {
-            appViewModel.validateBeneficiary(_selectedBank.code.toString(), accountNumber)
+            appViewModel.validateBeneficiary(_selectedBank.id.toString(), accountNumber)
         }
     }
     private fun toggleAccountNameVisibility() {
