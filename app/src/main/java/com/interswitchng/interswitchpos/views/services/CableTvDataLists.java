@@ -18,7 +18,7 @@ public class CableTvDataLists {
 
 
 
-    public ArrayList<CableTvPlansModel> getCableData(Context context){
+    public ArrayList<CableTvPlansModel> getCableData(Context context, String cableTvType){
         try{
             // ArrayList for person names, email Id's and mobile numbers
             ArrayList<JSONObject> dstvPlans = new ArrayList<>();
@@ -27,7 +27,7 @@ public class CableTvDataLists {
             ArrayList<String> dstvPlanBillerId = new ArrayList<>();
 
             // get JSONObject from JSON file
-            JSONObject obj = new JSONObject(loadJSONFromAsset(context));
+            JSONObject obj = new JSONObject(loadJSONFromAsset(context, cableTvType));
             // fetch JSONArray named users
             JSONArray userArray = obj.getJSONArray("dstvPlans");
 
@@ -67,13 +67,23 @@ public class CableTvDataLists {
         return null;
     }
 
-    public String loadJSONFromAsset(Context context) {
+    public String loadJSONFromAsset(Context context, String cableTvType) {
 
 
         String json = null;
         try {
             AssetManager assManager = context.getAssets();
-            InputStream is = assManager.open("dstvPackages.json");
+            InputStream is = null;
+            if(cableTvType.matches("Dstv")){
+                is = assManager.open("dstvPackages.json");
+            }
+            else if (cableTvType.matches("Gotv")){
+                is = assManager.open("gotvPackages.json");
+            }
+            else if (cableTvType.matches("Gotv")){
+                is = assManager.open("startimesPackages.json");
+            }
+
             //InputStream is = getApplicationContext().getAssets().open("dstvPackages.json");
             int size = is.available();
             byte[] buffer = new byte[size];

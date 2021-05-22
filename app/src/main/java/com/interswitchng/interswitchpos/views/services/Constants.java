@@ -82,6 +82,10 @@ public class Constants {
     public static String getIKEJADCPayCode() {
         return "76601";
     }
+
+    public static String getDstvBillerId() {
+        return "104";
+    }
     public static ArrayList AST_BANK_LIST;
     public static String loggedInAgentPin;
     public static String loggedInAgentPhoneNumber;

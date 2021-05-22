@@ -314,6 +314,9 @@
         <argument
             android:name="tranxnId"
             app:argType="string" />
+        <argument
+            android:name="cableTvType"
+            app:argType="string" />
     </fragment>
 
     <fragment

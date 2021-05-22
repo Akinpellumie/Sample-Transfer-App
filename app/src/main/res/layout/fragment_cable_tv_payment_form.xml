@@ -229,7 +229,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/setPin"
+            android:id="@+id/initiateTransaction"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginRight="20dp"
