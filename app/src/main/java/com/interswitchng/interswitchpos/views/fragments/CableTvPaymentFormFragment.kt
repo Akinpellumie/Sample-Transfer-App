@@ -19,6 +19,7 @@ class CableTvPaymentFormFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentCableTvPaymentFormBinding;
+
     //private lateinit var binding:
 
     private val cableTvDataLists = CableTvDataLists();
@@ -39,7 +40,7 @@ class CableTvPaymentFormFragment : Fragment() {
 
         // ArrayList for person names, email Id's and mobile numbers
         val dstvPlans = ArrayList<String>()
-        for (item in cableTvDataLists.getCableData()){
+        for (item in cableTvDataLists.getCableData(activity?.applicationContext)){
             dstvPlans.add(item.paymentitemname);
         }
 
@@ -54,7 +55,7 @@ class CableTvPaymentFormFragment : Fragment() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val type = parent?.getItemAtPosition(position).toString()
-                val price = cableTvDataLists.getCableData()[position].itemFee
+                val price = cableTvDataLists.getCableData(activity?.applicationContext)[position].itemFee
                 Toast.makeText(activity, type, Toast.LENGTH_LONG).show()
                 println(type)
             }

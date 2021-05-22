@@ -1,6 +1,7 @@
 package com.interswitchng.interswitchpos.views.services;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.AsyncTask;
 
 import com.interswitchng.interswitchpos.views.services.model.cableplans.CableTvPlansModel;
@@ -13,10 +14,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class CableTvDataLists extends AsyncTask<String, Void, Void> {
+public class CableTvDataLists {
 
-    private Context context;
-    public ArrayList<CableTvPlansModel> getCableData(){
+
+
+    public ArrayList<CableTvPlansModel> getCableData(Context context){
         try{
             // ArrayList for person names, email Id's and mobile numbers
             ArrayList<JSONObject> dstvPlans = new ArrayList<>();
@@ -66,10 +68,13 @@ public class CableTvDataLists extends AsyncTask<String, Void, Void> {
     }
 
     public String loadJSONFromAsset(Context context) {
-        this.context = context;
+
+
         String json = null;
         try {
-            InputStream is = context.getAssets().open("dstvPackages.json");
+            AssetManager assManager = context.getAssets();
+            InputStream is = assManager.open("dstvPackages.json");
+            //InputStream is = getApplicationContext().getAssets().open("dstvPackages.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -106,7 +111,7 @@ public class CableTvDataLists extends AsyncTask<String, Void, Void> {
     }
 
     // Decodes plans json into plans model object
-    public static CableTvPlansModel cableTvDataJson(JSONObject jsonObject) {
+    public CableTvPlansModel cableTvDataJson(JSONObject jsonObject) {
         CableTvPlansModel c = new CableTvPlansModel();
         // Deserialize json into object fields
         try {
@@ -121,8 +126,5 @@ public class CableTvDataLists extends AsyncTask<String, Void, Void> {
         // Return new object
         return c;
     }
-    @Override
-    protected Void doInBackground(String... strings) {
-        return null;
-    }
+
 }
