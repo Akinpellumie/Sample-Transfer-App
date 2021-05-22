@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".views.fragments.HomeLandingFragment">
 
         <com.google.android.material.card.MaterialCardView
@@ -29,22 +28,22 @@
                     android:layout_marginTop="20dp">
                     <LinearLayout
                         android:id="@+id/leftContent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
                         android:clickable="true"
                         android:orientation="horizontal"
-                        android:layout_alignParentStart="true"
                         tools:ignore="RelativeOverlap"
                         android:focusable="true">
 
                         <ImageView
                             android:id="@+id/userImage"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="45dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_height="45dp"
                             android:layout_gravity="center"
                             app:srcCompat="@drawable/ic_profile"
-                            android:contentDescription="@string/astra_logo" />
+                            android:contentDescription="@string/astra_logo"
+                            android:layout_marginLeft="10dp" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/userFirstname"
@@ -62,42 +61,168 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/rightContent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:orientation="vertical"
-                        android:layout_alignParentEnd="true">
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/balance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20sp"
-                            android:fontFamily="@font/roboto_bold"
-                            android:layout_gravity="start"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/whiteColor"
-                            android:text="Balance"/>
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/balanceTxt"
-                            android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_below="@id/leftContent"
+                        android:id="@+id/flow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:id="@+id/inflow"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/roboto_bold"
-                            android:layout_gravity="start"
-                            android:gravity="center_vertical"
-                            android:layout_marginTop="15dp"
-                            android:textColor="@color/whiteColor"
-                            android:text="NGN 50,000"/>
+                            android:layout_weight=".50"
+                            android:layout_margin="10dp"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp"
+                            app:cardCornerRadius="15dp">
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:background="@drawable/card_bg"
+                                android:layout_height="match_parent"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:layout_gravity="fill"
+                                android:gravity="fill"
+                                android:paddingRight="10dp"
+                                android:layout_centerInParent="true"
+                                android:orientation="horizontal"
+                                android:paddingEnd="5dp">
+
+                                <ImageView
+                                    android:id="@+id/inflowIcon"
+                                    android:layout_width="20dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="0.3"
+                                    android:background="@drawable/text_white_bg"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="@string/send_money_by_card"
+                                    app:srcCompat="@drawable/ic_arrow_down_left" />
+
+                                <LinearLayout
+                                    android:layout_gravity="end"
+                                    android:gravity="end"
+                                    android:layout_weight="0.60"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_marginRight="7dp">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/inflowBalance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="13sp"
+                                        android:fontFamily="@font/nimbus_bold"
+                                        android:layout_gravity="end"
+                                        android:gravity="end"
+                                        android:textColor="@color/whiteColor"
+                                        android:text="XX.XX"
+                                        tools:ignore="RelativeOverlap"/>
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/inflowLbl"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="10sp"
+                                        android:fontFamily="@font/nimbus_regular"
+                                        android:layout_gravity="end"
+                                        android:gravity="end"
+                                        android:textColor="@color/whiteColor"
+                                        android:text="Inflow"
+                                        tools:ignore="RelativeOverlap"/>
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:id="@+id/outflow"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".50"
+                            android:layout_margin="10dp"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp"
+                            app:cardCornerRadius="15dp">
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:background="@drawable/card_bg"
+                                android:layout_height="match_parent"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:layout_gravity="fill"
+                                android:gravity="fill"
+                                android:paddingRight="10dp"
+                                android:layout_centerInParent="true"
+                                android:orientation="horizontal"
+                                android:paddingEnd="5dp">
+
+                                <ImageView
+                                    android:id="@+id/outflowIcon"
+                                    android:layout_width="20dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="0.3"
+                                    android:background="@drawable/text_white_bg"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="@string/send_money_by_card"
+                                    app:srcCompat="@drawable/ic_arrow_up_right" />
+
+                                <LinearLayout
+                                    android:layout_gravity="end"
+                                    android:gravity="end"
+                                    android:layout_weight="0.60"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_marginRight="7dp">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/outflowBalance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="13sp"
+                                        android:fontFamily="@font/roboto_bold"
+                                        android:layout_gravity="end"
+                                        android:gravity="end"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/whiteColor"
+                                        android:text="XX.XX"
+                                        tools:ignore="RelativeOverlap"/>
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/outflowLbl"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="10sp"
+                                        android:fontFamily="@font/nimbus_regular"
+                                        android:layout_gravity="end"
+                                        android:gravity="end"
+                                        android:textColor="@color/whiteColor"
+                                        android:text="Outflow"
+                                        tools:ignore="RelativeOverlap"/>
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+
                     </LinearLayout>
+
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/menuBtn"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:layout_width="match_parent"
@@ -112,7 +237,7 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="0dp"
                             android:id="@+id/isw_transfer_card"
-                            android:layout_height="200dp"
+                            android:layout_height="170dp"
                             android:layout_weight=".50"
                             android:layout_margin="10dp"
                             app:cardCornerRadius="15dp">
@@ -156,7 +281,7 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="0dp"
                             android:id="@+id/astra_send_cash"
-                            android:layout_height="200dp"
+                            android:layout_height="170dp"
                             android:layout_weight=".50"
                             android:layout_margin="10dp"
                             app:cardCornerRadius="15dp">
@@ -208,7 +333,7 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="0dp"
                             android:id="@+id/billPay"
-                            android:layout_height="200dp"
+                            android:layout_height="170dp"
                             android:layout_weight=".50"
                             android:layout_margin="10dp"
                             app:cardCornerRadius="15dp">
@@ -252,7 +377,7 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="0dp"
                             android:id="@+id/transactionCard"
-                            android:layout_height="200dp"
+                            android:layout_height="170dp"
                             android:layout_weight=".50"
                             app:cardCornerRadius="15dp"
                             android:layout_margin="10dp">

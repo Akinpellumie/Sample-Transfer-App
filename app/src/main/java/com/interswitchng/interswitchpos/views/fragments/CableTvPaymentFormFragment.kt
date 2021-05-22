@@ -20,7 +20,6 @@ class CableTvPaymentFormFragment : Fragment() {
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentCableTvPaymentFormBinding;
 
-    //private lateinit var binding:
 
     private val cableTvDataLists = CableTvDataLists();
 

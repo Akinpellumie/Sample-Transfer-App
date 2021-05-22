@@ -12,8 +12,8 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
+import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.CustomDialogBinding
-import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.models.core.IswLocal
 import com.interswitchng.smartpos.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.utilities.Logger
@@ -106,4 +106,28 @@ fun getAmountWithCurrency(amount: String, terminalInfo: TerminalInfo): String {
     Logger.with("Display Utils").logErr( amount)
     var formattedAmount = formatString(amount.toInt())
     return "$formattedAmount $currency"
+}
+
+fun getAstraAmountWithCurrency(amount: String): String {
+
+//    // get the currency based on the terminal's configured currency code
+//    val currency = when (terminalInfo) {
+//        null -> ""
+//        else -> when(terminalInfo.currencyCode) {
+//            IswLocal.NIGERIA.code -> IswLocal.NIGERIA.currency
+//            IswLocal.GHANA.code -> IswLocal.GHANA.currency
+//            IswLocal.USA.code -> IswLocal.USA.currency
+//            else -> ""
+//        }
+//    }
+    return try{
+        Logger.with("Display Utils").logErr( amount)
+        val currency = "N"
+        val formattedAmount = formatString(amount.toInt())
+        "$currency $formattedAmount"
+    } catch (ex: Exception){
+        println("code below exception ... $ex")
+        null.toString()
+    }
+
 }

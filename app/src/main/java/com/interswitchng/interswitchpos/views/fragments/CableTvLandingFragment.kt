@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
+import com.interswitchng.interswitchpos.databinding.FragmentBuyAirtimeMainBinding
+import com.interswitchng.interswitchpos.databinding.FragmentCableTvPaymentBinding
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CableTvLandingFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
+    private lateinit var binding: FragmentCableTvPaymentBinding
     //private lateinit var binding:
 
 //    private val terminalInfo by lazy {
@@ -24,27 +29,36 @@ class CableTvLandingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_cable_tv_payment, container, false)
 
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_cable_tv_payment, container, false)
+
+        // Dstv recharge clickEvent
+        binding.dstvCard.setOnClickListener {
+            val cableType = "Dstv"
+            val action = CableTvLandingFragmentDirections.actionCableTvLandingToCableTvPaymentForm(cableType)
+            findNavController().navigate(action)
+
+
+        }
+
+        // GoTv recharge clickEvent
+        binding.gotvCard.setOnClickListener {
+            val cableType = "Gotv"
+            val action = CableTvLandingFragmentDirections.actionCableTvLandingToCableTvPaymentForm(cableType)
+            findNavController().navigate(action)
+
+
+        }
+
+        // Startimes recharge clickEvent
+        binding.startimesCard.setOnClickListener {
+            val cableType = "Startimes"
+            val action = CableTvLandingFragmentDirections.actionCableTvLandingToCableTvPaymentForm(cableType)
+            findNavController().navigate(action)
+        }
+        return binding.root
     }
-//
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-//                              savedInstanceState: Bundle?): View? {
-//        // Inflate the layout for this fragment
-//        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login_landing, container, false)
-//        if (terminalInfo != null) {
-//            viewmodel.getToken(terminalInfo!!)
-//        }
-////        binding.iswTransferCard.setOnClickListener {
-//////            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)
-////            val action = HomeLandingFragmentDirections.actionHomeToAmountFragment2()
-////            findNavController().navigate(action)
-////        }
-//
-//        val level = IswTxnHandler().getBatterLevel(requireContext())
-//       showSnack(binding.iswCashOutText, "Battery Level is: $level")
-//        return binding.root
-//    }
+
 
     companion object {
         @JvmStatic

@@ -150,7 +150,7 @@
         <RelativeLayout
             android:id="@+id/cardFilterView"
             android:layout_width="match_parent"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -435,7 +435,7 @@
                                 android:backgroundTint="@android:color/transparent"
                                     android:enabled="true"
                                 android:shadowColor="@android:color/transparent"
-                                    android:fontFamily="@font/nimbus_bold"
+                                    android:fontFamily="@font/nimbus_regular"
                                     android:textSize="18sp"
                                     android:layout_marginLeft="10dp"
                                     android:textAllCaps="false"

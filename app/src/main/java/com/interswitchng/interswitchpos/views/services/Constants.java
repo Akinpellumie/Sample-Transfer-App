@@ -1,10 +1,16 @@
 package com.interswitchng.interswitchpos.views.services;
 
+import com.interswitchng.interswitchpos.views.services.model.bank.BankData;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Constants {
 
     public static String domainurl()
     {
-        return "http://192.168.3.169:3333";
+        //return "http://192.168.3.169:3333";
+        return "https://server.pos.astrapay.com.ng";
     }
 //    public static String airtimeRechargeUrl() {
 //        return Constants.domainurl() + "/pin/transactions/initiate";
@@ -15,8 +21,17 @@ public class Constants {
     public static String CompleteTransactionUrl() {
         return Constants.domainurl() + "/transactions/complete";
     }
+    public static String VerifyAccountDetailUrl() {
+        return Constants.domainurl() + "/agent/account_detail/other_banks/";
+    }
+    public static String BankListUrl() {
+        return Constants.domainurl() + "/agent/account_detail/bank_codes";
+    }
     public static String TransactionHistoryUrl() {
         return Constants.domainurl() + "/agent/transactions/agents/" + loggedInAgentId;
+    }
+    public static String FetchAgentFlowUrl() {
+        return Constants.domainurl() + "/agent/transaction/flow/" + loggedInAgentId;
     }
     public static String FetchSingleTransactionUrl() {
         return Constants.domainurl() + "/agent/transactions/" + loggedInAgentId;
@@ -67,7 +82,7 @@ public class Constants {
     public static String getIKEJADCPayCode() {
         return "76601";
     }
-
+    public static ArrayList AST_BANK_LIST;
     public static String loggedInAgentPin;
     public static String loggedInAgentPhoneNumber;
 
@@ -113,5 +128,6 @@ public class Constants {
     public static String getDstvPlanBiller() {
         return "104";
     }
+    public static List<BankData> BANK_LIST = new ArrayList<BankData>();
 
 }

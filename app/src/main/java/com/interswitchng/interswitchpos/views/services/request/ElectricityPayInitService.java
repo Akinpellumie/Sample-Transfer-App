@@ -1,11 +1,11 @@
-package com.interswitchng.interswitchpos.views.services;
+package com.interswitchng.interswitchpos.views.services.request;
 
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
+import com.interswitchng.interswitchpos.views.services.Constants;
 import com.interswitchng.interswitchpos.views.services.interfaces.IAirtimeInitiateCallBack;
-import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack;
-import com.interswitchng.interswitchpos.views.services.model.login.LoginModel;
+import com.interswitchng.interswitchpos.views.services.interfaces.IElectricityPayCallBack;
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel;
 
 import org.json.JSONException;
@@ -19,15 +19,20 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnInitiateModel> {
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentEmail;
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentId;
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
+import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
 
-    private final IAirtimeInitiateCallBack callBack;
+public class ElectricityPayInitService extends AsyncTask<String, Void, TranxnInitiateModel> {
 
-    public AirtimeRechargeRequests(IAirtimeInitiateCallBack callBack) {
+    private final IElectricityPayCallBack callBack;
+
+    public ElectricityPayInitService(IElectricityPayCallBack callBack) {
         this.callBack = callBack;
     }
 
-    public TranxnInitiateModel postRechargeWithCash(String phoneNumber, String amount, String rechargeType){
+    public TranxnInitiateModel postElectricityWithCash(String phoneNumber, String amount, String customerId, String customerName, String electricityCompany ){
         String url = Constants.InititateTransactionUrl();
 
 
@@ -35,19 +40,35 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
 
             String billerId = "";
             String paymentCode = "";
-            if(rechargeType == "Mtn"){
+            if(electricityCompany == "Abuja"){
                 paymentCode = Constants.getMtnRechargeCustomPaycode();
                 billerId = Constants.getMtnVtuBiller();
-            } else if (rechargeType.contains("9Mobile")) {
+            } else if (electricityCompany.contains("Ibadan")) {
                 paymentCode = Constants.getEtisalatRechargeCustomPaycode();
                 billerId = Constants.get9MobileVtuBiller();
-            }else if (rechargeType.contains("Airtel")){
+            }else if (electricityCompany.contains("Kano")){
                 paymentCode = Constants.getAirtelRechargeCustomPaycode();
                 billerId = Constants.getAirtelVtuBiller();
-            }else if (rechargeType.contains("Glo")){
+            }else if (electricityCompany.contains("PortHarcourt")){
+                paymentCode = Constants.getGloRechargeCustomPaycode();
+                billerId = Constants.getGloVtuBiller();
+            }else if (electricityCompany.contains("Enugu")) {
+                paymentCode = Constants.getEtisalatRechargeCustomPaycode();
+                billerId = Constants.get9MobileVtuBiller();
+            }else if (electricityCompany.contains("Eko")){
+                paymentCode = Constants.getAirtelRechargeCustomPaycode();
+                billerId = Constants.getAirtelVtuBiller();
+            }else if (electricityCompany.contains("Ikeja")){
+                paymentCode = Constants.getGloRechargeCustomPaycode();
+                billerId = Constants.getGloVtuBiller();
+            }else if (electricityCompany.contains("Jos")){
+                paymentCode = Constants.getAirtelRechargeCustomPaycode();
+                billerId = Constants.getAirtelVtuBiller();
+            }else if (electricityCompany.contains("Kaduna")){
                 paymentCode = Constants.getGloRechargeCustomPaycode();
                 billerId = Constants.getGloVtuBiller();
             }
+
 
             int amountInt = Integer.parseInt(amount);
             OkHttpClient okHttp = new OkHttpClient();
@@ -55,6 +76,11 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
             JSONObject fullData = new JSONObject();
 
             try{
+                String email = loggedInAgentEmail;
+                String userPhne = loggedInAgentPhoneNumber;
+                String userPin = loggedInAgentPin;
+                String agentId = loggedInAgentId;
+
                 JSONObject terminalDetails = new JSONObject();
                 JSONObject facilitator = new JSONObject();
                 JSONObject beneficiary = new JSONObject();
@@ -75,24 +101,25 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
 
                 //add facilitator details
 
-                facilitator.put( "id","0d7d986d-c738-463c-865a-b09650c9bd07");
-                facilitator.put( "phone","09057127737");
-                facilitator.put( "pin","1234");
-                facilitator.put(  "email","tosin@gmail.com");
+
+                facilitator.put( "id",agentId);
+                facilitator.put( "phone",userPhne);
+                facilitator.put( "pin",userPin);
+                facilitator.put(  "email",email);
 
                 //add beneficiary
                 beneficiary.put(   "email", "");
-                beneficiary.put(   "name", "");
+                beneficiary.put(   "name", customerName);
                 beneficiary.put(   "phone", phoneNumber);
 
                 //add beneficiaryTerminal details
-                beneficiaryTerminal.put(   "billerName",rechargeType);
+                beneficiaryTerminal.put(   "billerName",electricityCompany);
                 beneficiaryTerminal.put(   "billerId",billerId);
                 beneficiaryTerminal.put(    "categoryId","567");
                 beneficiaryTerminal.put(    "categoryName","Airtime Recharge");
                 beneficiaryTerminal.put(    "paymentCode",paymentCode);
-                beneficiaryTerminal.put(    "paymentItemName",rechargeType+" Recharge");
-                beneficiaryTerminal.put(    "customerId",phoneNumber);
+                beneficiaryTerminal.put(    "paymentItemName",electricityCompany+" Electric");
+                beneficiaryTerminal.put(    "customerId",customerId);
 
                 //add all json data to fulldata
                 fullData.put("terminalDetails", terminalDetails);
@@ -136,15 +163,19 @@ public class AirtimeRechargeRequests extends AsyncTask<String, Void, TranxnIniti
     }
     @Override
     protected TranxnInitiateModel doInBackground(String... strings) {
-        String phonenumber = strings[0];
+        String phoneNumber = strings[0];
         String amount = strings[1];
-        String rechargeType = strings[2];
-        return postRechargeWithCash(phonenumber, amount, rechargeType);
+        String customerId = strings[2];
+        String customerName = strings[3];
+        String electricityCompany = strings[4];
+
+        return postElectricityWithCash(phoneNumber, amount, customerId, customerName, electricityCompany);
 
     }
 
     @Override
-    protected void onPostExecute(TranxnInitiateModel tranxnInitiateData) {
-        callBack.OnAirtimeInitiate(tranxnInitiateData);
+    protected void onPostExecute(TranxnInitiateModel data) {
+        //Constants.SendCashInitTransId = data.getData().transactionId;
+        callBack.OnElectricityPayInitialize(data);
     }
 }

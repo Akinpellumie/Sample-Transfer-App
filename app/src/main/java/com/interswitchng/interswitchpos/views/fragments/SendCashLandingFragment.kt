@@ -15,31 +15,35 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentSendCashLandingBinding
-import com.interswitchng.interswitchpos.utils.BankFilterDialog
 import com.interswitchng.interswitchpos.utils.SendCashBankFilterDialog
 import com.interswitchng.interswitchpos.utils.customdailog
+import com.interswitchng.interswitchpos.views.services.request.BankListService
 import com.interswitchng.interswitchpos.views.services.Constants
-import com.interswitchng.interswitchpos.views.services.SendCashTransferInitService
-import com.interswitchng.interswitchpos.views.services.TransactionCompleteNotifier
+import com.interswitchng.interswitchpos.views.services.callback.IBankDetailCallBack
+import com.interswitchng.interswitchpos.views.services.request.SendCashTransferInitService
+import com.interswitchng.interswitchpos.views.services.callback.IBankListServiceCallback
 import com.interswitchng.interswitchpos.views.services.interfaces.ISendCashTransferCallBack
+import com.interswitchng.interswitchpos.views.services.model.bank.AccountDetailModel
+import com.interswitchng.interswitchpos.views.services.model.bank.AstraBankModel
+import com.interswitchng.interswitchpos.views.services.model.bank.BankData
 import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
+import com.interswitchng.interswitchpos.views.services.request.VerifyAccountDetailService
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
-import com.interswitchng.smartpos.models.BankModel
 import com.interswitchng.smartpos.models.BeneficiaryModel
-import com.interswitchng.smartpos.models.CallbackListener
 import com.interswitchng.smartpos.models.NameEnquiryResult
 import com.interswitchng.smartpos.shared.utilities.getTextValue
 import kotlinx.android.synthetic.main.fragment_account_setup.*
 import kotlinx.android.synthetic.main.fragment_send_cash_landing.*
+import kotlinx.android.synthetic.main.fragment_transaction_success.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferCallBack {
+class SendCashLandingFragment : Fragment(), IBankListServiceCallback, ISendCashTransferCallBack, IBankDetailCallBack {
     private lateinit var binding : FragmentSendCashLandingBinding
-    private var bankList = arrayListOf<BankModel>()
-    lateinit var _selectedBank: BankModel
+    private var bankList = arrayListOf<BankData>()
+    lateinit var _selectedBank: BankData
     lateinit var submitButton: Button
     lateinit var accountNumberEditor: EditText
     lateinit var _beneficiaryPayload: BeneficiaryModel
@@ -48,12 +52,15 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
     var accountNumber = ""
     var userAcctName = ""
     var userBankName = ""
+    var userBankCode = ""
+    var userBankId = ""
     var cashAmount = ""
     var acctNum = ""
     var narration = ""
     var useNameEnquiry = true
     private val appViewModel: AppViewModel by viewModel()
     private val sendCashTransferInitService = SendCashTransferInitService(this)
+    private val bankListService = BankListService(this)
 
     //private lateinit var  sendCashModel : SendCashTransferModel
 
@@ -83,6 +90,9 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
 //        sendCashModel.bankName = bankName.toString()
 //        sendCashModel.narration = narration.toString()
 
+        //get list of banks
+        bankListService.execute()
+
         //this is for acct number and bank checks
         submitButton = binding.initiateBtn
         accountNumberEditor = binding.acctNumEntry
@@ -94,7 +104,8 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
                 Timer().schedule(object : TimerTask() {
                     override fun run() {
                         this@SendCashLandingFragment.requireActivity().runOnUiThread {
-                            validateBeneficiary()
+                            //validateBeneficiary()
+                            fetchUserAccountName()
                         }
                     }
 
@@ -111,66 +122,108 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
         })
 
 
+        //popstack navigation
+        binding.astraToolbar.setOnClickListener{
+            findNavController().popBackStack(R.id.home, false)
+        }
 
         //proceed to summary page and call initiate send cash
         binding.initiateBtn.setOnClickListener {
             cashAmount = binding.amountEntry.text.toString()
             acctNum = binding.acctNumEntry.text.toString()
-            val acctName = binding.acctNameEntry.text
-            val bankName = binding.bankNameEntry.text
+//            val acctName = binding.acctNameEntry.text
+//            val bankName = binding.bankNameEntry.text
             narration = binding.narrationEntry.text.toString()
             //call initiate transaction
             binding.llProgressBar.visibility = View.VISIBLE
-            sendCashTransferInitService.execute(cashAmount,acctNum,userAcctName, userBankName, narration)
+            sendCashTransferInitService.execute(cashAmount,acctNum,userAcctName,userBankName,userBankCode,userBankId,narration)
 
         }
     }
 
-    private fun validateBeneficiary() {
-        //val accountNumber = binding.acctNumEntry.text
-
-
-        if (accountNumber?.length == 10 && this::_selectedBank.isInitialized) {
-
-            if(!useNameEnquiry) {
-                _beneficiaryPayload = BeneficiaryModel()
-                _beneficiaryPayload.accountName = binding.acctNameEntry.text.toString()
-                _beneficiaryPayload.accountNumber = accountNumber.toString()
-                isValid = !binding.acctNameEntry.getTextValue().isNullOrEmpty()
-                validateInput()
-                return
-            }
-
+    private fun fetchUserAccountName(){
+        if (accountNumber.length == 10 && this::_selectedBank.isInitialized){
+            val verifyAccountDetailService = VerifyAccountDetailService(this)
+            verifyAccountDetailService.execute(_selectedBank.code!!, accountNumber!!)
             if (!this::dialog.isInitialized) {
                 dialog = customdailog(this.requireContext())
             }else {
                 dialog.show()
             }
-            appViewModel.validateBeneficiary(_selectedBank.selBankCodes!!, accountNumber!!)
-        } else {
+            return
+        }
+        else {
             isValid = false
             toggleAccountNameVisibility()
             validateInput()
         }
-        if (accountNumber?.length == 10) {
-            appViewModel.validateBeneficiary(_selectedBank.selBankCodes.toString(), accountNumber)
+        if (accountNumber.length == 10 && _selectedBank.code.isNotEmpty()) {
+            val verifyAccountDetailService = VerifyAccountDetailService(this)
+            verifyAccountDetailService.execute(_selectedBank.code!!, accountNumber!!)
         }
+
     }
+
     private fun toggleAccountNameVisibility() {
-        if (isValid || !useNameEnquiry) {
+        if (isValid) {
             binding.acctNameEntry.visibility = View.VISIBLE
             binding.acctNameEntry.visibility = View.VISIBLE
-            if(this::_beneficiaryPayload.isInitialized) binding.acctNameEntry.setText(_beneficiaryPayload.accountName)
-            userAcctName = _beneficiaryPayload.accountName.toString()
+
+            binding.acctNameEntry.setText(userAcctName)
+            dialog.hide()
+//            if(this::_beneficiaryPayload.isInitialized) binding.acctNameEntry.setText(_beneficiaryPayload.accountName)
+//            userAcctName = _beneficiaryPayload.accountName.toString()
         } else {
             binding.acctNameEntry.visibility = View.GONE
             //outlinedNameTextField.visibility = View.GONE
             binding.acctNameEntry.visibility = View.GONE
         }
-
-//      make Account name input focusable based on the state of use name enquiry
-
     }
+//    private fun validateBeneficiary() {
+//        //val accountNumber = binding.acctNumEntry.text
+//
+//
+//        if (accountNumber.length == 10 && this::_selectedBank.isInitialized) {
+//
+//            if(!useNameEnquiry) {
+//                _beneficiaryPayload = BeneficiaryModel()
+//                _beneficiaryPayload.accountName = binding.acctNameEntry.text.toString()
+//                _beneficiaryPayload.accountNumber = accountNumber.toString()
+//                isValid = !binding.acctNameEntry.getTextValue().isNullOrEmpty()
+//                validateInput()
+//                return
+//            }
+//
+//            if (!this::dialog.isInitialized) {
+//                dialog = customdailog(this.requireContext())
+//            }else {
+//                dialog.show()
+//            }
+//            appViewModel.validateBeneficiary(_selectedBank.id!!, accountNumber!!)
+//        } else {
+//            isValid = false
+//            toggleAccountNameVisibility()
+//            validateInput()
+//        }
+//        if (accountNumber?.length == 10) {
+//            appViewModel.validateBeneficiary(_selectedBank.id.toString(), accountNumber)
+//        }
+//    }
+//    private fun toggleAccountNameVisibility() {
+//        if (isValid || !useNameEnquiry) {
+//            binding.acctNameEntry.visibility = View.VISIBLE
+//            binding.acctNameEntry.visibility = View.VISIBLE
+//            if(this::_beneficiaryPayload.isInitialized) binding.acctNameEntry.setText(_beneficiaryPayload.accountName)
+//            userAcctName = _beneficiaryPayload.accountName.toString()
+//        } else {
+//            binding.acctNameEntry.visibility = View.GONE
+//            //outlinedNameTextField.visibility = View.GONE
+//            binding.acctNameEntry.visibility = View.GONE
+//        }
+//
+////      make Account name input focusable based on the state of use name enquiry
+//
+//    }
 
     private fun validateInput() {
         submitButton.alpha = if (!isValid) 0.5F else 1F
@@ -202,7 +255,7 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
                     } else {
                         Toast.makeText(context, "Name enquiry error please check the fields and try again", Toast.LENGTH_SHORT).show()
                     }
-                    toggleAccountNameVisibility()
+                    //toggleAccountNameVisibility()
                     validateInput()
                 }
             }
@@ -210,12 +263,15 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
     }
 
 
-    override fun onDataReceived(data: BankModel) {
+    override fun onDataReceived(data: BankData) {
         _selectedBank = data
-        userBankName = data.bankName
+        userBankName = data.name
+        userBankCode = data.code
+        userBankId = data.id
         val bankText: EditText = bankNameEntry
-        bankText.setText(data.bankName)
-        validateBeneficiary()
+        bankText.setText(data.name)
+        fetchUserAccountName()
+        //validateBeneficiary()
     }
 
 
@@ -234,7 +290,7 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
         binding.llProgressBar.visibility = View.GONE
         val transId = Constants.SendCashInitTransId
         val action = SendCashLandingFragmentDirections.actionSendCashToSendCashSummaryFragment(
-                cashAmount,acctNum,userAcctName,userBankName,narration,transId.toString()
+                cashAmount,acctNum,userAcctName,userBankName,userBankCode,userBankId,narration,transId.toString()
         )
         findNavController().navigate(action)
     }
@@ -242,4 +298,28 @@ class SendCashLandingFragment : Fragment(), CallbackListener, ISendCashTransferC
     override fun OnSendCashComplete(commpleteTranxnData: CompleteTransactionModel?) {
         //do nothing for now
     }
+
+    override fun getBankList(banks: AstraBankModel?) {
+
+        Constants.BANK_LIST.clear()
+        banks?.getData()?.let { Constants.BANK_LIST.addAll(it) }
+    }
+
+    override fun getUserAccountName(accountDetailModel: AccountDetailModel?) {
+        if(accountDetailModel?.status==200){
+            isValid = true
+            userAcctName = accountDetailModel.data?.accountName.toString()
+            toggleAccountNameVisibility()
+        }
+        else if(accountDetailModel?.status!=200){
+            val text = accountDetailModel?.message.toString()
+            val duration = Toast.LENGTH_LONG
+            //lock entry and button
+
+            Toast.makeText(context, text, duration).show()
+            return
+        }
+
+    }
+
 }

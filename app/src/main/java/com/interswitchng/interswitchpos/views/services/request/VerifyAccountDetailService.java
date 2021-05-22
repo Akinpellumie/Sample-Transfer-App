@@ -1,34 +1,35 @@
-package com.interswitchng.interswitchpos.views.services;
+package com.interswitchng.interswitchpos.views.services.request;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback;
-import com.interswitchng.interswitchpos.views.services.model.transactionrecord.TransactionRecord;
+import com.interswitchng.interswitchpos.views.services.Constants;
+import com.interswitchng.interswitchpos.views.services.callback.IBankDetailCallBack;
+import com.interswitchng.interswitchpos.views.services.callback.IFlowCallBack;
+import com.interswitchng.interswitchpos.views.services.model.bank.AccountDetailModel;
+import com.interswitchng.interswitchpos.views.services.model.home.FlowModel;
 
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
 
-public class TransactionRecordService extends AsyncTask<String, Void, TransactionRecord> {
-    private IRecordCallback callback;
+public class VerifyAccountDetailService extends AsyncTask<String, Void, AccountDetailModel> {
+    private final IBankDetailCallBack bankDetailCallBack;
     private String agentId;
     String userPhne = loggedInAgentPhoneNumber;
     String userPin = loggedInAgentPin;
 
-    public TransactionRecordService(IRecordCallback callback){
-        this.callback = callback;
+    public VerifyAccountDetailService(IBankDetailCallBack bankDetailCallBack){
+        this.bankDetailCallBack = bankDetailCallBack;
     }
 
-    public TransactionRecord getTransactionRecord(){
+    public AccountDetailModel getAccountName(String bankCode, String acctNumber){
         try{
-            String url = Constants.TransactionHistoryUrl();
+            String url = Constants.VerifyAccountDetailUrl()+ bankCode + "/" + acctNumber;
 
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
@@ -50,7 +51,7 @@ public class TransactionRecordService extends AsyncTask<String, Void, Transactio
 
 //            TransactionRecord tr = gson.fromJson(jsonString, TransactionRecord.class);
 //            return tr;
-            return gson.fromJson(jsonString, TransactionRecord.class);
+            return gson.fromJson(jsonString, AccountDetailModel.class);
         }
         catch (Exception ex){
             Log.d("NotifyException::::", ex.getMessage());
@@ -59,13 +60,16 @@ public class TransactionRecordService extends AsyncTask<String, Void, Transactio
     }
 
     @Override
-    protected TransactionRecord doInBackground(String... strings) {
-        return getTransactionRecord();
+    protected AccountDetailModel doInBackground(String... strings) {
+        String bankCode = strings[0];
+        String acctNumber = strings[1];
+        return getAccountName(bankCode,acctNumber);
     }
 
     @Override
-    protected void onPostExecute(TransactionRecord transactionRecord) {
-        callback.getTransactions(transactionRecord);
+    protected void onPostExecute(AccountDetailModel accountDetailModel) {
+        bankDetailCallBack.getUserAccountName(accountDetailModel);
+
         //super.onPostExecute(transactionRecordService);
     }
 }

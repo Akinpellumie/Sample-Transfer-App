@@ -10,19 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
-import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
-import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
 import com.interswitchng.interswitchpos.databinding.FragmentSendCashTransferSummaryBinding
-import com.interswitchng.interswitchpos.domain.models.PaymentType
-import com.interswitchng.interswitchpos.utils.showSnack
-import com.interswitchng.interswitchpos.views.services.CompleteSendCashTransfer
-import com.interswitchng.interswitchpos.views.services.SendCashTransferInitService
+import com.interswitchng.interswitchpos.views.services.request.CompleteSendCashTransfer
 import com.interswitchng.interswitchpos.views.services.interfaces.ISendCashTransferCallBack
 import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
-import com.interswitchng.smartpos.IswTxnHandler
-import com.interswitchng.smartpos.models.core.TerminalInfo
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SendCashTransferSummaryFragment : Fragment(), ISendCashTransferCallBack {
@@ -34,6 +27,8 @@ class SendCashTransferSummaryFragment : Fragment(), ISendCashTransferCallBack {
     private val acctName by lazy { args.acctName }
     private val acctNum by lazy { args.acctNum }
     private val bankName by lazy { args.bankName }
+    private val bankCode by lazy { args.bankCode }
+    private val bankId by lazy { args.bankId }
     private val narration by lazy { args.narration }
     private val transId by lazy { args.transId }
     private val completeSendCashTransfer = CompleteSendCashTransfer(this)
@@ -108,9 +103,9 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         val tranxnId = transId
         val transType = "TRANSFER"
         val channel = "CASH TRANSFER"
-        val status = "SUCCESSFUL"
+        val status = commpleteTranxnData?.status
         val action = SendCashTransferSummaryFragmentDirections.actionSendCashSummaryToSuccessFragment(
-                amount.toString(),tranxnId, transType, channel, status
+                amount.toString(),tranxnId, transType, channel, status.toString()
         )
         findNavController().navigate(action)
     }

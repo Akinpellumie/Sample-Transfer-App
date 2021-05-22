@@ -12,16 +12,17 @@ import android.widget.ListView
 import android.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.interswitchng.interswitchpos.R
-import com.interswitchng.interswitchpos.utils.adapters.BankAutoCompleteAdapter
+import com.interswitchng.interswitchpos.utils.adapters.AstraBankAutoCompleteAdapter
 import com.interswitchng.interswitchpos.views.fragments.SendCashLandingFragment
+import com.interswitchng.interswitchpos.views.services.Constants
+import com.interswitchng.interswitchpos.views.services.model.bank.BankData
 import com.interswitchng.smartpos.models.BankModel
-import com.interswitchng.smartpos.shared.Constants
-import kotlinx.android.synthetic.main.isw_transfer_bank_filter_dialog.*
+import kotlinx.android.synthetic.main.astra_bank_filter_dialog.*
 
 
 class SendCashBankFilterDialog(private val sendCashCallBackListener: SendCashLandingFragment): DialogFragment() {
     val TAG = "isw_transfer_bank_filter_dialog"
-    private var bankList = arrayListOf<BankModel>()
+    private var bankList = arrayListOf<BankData>()
     private var toolbar: Toolbar? = null
 
 
@@ -37,8 +38,8 @@ class SendCashBankFilterDialog(private val sendCashCallBackListener: SendCashLan
                             ): View? {
         isCancelable = false
         super.onCreateView(inflater, container, savedInstanceState)
-        bankList.addAll(Constants.BANK_LIST.sortedWith(compareBy { it.bankName }))
-        var rootView: View = inflater.inflate(R.layout.isw_transfer_bank_filter_dialog, container, false)
+        bankList.addAll(Constants.BANK_LIST.sortedWith(compareBy { it.name }))
+        var rootView: View = inflater.inflate(R.layout.astra_bank_filter_dialog, container, false)
         return rootView
     }
 
@@ -47,9 +48,9 @@ class SendCashBankFilterDialog(private val sendCashCallBackListener: SendCashLan
     }
 
     fun setUpAutoComplete() {
-        val auto: ListView = isw_transfer_bank_search
+        val auto: ListView = astra_transfer_bank_search
         val adapter = context?.let {
-            BankAutoCompleteAdapter(
+            AstraBankAutoCompleteAdapter(
                     it,
                     R.layout.isw_bank_autocomplete_row, bankList
             )
@@ -58,12 +59,12 @@ class SendCashBankFilterDialog(private val sendCashCallBackListener: SendCashLan
         //        TODO: Clear selected bank once the user does a delete activity
 
         auto.setOnItemClickListener { parent, view, position, id ->
-            var selectedBank = parent.getItemAtPosition(position) as BankModel
+            var selectedBank = parent.getItemAtPosition(position) as BankData
             sendCashCallBackListener.onDataReceived(selectedBank)
             dismiss()
         }
 
-        val searchBar: EditText? = isw_transfer_bank_search_bar
+        val searchBar: EditText? = astra_transfer_bank_search_bar
         searchBar?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -82,7 +83,7 @@ class SendCashBankFilterDialog(private val sendCashCallBackListener: SendCashLan
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpAutoComplete()
-        isw_transfer_search_dialog_toolbar.setNavigationOnClickListener(View.OnClickListener() {
+        astra_transfer_search_dialog_toolbar.setNavigationOnClickListener(View.OnClickListener() {
             dismiss()
         })
 

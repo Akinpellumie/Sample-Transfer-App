@@ -8,13 +8,38 @@
         android:layout_marginBottom="70dp"
         tools:context=".views.fragments.SendCashLandingFragment">
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <com.google.android.material.appbar.AppBarLayout
+                style=""
+                android:id="@+id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/astraToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:paddingStart="6dp"
+                    android:paddingLeft="6dp"
+                    android:paddingEnd="16dp"
+                    android:paddingRight="16dp"
+                    app:title="Send Cash"
+                    android:clickable="true"
+                    app:titleTextColor="@color/whiteColor"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:navigationIcon="@drawable/ic_arrow_left"
+                    android:focusable="true" />
+            </com.google.android.material.appbar.AppBarLayout>
 
             <RelativeLayout
                 android:id="@+id/mainView"
                 android:padding="10dp"
+                android:layout_below="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

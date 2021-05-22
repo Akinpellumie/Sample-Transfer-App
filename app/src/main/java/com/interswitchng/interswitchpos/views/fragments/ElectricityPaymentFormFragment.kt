@@ -10,19 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
-import com.interswitchng.interswitchpos.databinding.FragmentCableTvPaymentFormBinding
 import com.interswitchng.interswitchpos.databinding.FragmentElectricityPaymentFormBinding
-import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
-import com.interswitchng.interswitchpos.domain.models.PaymentType
-import com.interswitchng.interswitchpos.utils.showSnack
-import com.interswitchng.interswitchpos.views.services.AirtimeRechargeRequests
-import com.interswitchng.interswitchpos.views.services.ElectricityPayInitService
+import com.interswitchng.interswitchpos.views.services.request.ElectricityPayInitService
 import com.interswitchng.interswitchpos.views.services.interfaces.IElectricityPayCallBack
 import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
-import com.interswitchng.smartpos.IswTxnHandler
-import com.interswitchng.smartpos.models.core.TerminalInfo
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ElectricityPaymentFormFragment : Fragment(), IElectricityPayCallBack {
