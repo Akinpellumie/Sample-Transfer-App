@@ -14,12 +14,11 @@ import com.interswitchng.interswitchpos.databinding.FragmentLoginLandingBinding
 import com.interswitchng.interswitchpos.views.services.Constants
 import com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber
 import com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin
-import com.interswitchng.interswitchpos.views.services.LoginService
+import com.interswitchng.interswitchpos.views.services.request.LoginService
 import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack
 import com.interswitchng.interswitchpos.views.services.model.login.LoginModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
-import kotlin.reflect.jvm.internal.impl.load.java.Constant
 
 class LoginLandingFragment : Fragment(), ILoginCallBack {
 
@@ -27,7 +26,6 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
 
     private lateinit var binding: FragmentLoginLandingBinding
     lateinit var mainBinding: FragmentHomeLandingBinding
-    private val loginService = LoginService(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +62,8 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
             binding.passwordEntry.isEnabled = false
 
             //call loginService Java class
+
+            val loginService = LoginService(this)
             loginService.execute(userId,userPin)
 
 //            val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
@@ -90,28 +90,41 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
 
     override fun OnLogin(user: LoginModel?) {
         //get response from server
-        if(user?.status==200){
-            //navigate to other view passing user data
-            val userFirstname = user.data?.profileInfo?.firstname.toString()
-            Constants.loggedInAgentFirstname = userFirstname
-            val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
-            findNavController().navigate(action)
-            //hide loader
-            binding.llProgressBar.visibility = View.GONE
-            //binding.loading.visibility = View.GONE
-        }
-        else if(user?.status!=200){
-            //hide loader
-            binding.llProgressBar.visibility = View.GONE
-            val text = user?.message.toString()
-            val duration = Toast.LENGTH_LONG
-            //lock entry and button
-            binding.loginBtn.isClickable = true
-            binding.loginBtn.isEnabled = true
-            binding.usernameEntry.isEnabled = true
-            binding.passwordEntry.isEnabled = true
-            Toast.makeText(context, text, duration).show()
-            return
+        when {
+            user==null -> {
+                val text = "Oops! Server Unavailable at the moment"
+                val duration = Toast.LENGTH_LONG
+                //lock entry and button
+                binding.loginBtn.isClickable = true
+                binding.loginBtn.isEnabled = true
+                binding.usernameEntry.isEnabled = true
+                binding.passwordEntry.isEnabled = true
+                Toast.makeText(context, text, duration).show()
+                return
+            }
+            user.status ==200 -> {
+                //navigate to other view passing user data
+                val userFirstname = user.data?.profileInfo?.firstname.toString()
+                Constants.loggedInAgentFirstname = userFirstname
+                val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
+                findNavController().navigate(action)
+                //hide loader
+                binding.llProgressBar.visibility = View.GONE
+                //binding.loading.visibility = View.GONE
+            }
+            user.status!=200 -> {
+                //hide loader
+                binding.llProgressBar.visibility = View.GONE
+                val text = user?.message.toString()
+                val duration = Toast.LENGTH_LONG
+                //lock entry and button
+                binding.loginBtn.isClickable = true
+                binding.loginBtn.isEnabled = true
+                binding.usernameEntry.isEnabled = true
+                binding.passwordEntry.isEnabled = true
+                Toast.makeText(context, text, duration).show()
+                return
+            }
         }
 
 

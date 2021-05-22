@@ -15,8 +15,7 @@ import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionStatusBinding
 import com.interswitchng.interswitchpos.utils.getAmountWithCurrency
 import com.interswitchng.interswitchpos.utils.hide
-import com.interswitchng.interswitchpos.views.services.TransactionCompleteNotifier
-import com.interswitchng.interswitchpos.views.services.TransactionInitNotifier
+import com.interswitchng.interswitchpos.views.services.request.TransactionCompleteNotifier
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswTxnHandler
 import com.interswitchng.smartpos.models.printer.slips.TransactionSlip

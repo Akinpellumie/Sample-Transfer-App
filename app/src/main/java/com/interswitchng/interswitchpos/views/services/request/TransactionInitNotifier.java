@@ -1,14 +1,14 @@
-package com.interswitchng.interswitchpos.views.services;
+package com.interswitchng.interswitchpos.views.services.request;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack;
-import com.interswitchng.interswitchpos.views.services.interfaces.ISendCashTransferCallBack;
+import com.interswitchng.interswitchpos.views.services.Constants;
 import com.interswitchng.interswitchpos.views.services.model.login.LoginModel;
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import okhttp3.MediaType;
@@ -22,24 +22,16 @@ import static com.interswitchng.interswitchpos.views.services.Constants.loggedIn
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
 
-public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnInitiateModel> {
+public class TransactionInitNotifier extends AsyncTask<String, Void, Void> {
 
     LoginModel userData = new LoginModel();
-    private final ISendCashTransferCallBack callBack;
 
-
-    public SendCashTransferInitService(ISendCashTransferCallBack callBack) {
-        this.callBack = callBack;
-    }
-
-    public TranxnInitiateModel initiateSendCash(String amount, String acctNum, String acctName, String bankName,
-                                                String bankCode, String bankId, String narration){
+    public void notifyAstra(String amount, String cardType){
         try{
             String email = loggedInAgentEmail;
+            String userId = loggedInAgentId;
             String userPhne = loggedInAgentPhoneNumber;
             String userPin = loggedInAgentPin;
-            String agentId = loggedInAgentId;
-
             JSONObject fullData = new JSONObject();
 
 //            try{
@@ -51,7 +43,7 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
 
                 //add card details
                 cardDetails.put( "pan"," ");
-                cardDetails.put( "cardType", " ");
+                cardDetails.put( "cardType",cardType);
 
 
                 //add terminal details
@@ -63,29 +55,24 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
 
                 //add facilitator details
 
-                facilitator.put( "id",agentId);
+                facilitator.put( "id",userId);
                 facilitator.put( "phone",userPhne);
                 facilitator.put( "pin",userPin);
                 facilitator.put(  "email",email);
 
                 //add beneficiary
                 beneficiary.put(   "email", " ");
-                beneficiary.put(   "name", acctName);
+                beneficiary.put(   "name", " ");
                 beneficiary.put(   "phone", " ");
 
                 //add beneficiaryTerminal details
                 beneficiaryTerminal.put(   "billerName"," ");
-                beneficiaryTerminal.put(   "teminalName",bankName);
-                beneficiaryTerminal.put(   "accountNumber",acctNum);
-                beneficiaryTerminal.put(   "accountName",acctName);
-                beneficiaryTerminal.put(   "bankCode",bankCode);
-                beneficiaryTerminal.put(   "bankId",bankId);
-                beneficiaryTerminal.put(   "bankName",bankName);
+                beneficiaryTerminal.put(   "billerId"," ");
                 beneficiaryTerminal.put(    "categoryId"," ");
-                beneficiaryTerminal.put(    "categoryName","CASH TRANSFER");
+                beneficiaryTerminal.put(    "categoryName","CARD WITHDRAWAL");
                 beneficiaryTerminal.put(    "paymentCode"," ");
                 beneficiaryTerminal.put(    "paymentItemName"," ");
-                beneficiaryTerminal.put(    "customerId",acctNum);
+                beneficiaryTerminal.put(    "customerId"," ");
 
                 //add all json data to fulldata
                 fullData.put("terminalDetails", terminalDetails);
@@ -94,15 +81,15 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
                 fullData.put("beneficiaryTerminal", beneficiaryTerminal);
                 fullData.put("cardDetails", cardDetails);
                 fullData.put("amount", amount);
-                fullData.put("narration", narration);
-                fullData.put("transactionType","CASHTRANSFER");
+                fullData.put("narration", "withdraw money from card");
+                fullData.put("transactionType","CARDWITHDRAWAL");
 //
 //            }
 //            catch (JSONException e){
 //                e.printStackTrace();
 //            }
 
-            String url = Constants.InititateTransactionUrl();
+            String url = "http://192.168.3.169:3333/pin/transactions/initiate";
             String json = fullData.toString();
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
@@ -126,8 +113,7 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
 
             TranxnInitiateModel transRes = gson.fromJson(initResponse, TranxnInitiateModel.class);
             String transId = transRes.getData().transactionId;
-            Constants.SendCashInitTransId = "";
-            Constants.SendCashInitTransId = transId;
+            Constants.TransId = transId;
 //            //LoginModel user = new LoginModel();
 //            return
             //
@@ -135,25 +121,18 @@ public class SendCashTransferInitService extends AsyncTask<String, Void, TranxnI
         catch (Exception ex){
             Log.d("NotifyException::::", ex.getMessage());
         }
-        return null;
+
     }
 
     @Override
-    protected TranxnInitiateModel doInBackground(String... strings) {
+    protected Void doInBackground(String... strings) {
 
         String amount = strings[0];
-        String acctNum = strings[1];
-        String acctName = strings[2];
-        String bankName = strings[3];
-        String bankCode = strings[4];
-        String bankId = strings[5];
-        String narration = strings[6];
-        return initiateSendCash(amount, acctNum,acctName,bankName,bankCode,bankId,narration);
-    }
-    @Override
-    protected void onPostExecute(TranxnInitiateModel data) {
-        //Constants.SendCashInitTransId = data.getData().transactionId;
-        callBack.OnSendCashInitialize(data);
+       // String status = strings[1];
+        String cardType = strings[1];
+//        String cardPan = strings[3];
+        notifyAstra(amount, cardType);
+        return null;
     }
 }
 

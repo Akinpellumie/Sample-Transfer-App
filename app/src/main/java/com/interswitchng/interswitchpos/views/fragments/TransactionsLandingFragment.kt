@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
 import com.interswitchng.interswitchpos.utils.adapters.TransactionsRecyclerAdapter
-import com.interswitchng.interswitchpos.views.services.LoginService
-import com.interswitchng.interswitchpos.views.services.TransactionRecordService
+import com.interswitchng.interswitchpos.views.services.request.TransactionRecordService
 import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback
 import com.interswitchng.interswitchpos.views.services.callback.ISingleTransactionSelectionCallBack
 import com.interswitchng.interswitchpos.views.services.model.transactionrecord.Datum

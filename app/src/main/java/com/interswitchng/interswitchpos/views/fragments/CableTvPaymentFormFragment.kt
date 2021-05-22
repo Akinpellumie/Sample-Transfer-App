@@ -19,7 +19,7 @@ class CableTvPaymentFormFragment : Fragment() {
 
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentCableTvPaymentFormBinding;
-    //private lateinit var binding:
+
 
     private val cableTvDataLists = CableTvDataLists();
 
@@ -63,33 +63,12 @@ class CableTvPaymentFormFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_cable_tv_payment_form, container, false)
 
-
-
-
-
-        binding.spinnerLayout.setOnClickListener {
-
-
-    }
+//        binding.spinnerLayout.setOnClickListener {
+//
+//
+//    }
         return binding.root
 
-//
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-//                              savedInstanceState: Bundle?): View? {
-//        // Inflate the layout for this fragment
-//        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login_landing, container, false)
-//        if (terminalInfo != null) {
-//            viewmodel.getToken(terminalInfo!!)
-//        }
-////        binding.iswTransferCard.setOnClickListener {
-//////            val action = HomeLandingFragmentDirections.actionHomeToCardTransactionFragment(amount = "5", paymentType = PaymentType.TRANSFER.name)
-////            val action = HomeLandingFragmentDirections.actionHomeToAmountFragment2()
-////            findNavController().navigate(action)
-////        }
-//
-//        val level = IswTxnHandler().getBatterLevel(requireContext())
-//       showSnack(binding.iswCashOutText, "Battery Level is: $level")
-//        return binding.root
    }
 
 

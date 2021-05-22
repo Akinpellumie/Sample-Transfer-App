@@ -120,8 +120,14 @@ fun getAstraAmountWithCurrency(amount: String): String {
 //            else -> ""
 //        }
 //    }
-    Logger.with("Display Utils").logErr( amount)
-    val currency = "N"
-    var formattedAmount = formatString(amount.toInt())
-    return "$currency $formattedAmount"
+    return try{
+        Logger.with("Display Utils").logErr( amount)
+        val currency = "N"
+        val formattedAmount = formatString(amount.toInt())
+        "$currency $formattedAmount"
+    } catch (ex: Exception){
+        println("code below exception ... $ex")
+        null.toString()
+    }
+
 }

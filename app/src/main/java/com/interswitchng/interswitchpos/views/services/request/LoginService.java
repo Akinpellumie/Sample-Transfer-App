@@ -1,10 +1,11 @@
-package com.interswitchng.interswitchpos.views.services;
+package com.interswitchng.interswitchpos.views.services.request;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.interswitchng.interswitchpos.views.services.Constants;
 import com.interswitchng.interswitchpos.views.services.interfaces.ILoginCallBack;
 import com.interswitchng.interswitchpos.views.services.model.login.LoginModel;
 import org.json.JSONObject;
@@ -72,7 +73,11 @@ public class LoginService extends AsyncTask<String, Void, LoginModel> {
 
     @Override
     protected void onPostExecute(LoginModel user) {
-        if(user.getStatus()==200){
+        if(user==null){
+            Constants.loggedInAgentEmail = "";
+            Constants.loggedInAgentId = "";
+        }
+        else if(user.getStatus()==200){
             Constants.loggedInAgentEmail = user.getData().getProfileInfo().email;
             Constants.loggedInAgentId = user.getData().id;
         }

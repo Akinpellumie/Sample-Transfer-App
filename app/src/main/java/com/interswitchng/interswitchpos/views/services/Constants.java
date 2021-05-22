@@ -9,7 +9,8 @@ public class Constants {
 
     public static String domainurl()
     {
-        return "http://192.168.3.169:3333";
+        //return "http://192.168.3.169:3333";
+        return "https://server.pos.astrapay.com.ng";
     }
 //    public static String airtimeRechargeUrl() {
 //        return Constants.domainurl() + "/pin/transactions/initiate";
@@ -19,6 +20,9 @@ public class Constants {
     }
     public static String CompleteTransactionUrl() {
         return Constants.domainurl() + "/transactions/complete";
+    }
+    public static String VerifyAccountDetailUrl() {
+        return Constants.domainurl() + "/agent/account_detail/other_banks/";
     }
     public static String BankListUrl() {
         return Constants.domainurl() + "/agent/account_detail/bank_codes";

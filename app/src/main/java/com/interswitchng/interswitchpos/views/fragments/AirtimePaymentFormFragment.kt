@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentAirtimePaymentFormBinding
-import com.interswitchng.interswitchpos.views.services.AirtimeRechargeRequests
+import com.interswitchng.interswitchpos.views.services.request.AirtimeRechargeRequests
 import com.interswitchng.interswitchpos.views.services.interfaces.IAirtimeInitiateCallBack
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel

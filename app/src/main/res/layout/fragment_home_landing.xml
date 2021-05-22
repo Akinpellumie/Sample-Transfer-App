@@ -37,11 +37,13 @@
 
                         <ImageView
                             android:id="@+id/userImage"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="45dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_height="45dp"
                             android:layout_gravity="center"
                             app:srcCompat="@drawable/ic_profile"
-                            android:contentDescription="@string/astra_logo" />
+                            android:contentDescription="@string/astra_logo"
+                            android:layout_marginLeft="10dp" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/userFirstname"
@@ -73,7 +75,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".50"
                             android:layout_margin="10dp"
-                            android:padding="10dp"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp"
                             app:cardCornerRadius="15dp">
                             <LinearLayout
                                 android:layout_width="fill_parent"
@@ -91,8 +94,8 @@
 
                                 <ImageView
                                     android:id="@+id/inflowIcon"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="20dp"
+                                    android:layout_height="30dp"
                                     android:layout_weight="0.3"
                                     android:background="@drawable/text_white_bg"
                                     android:layout_gravity="center"
@@ -113,7 +116,7 @@
                                         android:id="@+id/inflowBalance"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="15sp"
+                                        android:textSize="13sp"
                                         android:fontFamily="@font/nimbus_bold"
                                         android:layout_gravity="end"
                                         android:gravity="end"
@@ -125,11 +128,10 @@
                                         android:id="@+id/inflowLbl"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="15sp"
+                                        android:textSize="10sp"
                                         android:fontFamily="@font/nimbus_regular"
                                         android:layout_gravity="end"
                                         android:gravity="end"
-                                        android:layout_marginTop="10dp"
                                         android:textColor="@color/whiteColor"
                                         android:text="Inflow"
                                         tools:ignore="RelativeOverlap"/>
@@ -146,7 +148,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".50"
                             android:layout_margin="10dp"
-                            android:padding="10dp"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp"
                             app:cardCornerRadius="15dp">
                             <LinearLayout
                                 android:layout_width="fill_parent"
@@ -164,8 +167,8 @@
 
                                 <ImageView
                                     android:id="@+id/outflowIcon"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="20dp"
+                                    android:layout_height="30dp"
                                     android:layout_weight="0.3"
                                     android:background="@drawable/text_white_bg"
                                     android:layout_gravity="center"
@@ -186,7 +189,7 @@
                                         android:id="@+id/outflowBalance"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="15sp"
+                                        android:textSize="13sp"
                                         android:fontFamily="@font/roboto_bold"
                                         android:layout_gravity="end"
                                         android:gravity="end"
@@ -199,11 +202,10 @@
                                         android:id="@+id/outflowLbl"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="15sp"
+                                        android:textSize="10sp"
                                         android:fontFamily="@font/nimbus_regular"
                                         android:layout_gravity="end"
                                         android:gravity="end"
-                                        android:layout_marginTop="10dp"
                                         android:textColor="@color/whiteColor"
                                         android:text="Outflow"
                                         tools:ignore="RelativeOverlap"/>

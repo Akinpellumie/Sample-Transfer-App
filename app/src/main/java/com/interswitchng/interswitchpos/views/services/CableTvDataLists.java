@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class CableTvDataLists extends AsyncTask<String, Void, Void> {
+public class CableTvDataLists {
 
     private Context context;
     public ArrayList<CableTvPlansModel> getCableData(){
@@ -121,8 +121,5 @@ public class CableTvDataLists extends AsyncTask<String, Void, Void> {
         // Return new object
         return c;
     }
-    @Override
-    protected Void doInBackground(String... strings) {
-        return null;
-    }
+
 }

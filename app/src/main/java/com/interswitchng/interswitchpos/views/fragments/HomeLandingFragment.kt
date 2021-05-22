@@ -7,20 +7,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentHomeLandingBinding
-import com.interswitchng.interswitchpos.utils.getAmountWithCurrency
 import com.interswitchng.interswitchpos.utils.getAstraAmountWithCurrency
 import com.interswitchng.interswitchpos.utils.showSnack
-import com.interswitchng.interswitchpos.views.services.AgentTransactionFlowService
-import com.interswitchng.interswitchpos.views.services.BankListService
+import com.interswitchng.interswitchpos.views.services.request.AgentTransactionFlowService
 import com.interswitchng.interswitchpos.views.services.Constants
 import com.interswitchng.interswitchpos.views.services.callback.IFlowCallBack
 import com.interswitchng.interswitchpos.views.services.model.home.FlowModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswTxnHandler
-import kotlinx.android.synthetic.main.fragment_home_landing.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeLandingFragment : Fragment(), IFlowCallBack {
@@ -101,11 +97,18 @@ class HomeLandingFragment : Fragment(), IFlowCallBack {
     }
 
     override fun getFlowData(flow: FlowModel?) {
-        //binding the text to the view
-        val inflowAmt = flow?.data?.inflow.toString().let { getAstraAmountWithCurrency(it) }
-        binding.inflowBalance.text = inflowAmt
+        try{
+            //binding the text to the view
+            val inflowAmt = flow?.data?.inflow.toString().let { getAstraAmountWithCurrency(it) }
+            binding.inflowBalance.text = inflowAmt
 
-        val outflowAmt = flow?.data?.outflow.toString().let { getAstraAmountWithCurrency(it) }
-        binding.outflowBalance.text = outflowAmt
+            val outflowAmt = flow?.data?.outflow.toString().let { getAstraAmountWithCurrency(it) }
+            binding.outflowBalance.text = outflowAmt
+        }
+        catch (ex:Exception){
+            println("code below exception ... $ex")
+            null.toString()
+        }
+
     }
 }

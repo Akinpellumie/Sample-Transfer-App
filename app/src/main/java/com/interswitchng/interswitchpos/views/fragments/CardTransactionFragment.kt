@@ -15,7 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentCardTransactionBinding
 import com.interswitchng.interswitchpos.utils.*
-import com.interswitchng.interswitchpos.views.services.TransactionInitNotifier
+import com.interswitchng.interswitchpos.views.services.request.TransactionInitNotifier
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.IswTxnHandler

@@ -1,15 +1,14 @@
-package com.interswitchng.interswitchpos.views.services;
+package com.interswitchng.interswitchpos.views.services.request;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.interswitchng.interswitchpos.views.services.callback.IBankListServiceCallback;
+import com.interswitchng.interswitchpos.views.services.Constants;
+import com.interswitchng.interswitchpos.views.services.callback.IBankDetailCallBack;
 import com.interswitchng.interswitchpos.views.services.callback.IFlowCallBack;
-import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback;
-import com.interswitchng.interswitchpos.views.services.model.bank.AstraBankModel;
+import com.interswitchng.interswitchpos.views.services.model.bank.AccountDetailModel;
 import com.interswitchng.interswitchpos.views.services.model.home.FlowModel;
-import com.interswitchng.interswitchpos.views.services.model.transactionrecord.TransactionRecord;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,19 +17,19 @@ import okhttp3.Response;
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPhoneNumber;
 import static com.interswitchng.interswitchpos.views.services.Constants.loggedInAgentPin;
 
-public class AgentTransactionFlowService extends AsyncTask<String, Void, FlowModel> {
-    private final IFlowCallBack flowCallback;
+public class VerifyAccountDetailService extends AsyncTask<String, Void, AccountDetailModel> {
+    private final IBankDetailCallBack bankDetailCallBack;
     private String agentId;
     String userPhne = loggedInAgentPhoneNumber;
     String userPin = loggedInAgentPin;
 
-    public AgentTransactionFlowService(IFlowCallBack flowCallback){
-        this.flowCallback = flowCallback;
+    public VerifyAccountDetailService(IBankDetailCallBack bankDetailCallBack){
+        this.bankDetailCallBack = bankDetailCallBack;
     }
 
-    public FlowModel getFlow(){
+    public AccountDetailModel getAccountName(String bankCode, String acctNumber){
         try{
-            String url = Constants.FetchAgentFlowUrl();
+            String url = Constants.VerifyAccountDetailUrl()+ bankCode + "/" + acctNumber;
 
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
@@ -52,7 +51,7 @@ public class AgentTransactionFlowService extends AsyncTask<String, Void, FlowMod
 
 //            TransactionRecord tr = gson.fromJson(jsonString, TransactionRecord.class);
 //            return tr;
-            return gson.fromJson(jsonString, FlowModel.class);
+            return gson.fromJson(jsonString, AccountDetailModel.class);
         }
         catch (Exception ex){
             Log.d("NotifyException::::", ex.getMessage());
@@ -61,13 +60,15 @@ public class AgentTransactionFlowService extends AsyncTask<String, Void, FlowMod
     }
 
     @Override
-    protected FlowModel doInBackground(String... strings) {
-        return getFlow();
+    protected AccountDetailModel doInBackground(String... strings) {
+        String bankCode = strings[0];
+        String acctNumber = strings[1];
+        return getAccountName(bankCode,acctNumber);
     }
 
     @Override
-    protected void onPostExecute(FlowModel agentFlow) {
-        flowCallback.getFlowData(agentFlow);
+    protected void onPostExecute(AccountDetailModel accountDetailModel) {
+        bankDetailCallBack.getUserAccountName(accountDetailModel);
 
         //super.onPostExecute(transactionRecordService);
     }

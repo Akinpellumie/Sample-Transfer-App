@@ -87,7 +87,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:id="@+id/goTv"
+                android:id="@+id/startimesCard"
                 android:layout_height="120dp"
                 android:layout_weight=".50"
                 android:layout_marginLeft="10dp"

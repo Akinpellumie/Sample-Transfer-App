@@ -10,17 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionHistoryReceiptBinding
-import com.interswitchng.interswitchpos.databinding.FragmentTransactionReceiptBinding
-import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
-import com.interswitchng.interswitchpos.utils.adapters.TransactionsRecyclerAdapter
-import com.interswitchng.interswitchpos.views.services.LoginService
-import com.interswitchng.interswitchpos.views.services.TransactionRecordService
-import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback
-import com.interswitchng.interswitchpos.views.services.callback.ISingleTransactionSelectionCallBack
-import com.interswitchng.interswitchpos.views.services.model.transactionrecord.Datum
-import com.interswitchng.interswitchpos.views.services.model.transactionrecord.TransactionRecord
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
-import kotlinx.android.synthetic.main.fragment_transactions_landing.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TransactionsHistoryReceiptFragment : Fragment() {
