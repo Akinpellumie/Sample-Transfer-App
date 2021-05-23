@@ -66,7 +66,17 @@ class CableTvPaymentFormFragment : Fragment(), ICableTvPayCallBack {
 
         val t=inflater.inflate(R.layout.fragment_cable_tv_payment_form, container, false)
         val spinner = t.findViewById<Spinner>(R.id.codeSpinner)
-        spinner?.adapter = ArrayAdapter(activity?.applicationContext, R.layout.support_simple_spinner_dropdown_item, cableTvPlans) as SpinnerAdapter
+
+        // Initializing an ArrayAdapter
+
+
+
+
+
+        val adapter = ArrayAdapter(activity?.applicationContext, android.R.layout.simple_spinner_item, cableTvPlans)
+        // Set the drop down view resource
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+        spinner.adapter=adapter;
 
         spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
