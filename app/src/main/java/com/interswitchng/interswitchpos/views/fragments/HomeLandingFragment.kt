@@ -25,7 +25,10 @@ class HomeLandingFragment : Fragment(), IFlowCallBack {
     private lateinit var binding: FragmentHomeLandingBinding
 //    private val args by navArgs<HomeLandingFragmentArgs>()
 //    private val userFirstname by lazy { args.userFirstname }
-    private val agentTransactionFlowService = AgentTransactionFlowService(this)
+private val agentTransactionFlowService = AgentTransactionFlowService(this)
+    var agentInflow : String ?= null
+    var agentOutflow : String ?= null
+
 
     private val terminalInfo by lazy {
         IswTxnHandler().getTerminalInfo()
@@ -48,8 +51,13 @@ class HomeLandingFragment : Fragment(), IFlowCallBack {
         //bind loginData to homePage UI
         binding.userFirstname.text =   Constants.loggedInAgentFirstname
 
-        //get inflow and outflow amount
-        agentTransactionFlowService.execute()
+        if(agentInflow == null || agentOutflow == null){
+            //get inflow and outflow amount
+            agentTransactionFlowService.execute()
+        }
+
+
+
 
         //navigate to Amount fragment
         binding.iswTransferCard.setOnClickListener {
@@ -100,10 +108,14 @@ class HomeLandingFragment : Fragment(), IFlowCallBack {
         try{
             //binding the text to the view
             val inflowAmt = flow?.data?.inflow.toString().let { getAstraAmountWithCurrency(it) }
-            binding.inflowBalance.text = inflowAmt
+            agentInflow = inflowAmt
 
             val outflowAmt = flow?.data?.outflow.toString().let { getAstraAmountWithCurrency(it) }
-            binding.outflowBalance.text = outflowAmt
+            agentOutflow = outflowAmt
+
+            //bind inflow and outflow data
+            binding.inflowBalance.text = agentInflow
+            binding.outflowBalance.text = agentOutflow
         }
         catch (ex:Exception){
             println("code below exception ... $ex")

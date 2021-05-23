@@ -209,7 +209,7 @@
                 android:background="@drawable/rectangle_grey_border"
                 android:hint=""
                 android:textSize="@dimen/astrapos_text_size"
-                android:inputType="numberDecimal"
+                android:inputType="numberPassword"
                 android:padding="15dp"
                 android:fontFamily="@font/nimbus_regular"
                 android:selectAllOnFocus="true" />

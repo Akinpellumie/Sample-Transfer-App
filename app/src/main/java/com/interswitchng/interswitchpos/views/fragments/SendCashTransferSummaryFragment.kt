@@ -11,12 +11,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentSendCashTransferSummaryBinding
+import com.interswitchng.interswitchpos.utils.getAstraAmountWithCurrency
+import com.interswitchng.interswitchpos.utils.getDateFormat
 import com.interswitchng.interswitchpos.views.services.request.CompleteSendCashTransfer
 import com.interswitchng.interswitchpos.views.services.interfaces.ISendCashTransferCallBack
 import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
+import com.interswitchng.smartpos.shared.utilities.getDate
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.*
 
 class SendCashTransferSummaryFragment : Fragment(), ISendCashTransferCallBack {
 
@@ -104,6 +110,7 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         val transType = "TRANSFER"
         val channel = "CASH TRANSFER"
         val status = commpleteTranxnData?.status
+//        val date = LocalDate.now().let { getDateFormat(it) }
         val action = SendCashTransferSummaryFragmentDirections.actionSendCashSummaryToSuccessFragment(
                 amount.toString(),tranxnId, transType, channel, status.toString()
         )

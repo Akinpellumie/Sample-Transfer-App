@@ -337,6 +337,7 @@
             android:id="@+id/isw_go_to_landing"
             android:layout_width="match_parent"
             android:visibility="visible"
+            android:layout_marginBottom="30dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"

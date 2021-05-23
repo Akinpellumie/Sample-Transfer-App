@@ -226,9 +226,9 @@ class SendCashLandingFragment : Fragment(), IBankListServiceCallback, ISendCashT
 //    }
 
     private fun validateInput() {
-        submitButton.alpha = if (!isValid) 0.5F else 1F
-        submitButton.isEnabled = isValid
-        submitButton.isClickable = isValid
+//        submitButton.alpha = if (!isValid) 0.5F else 1F
+//        submitButton.isEnabled = isValid
+//        submitButton.isClickable = isValid
     }
 
     private fun observeViewModel() {

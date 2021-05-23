@@ -94,6 +94,9 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
             user==null -> {
                 val text = "Oops! Server Unavailable at the moment"
                 val duration = Toast.LENGTH_LONG
+                //hide loader
+                binding.llProgressBar.visibility = View.GONE
+
                 //lock entry and button
                 binding.loginBtn.isClickable = true
                 binding.loginBtn.isEnabled = true

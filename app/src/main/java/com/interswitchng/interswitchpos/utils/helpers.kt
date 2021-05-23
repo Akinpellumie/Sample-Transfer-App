@@ -6,19 +6,18 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.*
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textview.MaterialTextView
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.CustomDialogBinding
 import com.interswitchng.smartpos.models.core.IswLocal
 import com.interswitchng.smartpos.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.utilities.Logger
-import org.koin.standalone.get
+import java.text.DateFormat
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun customdailog(context: Context?, message: String? = ",", action: (() -> Unit?)? = null): Dialog {
     val dialog = Dialog(context!!, R.style.Theme_AppCompat)
@@ -83,12 +82,12 @@ fun formatString(amount: Int): String {
     return numberFormat.format(amount)
 }
 
-fun toast(context: Context, message: String ) {
+fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
 
 fun showSnack(view: View, message: String) {
-    Snackbar.make(view,message, Snackbar.LENGTH_LONG).show()
+    Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
 }
 
 fun getAmountWithCurrency(amount: String, terminalInfo: TerminalInfo): String {
@@ -103,7 +102,7 @@ fun getAmountWithCurrency(amount: String, terminalInfo: TerminalInfo): String {
             else -> ""
         }
     }
-    Logger.with("Display Utils").logErr( amount)
+    Logger.with("Display Utils").logErr(amount)
     var formattedAmount = formatString(amount.toInt())
     return "$formattedAmount $currency"
 }
@@ -121,12 +120,39 @@ fun getAstraAmountWithCurrency(amount: String): String {
 //        }
 //    }
     return try{
-        Logger.with("Display Utils").logErr( amount)
+        Logger.with("Display Utils").logErr(amount)
         val currency = "N"
         val formattedAmount = formatString(amount.toInt())
         "$currency $formattedAmount"
     } catch (ex: Exception){
         println("code below exception ... $ex")
+        null.toString()
+    }
+
+}
+
+
+fun getDateFormat(date: Date): String {
+    return try{
+        //val date = Date()
+        val DateFor : SimpleDateFormat = SimpleDateFormat("dd MMM, yyyy")
+
+        //return date.toString();
+        DateFor.format(date)
+    } catch (ex: Exception){
+        null.toString()
+    }
+
+}
+fun getTimeFormat(date: Date): String {
+    return try{
+        //val date = Date()
+        //val DateFor : SimpleDateFormat = SimpleDateFormat("dd MMM, yyyy")
+        val time: DateFormat = SimpleDateFormat("hh:mm:ss a")
+
+        //return date.toString();
+        time.format(date)
+    } catch (ex: Exception){
         null.toString()
     }
 

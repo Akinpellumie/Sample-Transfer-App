@@ -137,7 +137,7 @@ public class TransactionsRecyclerAdapter extends RecyclerView.Adapter<Transactio
     }
 
     private String formatTransactionDate(Date transDate){
-        Date date = new Date();
+        //Date date = new Date();
         SimpleDateFormat DateFor = new SimpleDateFormat("dd MMM, yyyy");
         String stringDate = DateFor.format(transDate);
 

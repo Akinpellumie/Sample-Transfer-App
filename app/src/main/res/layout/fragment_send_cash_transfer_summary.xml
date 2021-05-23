@@ -229,7 +229,7 @@
                 android:background="@drawable/text_white_bg"
                 android:hint="******"
                 android:textSize="@dimen/astrapos_pin_placeholder_text_size"
-                android:inputType="numberDecimal"
+                android:inputType="numberPassword"
                 android:padding="15dp"
                 android:fontFamily="@font/nimbus_bold"
                 android:selectAllOnFocus="true" />
