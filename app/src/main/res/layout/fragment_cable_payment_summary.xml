@@ -197,7 +197,7 @@
                 android:fontFamily="@font/nimbus_bold" />
 
             <EditText
-                android:id="@+id/pinEv"
+                android:id="@+id/pinEt"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -212,7 +212,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/setPin"
+            android:id="@+id/buySubscription"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginRight="20dp"
@@ -230,5 +230,10 @@
             app:layout_constraintTop_toBottomOf="@+id/pin"
             app:layout_constraintStart_toStartOf="@+id/pin"
             android:text="Buy Subscription"/>
+
+        <include
+            android:id="@+id/llProgressBar"
+            android:visibility="gone"
+            layout="@layout/layout_progress_bar"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
