@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionHistoryReceiptBinding
+import com.interswitchng.interswitchpos.utils.getAstraAmountWithCurrency
 import com.interswitchng.interswitchpos.views.viewmodels.AppViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -24,6 +25,8 @@ class TransactionsHistoryReceiptFragment : Fragment() {
     private val transType by lazy { args.transType }
     private val status by lazy { args.status }
     private val channel by lazy { args.channel }
+    private val date by lazy { args.date }
+    private val time by lazy { args.time }
     //private val transactionRecordService = TransactionRecordService(this)
 
 //    private val terminalInfo by lazy {
@@ -41,13 +44,13 @@ class TransactionsHistoryReceiptFragment : Fragment() {
 
         binding.transTypeEntry.text = transType
         binding.statusEntry.text = status
-        binding.amountEntryR.text = singleTransAmount
+        binding.amountEntryR.text = getAstraAmountWithCurrency(singleTransAmount)
         binding.transIdEntry.text = transactionId
 
         // navigate to print receipt fragment
         binding.printReceiptBtn.setOnClickListener {
             val action = TransactionsHistoryReceiptFragmentDirections.actionTransSummaryToAstraPrintReceiptFragment(
-                    singleTransAmount,transactionId,transType,channel,status
+                    singleTransAmount,transactionId,transType,channel,status, date, time
             )
             findNavController().navigate(action)
         }

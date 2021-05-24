@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentElectricityPaymentSummaryBinding
+import com.interswitchng.interswitchpos.utils.getDateFormat
+import com.interswitchng.interswitchpos.utils.getTimeFormat
 import com.interswitchng.interswitchpos.views.services.request.CompleteElectricityBillPayment
 import com.interswitchng.interswitchpos.views.services.interfaces.IElectricityPayCallBack
 import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
@@ -95,9 +97,12 @@ class ElectricityPaymentSummaryFragment : Fragment(), IElectricityPayCallBack {
         val status = completeTranxnData?.data?.getStatus().toString()
         val transactionType = "BILL PAYMENT"
         val channel = "$billerName Electric"
+        val transDate = completeTranxnData?.getData()?.completedAt
+        val date = transDate?.let { getDateFormat(it) }
+        val time = transDate?.let { getTimeFormat(it) }
 
         val action = ElectricityPaymentSummaryFragmentDirections.actionElectricitySummaryToTransactionSuccessFragment(
-                amount, transId, transactionType, channel, status
+                amount, transId, transactionType, channel, status, date.toString(), time.toString()
         )
         findNavController().navigate(action)
 //

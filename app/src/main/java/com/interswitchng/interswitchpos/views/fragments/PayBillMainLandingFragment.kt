@@ -50,10 +50,10 @@ class PayBillMainLandingFragment : Fragment() {
         }
 
         // navigate to electricity fragment
-        binding.electricityCard.setOnClickListener {
-            val action = PayBillMainLandingFragmentDirections.actionBillToElectricityFragment()
-            findNavController().navigate(action)
-        }
+//        binding.electricityCard.setOnClickListener {
+//            val action = PayBillMainLandingFragmentDirections.actionBillToElectricityFragment()
+//            findNavController().navigate(action)
+//        }
         return binding.root
     }
 

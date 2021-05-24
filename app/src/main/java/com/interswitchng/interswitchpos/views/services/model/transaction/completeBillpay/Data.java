@@ -1,5 +1,7 @@
 package com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay;
 
+import java.util.Date;
+
 public class Data {
     public String getTransactionId() {
         return transactionId;
@@ -37,4 +39,5 @@ public class Data {
     public int serviceCharge;
     public int amount;
     public String status;
+    public Date completedAt;
 }

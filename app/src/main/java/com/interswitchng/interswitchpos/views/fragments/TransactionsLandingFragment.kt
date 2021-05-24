@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentTransactionsLandingBinding
 import com.interswitchng.interswitchpos.utils.adapters.TransactionsRecyclerAdapter
+import com.interswitchng.interswitchpos.utils.getDateFormat
+import com.interswitchng.interswitchpos.utils.getTimeFormat
 import com.interswitchng.interswitchpos.views.services.request.TransactionRecordService
 import com.interswitchng.interswitchpos.views.services.callback.IRecordCallback
 import com.interswitchng.interswitchpos.views.services.callback.ISingleTransactionSelectionCallBack
@@ -105,9 +107,12 @@ class TransactionsLandingFragment : Fragment(), IRecordCallback, ISingleTransact
         val transId = item?.id
         val status = item?.status
         val channel = item?.beneficiaryTerminal?.categoryName
+        val transDate = item?.updated_at
+        val date = transDate?.let { getDateFormat(it) }
+        val time = transDate?.let { getTimeFormat(it) }
 
         val action = TransactionsLandingFragmentDirections.actionAirtimeSummaryToSingleTransFragment(
-                singleAmount.toString(),transId.toString(),transType,status.toString(), channel.toString()
+                singleAmount.toString(),transId.toString(),transType,status.toString(), channel.toString(), date.toString(), time.toString()
         )
             findNavController().navigate(action)
     }

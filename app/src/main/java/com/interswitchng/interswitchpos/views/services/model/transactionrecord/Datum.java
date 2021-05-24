@@ -19,5 +19,5 @@ public class Datum {
     public Beneficiary beneficiary;
     public BeneficiaryTerminal beneficiaryTerminal;
     public Date created_at;
-    public String updated_at;
+    public Date updated_at;
 }

@@ -201,6 +201,15 @@
         <argument
             android:name="channel"
             app:argType="string" />
+
+        <argument
+            android:name="date"
+            app:argType="string" />
+
+        <argument
+            android:name="time"
+            app:argType="string" />
+
     </fragment>
 
 <!--    <fragment-->
@@ -246,6 +255,14 @@
 
         <argument
             android:name="status"
+            app:argType="string" />
+
+        <argument
+            android:name="date"
+            app:argType="string" />
+
+        <argument
+            android:name="time"
             app:argType="string" />
 
         <argument
@@ -466,6 +483,14 @@
 
         <argument
             android:name="status"
+            app:argType="string" />
+
+        <argument
+            android:name="date"
+            app:argType="string" />
+
+        <argument
+            android:name="time"
             app:argType="string" />
 
         <action

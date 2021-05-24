@@ -78,6 +78,9 @@ public class CompleteSendCashTransfer extends AsyncTask<String, Void, CompleteTr
             int statusCode = response.code();
             Gson gson = new Gson();
 
+            if(statusCode==500){
+                return null;
+            }
             //LoginModel user = new LoginModel();
             return gson.fromJson(responseBody, CompleteTransactionModel.class);
 

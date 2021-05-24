@@ -40,7 +40,7 @@
     <string name="profile_name">Pellumie</string>
     <string name="send_money_by_card">send money by card</string>
     <string name="send_by_card">Send Money from card</string>
-    <string name="send_cash">Send Money from Cash</string>
+    <string name="send_cash">Send Cash</string>
     <string name="bill_pay_txt">Pay Bills Dstv, Gotv ...</string>
     <string name="withdraw_money">Withdraw Money</string>
     <string name="latest_transactions">Latest transactions</string>

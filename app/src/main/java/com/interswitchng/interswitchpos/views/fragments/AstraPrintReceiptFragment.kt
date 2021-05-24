@@ -32,6 +32,8 @@ class AstraPrintReceiptFragment : Fragment() {
     private val transId by lazy { astraReceiptFragmentArgs.transId }
     private val status by lazy { astraReceiptFragmentArgs.status}
     private val channel by lazy { astraReceiptFragmentArgs.channel}
+    private val date by lazy { astraReceiptFragmentArgs.date}
+    private val time by lazy { astraReceiptFragmentArgs.time}
     //val data by lazy { astraReceiptFragmentArgs.transactionResponseModel.transactionResult }
 
     private val terminalInfo by lazy {
@@ -102,9 +104,9 @@ class AstraPrintReceiptFragment : Fragment() {
         binding.channelTitle.text = "CHANNEL: $channel"
         binding.statusTitle.text = "STATUS: $status"
         binding.transactionType.text = transType
-        binding.dateTitle.text = "DATE: 19-05-2021"
-        binding.timeTitle.text = "TIME: 16:47:20"
-        binding.amountTitle.text = getHtmlString("AMOUNT: ${cashAmount.let { getAmountWithCurrency(it.toString(), terminalInfo!!) }}")
+        binding.dateTitle.text = "DATE: $date"
+        binding.timeTitle.text = "TIME: $time"
+        binding.amountTitle.text = getHtmlString("AMOUNT: ${getAmountWithCurrency(cashAmount, terminalInfo!!)}")
 //        binding.agentValue.text = terminalInfo?.merchantNameAndLocation
 //        binding.terminalIdTitle.text = "TERMINAL ID: ${terminalInfo?.terminalId}"
 //        binding.telTitle.text = "TEL: ${terminalInfo?.agentId}"

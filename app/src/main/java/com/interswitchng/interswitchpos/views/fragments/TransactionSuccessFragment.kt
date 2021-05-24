@@ -24,6 +24,8 @@ class TransactionSuccessFragment : Fragment() {
     private val transType by lazy { args.transactionType }
     private val transId by lazy { args.transId }
     private val status by lazy { args.status }
+    private val date by lazy { args.date }
+    private val time by lazy { args.time }
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()
@@ -59,7 +61,7 @@ class TransactionSuccessFragment : Fragment() {
         //navigate to print page
         binding.btnPrintReceipt.setOnClickListener {
             val action = TransactionSuccessFragmentDirections.actionTransSummaryToAstraPrintReceiptFragment(
-                    cashAmount, transId, transType, channel, status
+                    cashAmount, transId, transType, channel, status, date, time
             )
             findNavController().navigate(action)
         }

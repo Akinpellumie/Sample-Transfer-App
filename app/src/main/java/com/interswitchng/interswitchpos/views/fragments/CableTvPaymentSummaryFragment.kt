@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentCablePaymentSummaryBinding
+import com.interswitchng.interswitchpos.utils.getDateFormat
+import com.interswitchng.interswitchpos.utils.getTimeFormat
 import com.interswitchng.interswitchpos.views.services.interfaces.ICableTvPayCallBack
 import com.interswitchng.interswitchpos.views.services.model.transaction.completeBillpay.CompleteTransactionModel
 import com.interswitchng.interswitchpos.views.services.model.transaction.initiate.TranxnInitiateModel
@@ -90,12 +92,15 @@ class CableTvPaymentSummaryFragment : Fragment(), ICableTvPayCallBack {
         val tranxnId = completeTranxnData?.data?.getTransactionId().toString();
         val amount = completeTranxnData?.data?.getAmount().toString();
         val message = completeTranxnData?.getMessage().toString();
-        val status = "SUCCESSFUL";
         val transType = "DSTV " + cableTvPlan;
         val channel = "DSTV SUBSCRIPTION";
+        val status = completeTranxnData?.status
+        val transDate = completeTranxnData?.getData()?.completedAt
+        val date = transDate?.let { getDateFormat(it) }
+        val time = transDate?.let { getTimeFormat(it) }
 
         val action = AirtimeRechargeSummaryFragmentDirections.actionAirtimeSummaryToTransactionSuccessFragment(
-                amount, tranxnId, transType, channel, status
+                amount, tranxnId, transType, channel, status.toString(),date.toString(),time.toString()
         )
         //val action = AirtimePaymentFormFragmentDirections.actionLoginToHomeFragment(u)
         findNavController().navigate(action)
