@@ -16,6 +16,20 @@
         <action
             android:id="@+id/action_login_to_forgotPinFragment"
             app:destination="@id/forgot" />
+        <action
+            android:id="@+id/action_login_to_setPinFragment"
+            app:destination="@id/setNewPin" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/setNewPin"
+        android:name="com.interswitchng.interswitchpos.views.fragments.SetPinLandingFragment"
+        android:label="fragment_set_pin_landing"
+        tools:layout="@layout/fragment_set_pin_landing" >
+
+        <action
+            android:id="@+id/action_setPin_to_loginFragment"
+            app:destination="@id/login" />
 
     </fragment>
     <fragment
@@ -342,6 +356,9 @@
         android:label="fragment_profile_landing"
         tools:layout="@layout/fragment_profile_landing">
 
+        <action
+            android:id="@+id/action_changePin_to_loginFragment"
+            app:destination="@id/login" />
     </fragment>
 
     <fragment

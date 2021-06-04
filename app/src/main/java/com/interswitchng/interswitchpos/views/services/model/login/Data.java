@@ -2,6 +2,7 @@ package com.interswitchng.interswitchpos.views.services.model.login;
 
 public class Data{
     public String id;
+    public boolean isOneTimePassword;
     public ProfileInfo profileInfo;
     public NextOfKin nextOfKin;
     public Merchant merchant;
@@ -9,6 +10,23 @@ public class Data{
     public int isActive;
     public String createdAt;
     public String updatedAt;
+
+
+    public boolean isOneTimePassword() {
+        return isOneTimePassword;
+    }
+
+    public void setOneTimePassword(boolean oneTimePassword) {
+        isOneTimePassword = oneTimePassword;
+    }
+
+    public MerchantWallet getMerchantWallet() {
+        return merchantWallet;
+    }
+
+    public void setMerchantWallet(MerchantWallet merchantWallet) {
+        this.merchantWallet = merchantWallet;
+    }
 
     public String getId() {
         return id;

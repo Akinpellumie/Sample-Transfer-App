@@ -53,7 +53,7 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
             loggedInAgentPhoneNumber = userId
 
             //call loader
-            binding.llProgressBar.visibility = View.VISIBLE
+            binding.loading.visibility = View.VISIBLE
 
             //lock entry and button
             binding.loginBtn.isClickable = false
@@ -95,9 +95,9 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
                 val text = "Oops! Server Unavailable at the moment"
                 val duration = Toast.LENGTH_LONG
                 //hide loader
-                binding.llProgressBar.visibility = View.GONE
+                binding.loading.visibility = View.GONE
 
-                //lock entry and button
+                //unlock entry and button
                 binding.loginBtn.isClickable = true
                 binding.loginBtn.isEnabled = true
                 binding.usernameEntry.isEnabled = true
@@ -106,18 +106,32 @@ class LoginLandingFragment : Fragment(), ILoginCallBack {
                 return
             }
             user.status ==200 -> {
-                //navigate to other view passing user data
-                val userFirstname = user.data?.profileInfo?.firstname.toString()
-                Constants.loggedInAgentFirstname = userFirstname
-                val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
-                findNavController().navigate(action)
-                //hide loader
-                binding.llProgressBar.visibility = View.GONE
-                //binding.loading.visibility = View.GONE
+                if(user.data.isOneTimePassword){
+                    val action = LoginLandingFragmentDirections.actionLoginToSetPinFragment()
+                    findNavController().navigate(action)
+
+                    //hide loader
+                    binding.loading.visibility = View.GONE
+                    //binding.loading.visibility = View.GONE
+                }
+                else{
+                    //navigate to other view passing user data
+                    val userFirstname = user.data?.profileInfo?.firstname.toString()
+                    Constants.loggedInAgentFirstname = userFirstname
+                    Constants.loggedInAgentFullname = userFirstname + " " +user.data?.profileInfo?.lastname.toString()
+                    Constants.loggedInAgentEmail = user.data?.profileInfo?.email.toString()
+                    loggedInAgentPhoneNumber = user.data?.profileInfo?.phone.toString()
+                    Constants.loggedInAgentUsername = user.data?.profileInfo?.username.toString()
+                    val action = LoginLandingFragmentDirections.actionLoginToHomeFragment()
+                    findNavController().navigate(action)
+                    //hide loader
+                    binding.loading.visibility = View.GONE
+                    //binding.loading.visibility = View.GONE
+                }
             }
             user.status!=200 -> {
                 //hide loader
-                binding.llProgressBar.visibility = View.GONE
+                binding.loading.visibility = View.GONE
                 val text = user?.message.toString()
                 val duration = Toast.LENGTH_LONG
                 //lock entry and button

@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(bottomNav, navHostFragment!!.findNavController())
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id == R.id.transactionReceiptFragment || destination.id == R.id.astraTransactionReceiptFragment || destination.id == R.id.login || destination.id == R.id.forgot) {
+            if (destination.id == R.id.setNewPin || destination.id == R.id.transactionReceiptFragment || destination.id == R.id.astraTransactionReceiptFragment || destination.id == R.id.login || destination.id == R.id.forgot) {
                 bottomNav.hide()
             } else {
                 bottomNav.reveal()

@@ -20,12 +20,13 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/statusImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_checksuccess"
                 android:layout_gravity="center" />
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/statusText"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

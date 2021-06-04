@@ -1,5 +1,6 @@
 package com.interswitchng.interswitchpos.views.fragments
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.interswitchpos.R
 import com.interswitchng.interswitchpos.databinding.FragmentSendCashTransferSummaryBinding
+import com.interswitchng.interswitchpos.utils.customdailog
 import com.interswitchng.interswitchpos.utils.getAstraAmountWithCurrency
 import com.interswitchng.interswitchpos.utils.getDateFormat
 import com.interswitchng.interswitchpos.utils.getTimeFormat
@@ -31,6 +33,7 @@ class SendCashTransferSummaryFragment : Fragment(), ISendCashTransferCallBack {
     private val viewmodel : AppViewModel by viewModel()
     private lateinit var binding: FragmentSendCashTransferSummaryBinding
     private val args by navArgs<SendCashTransferSummaryFragmentArgs>()
+    private lateinit var loading: Dialog
     private val cashAmount by lazy { args.cashAmount }
     private val acctName by lazy { args.acctName }
     private val acctNum by lazy { args.acctNum }
@@ -39,7 +42,6 @@ class SendCashTransferSummaryFragment : Fragment(), ISendCashTransferCallBack {
     private val bankId by lazy { args.bankId }
     private val narration by lazy { args.narration }
     private val transId by lazy { args.transId }
-    private val completeSendCashTransfer = CompleteSendCashTransfer(this)
 
 
 
@@ -78,9 +80,13 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 
             if(binding.pinEntry.text.length <= 6 && binding.pinEntry.text.isNotEmpty()){
                 //call complete transaction
-                binding.llProgressBar.visibility = View.VISIBLE
+                binding.loader.visibility = View.VISIBLE
+                //loading = customdailog(requireContext(), "Please wait while we process transaction")
                 val transId = transId
                 val userPin = binding.pinEntry.text
+
+                //call complete transaction
+                val completeSendCashTransfer = CompleteSendCashTransfer(this)
                 completeSendCashTransfer.execute(transId, userPin.toString())
             }
             else{
@@ -105,20 +111,35 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
        //do nothing
     }
 
-    override fun OnSendCashComplete(commpleteTranxnData: CompleteTransactionModel?) {
+    override fun OnSendCashComplete(completeTranxnData: CompleteTransactionModel?) {
 
-        binding.llProgressBar.visibility = View.GONE
-        val amount = binding.transAmount.text
-        val tranxnId = transId
-        val transType = "TRANSFER"
-        val channel = "CASH TRANSFER"
-        val status = commpleteTranxnData?.status
-        val transDate = commpleteTranxnData?.getData()?.completedAt
-        val date = transDate?.let { getDateFormat(it) }
-        val time = transDate?.let { getTimeFormat(it) }
-        val action = SendCashTransferSummaryFragmentDirections.actionSendCashSummaryToSuccessFragment(
-                amount.toString(),tranxnId, transType, channel, status.toString(), date.toString(), time.toString()
-        )
-        findNavController().navigate(action)
+        if(completeTranxnData?.status==200){
+            //loading.dismiss()
+            val amount = binding.transAmount.text
+            val tranxnId = transId
+            val transType = "TRANSFER"
+            val channel = "CASH TRANSFER"
+            val status = completeTranxnData?.status
+            val transDate = completeTranxnData?.getData()?.completedAt
+            val date = transDate?.let { getDateFormat(it) }
+            val time = transDate?.let { getTimeFormat(it) }
+            val action = SendCashTransferSummaryFragmentDirections.actionSendCashSummaryToSuccessFragment(
+                    amount.toString(),tranxnId, transType, channel, status.toString(), date.toString(), time.toString()
+            )
+            findNavController().navigate(action)
+
+            //hide loader
+            binding.loader.visibility = View.GONE
+        }
+        else if(completeTranxnData?.status!=200){
+            //hide loader
+            binding.loader.visibility = View.GONE
+            val text = completeTranxnData?.message.toString()
+            val duration = Toast.LENGTH_LONG
+
+            Toast.makeText(context, text, duration).show()
+            return
+        }
+
     }
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class CableTvDataLists {
 
-
+    String jsonName = "";
 
     public ArrayList<CableTvPlansModel> getCableData(Context context, String cableTvType){
         try{
@@ -26,10 +26,12 @@ public class CableTvDataLists {
             ArrayList<String> dstvPlanFee = new ArrayList<>();
             ArrayList<String> dstvPlanBillerId = new ArrayList<>();
 
+
+
             // get JSONObject from JSON file
             JSONObject obj = new JSONObject(loadJSONFromAsset(context, cableTvType));
             // fetch JSONArray named users
-            JSONArray userArray = obj.getJSONArray("dstvPlans");
+            JSONArray userArray = obj.getJSONArray(jsonName);
 
             //ArrayList<Phone> phones = YourDatabaseHelperClass.retrieveAllPhones();
             return fromJson(userArray);
@@ -75,12 +77,15 @@ public class CableTvDataLists {
             AssetManager assManager = context.getAssets();
             InputStream is = null;
             if(cableTvType.matches("Dstv")){
+                jsonName = "dstvPlans";
                 is = assManager.open("dstvPackages.json");
             }
             else if (cableTvType.matches("Gotv")){
                 is = assManager.open("gotvPackages.json");
+                jsonName = "gotvPlans";
             }
-            else if (cableTvType.matches("Gotv")){
+            else if (cableTvType.matches("Startimes")){
+                jsonName = "startimesPlans";
                 is = assManager.open("startimesPackages.json");
             }
 
@@ -129,6 +134,7 @@ public class CableTvDataLists {
             c.paymentitemname = jsonObject.getString("paymentitemname");
             c.paymentCode = jsonObject.getString("paymentCode");
             c.itemFee = jsonObject.getString("itemFee");
+            c.amount = jsonObject.getString("amount");
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

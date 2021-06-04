@@ -49,7 +49,7 @@ public class TransactionCompleteNotifier extends AsyncTask<String, Void, Void> {
 //                e.printStackTrace();
 //            }
 
-            String url = "http://192.168.3.169:3333/transactions/complete";
+            String url = Constants.CompleteTransactionUrl();
             String json = statusData.toString();
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();

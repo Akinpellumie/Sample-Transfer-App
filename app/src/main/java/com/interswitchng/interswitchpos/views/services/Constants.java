@@ -9,8 +9,8 @@ public class Constants {
 
     public static String domainurl()
     {
-        //return "http://192.168.3.169:3333";
-        return "https://server.pos.astrapay.com.ng";
+        return "http://192.168.88.11:3333";
+        //return "https://server.pos.astrapay.com.ng";
     }
 //    public static String airtimeRechargeUrl() {
 //        return Constants.domainurl() + "/pin/transactions/initiate";
@@ -38,6 +38,13 @@ public class Constants {
     }
     public static String LoginUrl() {
         return Constants.domainurl() + "/pin/login";
+    }
+
+    public static String changePinUrl() {
+        return Constants.domainurl() + "/pin/" + loggedInAgentId;
+    }
+    public static String setPinUrl() {
+        return Constants.domainurl() + "/pin";
     }
     public static String getRechargeCustomPaycode() {
         return "234590";
@@ -86,15 +93,19 @@ public class Constants {
     public static String getDstvBillerId() {
         return "104";
     }
+
     public static ArrayList AST_BANK_LIST;
     public static String loggedInAgentPin;
     public static String loggedInAgentPhoneNumber;
 
     public static String loggedInAgentEmail;
+    public static String loggedInAgentFullname;
+    public static String loggedInAgentUsername;
     public static String loggedInAgentFirstname;
     public static String loggedInAgentId;
     public static String TransId;
     public static String SendCashInitTransId;
+
     public static String getFBNcode() {
         return "FBN";
     }
@@ -132,6 +143,7 @@ public class Constants {
     public static String getDstvPlanBiller() {
         return "104";
     }
+
     public static List<BankData> BANK_LIST = new ArrayList<BankData>();
 
 }

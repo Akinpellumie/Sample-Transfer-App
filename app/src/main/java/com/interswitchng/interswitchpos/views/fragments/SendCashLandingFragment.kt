@@ -135,7 +135,7 @@ class SendCashLandingFragment : Fragment(), IBankListServiceCallback, ISendCashT
 //            val bankName = binding.bankNameEntry.text
             narration = binding.narrationEntry.text.toString()
             //call initiate transaction
-            binding.llProgressBar.visibility = View.VISIBLE
+            binding.loader.visibility = View.VISIBLE
             sendCashTransferInitService.execute(cashAmount,acctNum,userAcctName,userBankName,userBankCode,userBankId,narration)
 
         }
@@ -179,52 +179,6 @@ class SendCashLandingFragment : Fragment(), IBankListServiceCallback, ISendCashT
             binding.acctNameEntry.visibility = View.GONE
         }
     }
-//    private fun validateBeneficiary() {
-//        //val accountNumber = binding.acctNumEntry.text
-//
-//
-//        if (accountNumber.length == 10 && this::_selectedBank.isInitialized) {
-//
-//            if(!useNameEnquiry) {
-//                _beneficiaryPayload = BeneficiaryModel()
-//                _beneficiaryPayload.accountName = binding.acctNameEntry.text.toString()
-//                _beneficiaryPayload.accountNumber = accountNumber.toString()
-//                isValid = !binding.acctNameEntry.getTextValue().isNullOrEmpty()
-//                validateInput()
-//                return
-//            }
-//
-//            if (!this::dialog.isInitialized) {
-//                dialog = customdailog(this.requireContext())
-//            }else {
-//                dialog.show()
-//            }
-//            appViewModel.validateBeneficiary(_selectedBank.id!!, accountNumber!!)
-//        } else {
-//            isValid = false
-//            toggleAccountNameVisibility()
-//            validateInput()
-//        }
-//        if (accountNumber?.length == 10) {
-//            appViewModel.validateBeneficiary(_selectedBank.id.toString(), accountNumber)
-//        }
-//    }
-//    private fun toggleAccountNameVisibility() {
-//        if (isValid || !useNameEnquiry) {
-//            binding.acctNameEntry.visibility = View.VISIBLE
-//            binding.acctNameEntry.visibility = View.VISIBLE
-//            if(this::_beneficiaryPayload.isInitialized) binding.acctNameEntry.setText(_beneficiaryPayload.accountName)
-//            userAcctName = _beneficiaryPayload.accountName.toString()
-//        } else {
-//            binding.acctNameEntry.visibility = View.GONE
-//            //outlinedNameTextField.visibility = View.GONE
-//            binding.acctNameEntry.visibility = View.GONE
-//        }
-//
-////      make Account name input focusable based on the state of use name enquiry
-//
-//    }
-
     private fun validateInput() {
 //        submitButton.alpha = if (!isValid) 0.5F else 1F
 //        submitButton.isEnabled = isValid
@@ -286,13 +240,38 @@ class SendCashLandingFragment : Fragment(), IBankListServiceCallback, ISendCashT
     }
 
     override fun OnSendCashInitialize(tranxnInitiateData: TranxnInitiateModel?) {
-        //call initiate transaction
-        binding.llProgressBar.visibility = View.GONE
-        val transId = Constants.SendCashInitTransId
-        val action = SendCashLandingFragmentDirections.actionSendCashToSendCashSummaryFragment(
-                cashAmount,acctNum,userAcctName,userBankName,userBankCode,userBankId,narration,transId.toString()
-        )
-        findNavController().navigate(action)
+        when {
+            tranxnInitiateData==null -> {
+                //hide loader
+                binding.loader.visibility = View.GONE
+
+                val text = "Oops! Server Unavailable at the moment"
+                val duration = Toast.LENGTH_LONG
+
+                Toast.makeText(context, text, duration).show()
+                return
+            }
+            tranxnInitiateData.status ==200 -> {
+                //get initiate transaction response
+                binding.loader.visibility = View.GONE
+                val transId = Constants.SendCashInitTransId
+                val action = SendCashLandingFragmentDirections.actionSendCashToSendCashSummaryFragment(
+                        cashAmount,acctNum,userAcctName,userBankName,userBankCode,userBankId,narration,transId.toString()
+                )
+                findNavController().navigate(action)
+                return
+            }
+            tranxnInitiateData.status !=200 -> {
+                //hide loader
+                binding.loader.visibility = View.GONE
+                val text = tranxnInitiateData?.message.toString()
+                val duration = Toast.LENGTH_LONG
+
+                Toast.makeText(context, text, duration).show()
+                return
+            }
+        }
+
     }
 
     override fun OnSendCashComplete(commpleteTranxnData: CompleteTransactionModel?) {

@@ -89,7 +89,7 @@ public class TransactionInitNotifier extends AsyncTask<String, Void, Void> {
 //                e.printStackTrace();
 //            }
 
-            String url = "http://192.168.3.169:3333/pin/transactions/initiate";
+            String url = Constants.InititateTransactionUrl();
             String json = fullData.toString();
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();

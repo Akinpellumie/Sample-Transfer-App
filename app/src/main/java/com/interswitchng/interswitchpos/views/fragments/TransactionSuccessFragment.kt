@@ -26,6 +26,7 @@ class TransactionSuccessFragment : Fragment() {
     private val status by lazy { args.status }
     private val date by lazy { args.date }
     private val time by lazy { args.time }
+    var txtStatus = ""
 
 //    private val terminalInfo by lazy {
 //        IswTxnHandler().getTerminalInfo()
@@ -45,11 +46,8 @@ class TransactionSuccessFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_transaction_success, container, false)
+        setUpUi()
 
-        // navigate to airtime payment fragment
-//        binding.filterIcon.setOnClickListener {
-//            cardFilterView.visibility = View.VISIBLE
-//        }
 
          //navigate to Home fragment
         binding.buttonBackToHome.setOnClickListener {
@@ -61,13 +59,30 @@ class TransactionSuccessFragment : Fragment() {
         //navigate to print page
         binding.btnPrintReceipt.setOnClickListener {
             val action = TransactionSuccessFragmentDirections.actionTransSummaryToAstraPrintReceiptFragment(
-                    cashAmount, transId, transType, channel, status, date, time
+                    cashAmount, transId, transType, channel, txtStatus.toString(), date, time
             )
             findNavController().navigate(action)
         }
         return binding.root
     }
 
+    fun setUpUi(){
+        if(status.equals(200) || status.contains("Success", ignoreCase = true)){
+            txtStatus = "SUCCESSFUL"
+            binding.statusImage.setImageResource(R.drawable.ic_checksuccess)
+            binding.statusText.text = "$channel SUCCESSFUL"
+        }
+        else if(status.contains("Pending", ignoreCase = true)){
+            txtStatus = "PENDING"
+            binding.statusImage.setImageResource(R.drawable.ic_pending)
+            binding.statusText.text = "$channel PENDING"
+        }
+        else{
+            txtStatus = "FAILED"
+            binding.statusImage.setImageResource(R.drawable.ic_failed)
+            binding.statusText.text = "$channel FAILED"
+        }
+    }
     companion object {
         @JvmStatic
         fun newInstance() = TransactionSuccessFragment()

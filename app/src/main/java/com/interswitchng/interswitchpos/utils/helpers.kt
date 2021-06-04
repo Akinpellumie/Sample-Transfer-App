@@ -1,12 +1,20 @@
 package com.interswitchng.interswitchpos.utils
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.snackbar.Snackbar
 import com.interswitchng.interswitchpos.R
@@ -55,6 +63,7 @@ fun View.showMe() {
     }
 }
 
+
 fun View.hide() {
     this.visibility = View.GONE
 }
@@ -89,6 +98,7 @@ fun toast(context: Context, message: String) {
 fun showSnack(view: View, message: String) {
     Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
 }
+
 
 fun getAmountWithCurrency(amount: String, terminalInfo: TerminalInfo): String {
 
@@ -156,4 +166,15 @@ fun getTimeFormat(date: Date): String {
         null.toString()
     }
 
+}
+
+fun convertKoboToNaira(amount: String):String{
+    return try{
+        val currency = "N"
+        val nairaValue = Integer.parseInt(amount)/100
+
+        "$currency ${nairaValue.toString()}.00"
+    }catch(ex: Exception){
+        null.toString()
+    }
 }
